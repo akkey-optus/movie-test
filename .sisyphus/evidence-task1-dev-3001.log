@@ -1,0 +1,8 @@
+▲ Next.js 16.1.7 (Turbopack)
+- Local:         http://127.0.0.1:3001
+- Network:       http://127.0.0.1:3001
+
+✓ Starting...
+⨯ Unable to acquire lock at C:\Programming\movie-test\.next\dev\lock, is another instance of next dev running?
+  Suggestion: If you intended to restart next dev, terminate the other process, and then try again.
+[?25h
