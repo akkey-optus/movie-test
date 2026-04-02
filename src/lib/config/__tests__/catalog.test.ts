@@ -1,3 +1,5 @@
+import { describe, expect, it } from "vitest";
+
 import rawQuizCatalogConfig from "@/test-setting.json";
 import { loadQuizCatalogFromSource, QuizCatalogConfigError, validateQuizCatalogConfig } from "@/src/lib/config";
 
@@ -66,7 +68,7 @@ describe("quiz config catalog", () => {
 
   it("fails deterministically when a result record is missing", () => {
     const brokenConfig = structuredClone(rawQuizCatalogConfig);
-    delete brokenConfig.tests[1].results.INTJ;
+    Reflect.deleteProperty(brokenConfig.tests[1].results as Record<string, unknown>, "INTJ");
 
     expect(() => validateQuizCatalogConfig(brokenConfig)).toThrowError(QuizCatalogConfigError);
 

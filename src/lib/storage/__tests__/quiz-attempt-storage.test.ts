@@ -1,3 +1,5 @@
+import { describe, expect, it } from "vitest";
+
 import rawQuizCatalogConfig from "@/test-setting.json";
 import { loadQuizCatalogFromSource } from "@/src/lib/config";
 import { scoreQuizDefinition } from "@/src/lib/quiz-engine";
@@ -25,15 +27,15 @@ class MemoryStorage implements StorageLike {
 }
 
 class ThrowingStorage implements StorageLike {
-  getItem() {
+  getItem(_key: string): string | null {
     throw new Error("Storage unavailable");
   }
 
-  setItem() {
+  setItem(_key: string, _value: string): void {
     throw new Error("Storage unavailable");
   }
 
-  removeItem() {
+  removeItem(_key: string): void {
     throw new Error("Storage unavailable");
   }
 }

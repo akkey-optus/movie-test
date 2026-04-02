@@ -1,0 +1,259 @@
+
+thread 'tokio-runtime-worker' (31260) panicked at C:\actions-runner\_work\next.js\next.js\turbopack\crates\turbo-tasks-backend\src\backend\operation\mod.rs:156:17:
+Failed to restore task data (corrupted database or bug): Meta for <ModuleAssetContext as AssetContext>::resolve_options (TaskId 41658))
+
+Caused by:
+    0: Looking up data for TaskId 41658 from database failed
+    1: Unable to open static sorted file referenced from 00000828.meta
+    2: Unable to open static sorted file 00000825.sst
+    3: 指定されたファイルが見つかりません。 (os error 2)
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+thread 'tokio-runtime-worker' (25720) panicked at C:\actions-runner\_work\next.js\next.js\turbopack\crates\turbo-tasks-backend\src\backend\operation\mod.rs:156:17:
+Failed to restore task data (corrupted database or bug): Meta for <ModuleAssetContext as AssetContext>::resolve_options (TaskId 41658))
+
+Caused by:
+    0: Looking up data for TaskId 41658 from database failed
+    1: Unable to open static sorted file referenced from 00000828.meta
+    2: Unable to open static sorted file 00000825.sst
+    3: 指定されたファイルが見つかりません。 (os error 2)
+
+thread 'tokio-runtime-worker' (29940) panicked at C:\actions-runner\_work\next.js\next.js\turbopack\crates\turbo-tasks-backend\src\backend\operation\mod.rs:156:17:
+Failed to restore task data (corrupted database or bug): Meta for <ModuleAssetContext as AssetContext>::resolve_options (TaskId 41658))
+
+Caused by:
+    0: Looking up data for TaskId 41658 from database failed
+    1: Unable to open static sorted file referenced from 00000828.meta
+    2: Unable to open static sorted file 00000825.sst
+    3: 指定されたファイルが見つかりません。 (os error 2)
+
+thread 'tokio-runtime-worker' (28796) panicked at C:\actions-runner\_work\next.js\next.js\turbopack\crates\turbo-tasks-backend\src\backend\operation\mod.rs:156:17:
+Failed to restore task data (corrupted database or bug): Meta for <ModuleAssetContext as AssetContext>::resolve_options (TaskId 41658))
+
+Caused by:
+    0: Looking up data for TaskId 41658 from database failed
+    1: Unable to open static sorted file referenced from 00000828.meta
+    2: Unable to open static sorted file 00000825.sst
+    3: 指定されたファイルが見つかりません。 (os error 2)
+
+thread 'tokio-runtime-worker' (22560) panicked at C:\actions-runner\_work\next.js\next.js\turbopack\crates\turbo-tasks-backend\src\backend\operation\mod.rs:156:17:
+Failed to restore task data (corrupted database or bug): Meta for <ModuleAssetContext as AssetContext>::resolve_options (TaskId 41658))
+
+Caused by:
+    0: Looking up data for TaskId 41658 from database failed
+    1: Unable to open static sorted file referenced from 00000828.meta
+    2: Unable to open static sorted file 00000825.sst
+    3: 指定されたファイルが見つかりません。 (os error 2)
+
+thread 'tokio-runtime-worker' (31548) panicked at C:\actions-runner\_work\next.js\next.js\turbopack\crates\turbo-tasks-backend\src\backend\operation\mod.rs:156:17:
+Failed to restore task data (corrupted database or bug): Meta for <ModuleAssetContext as AssetContext>::resolve_options (TaskId 41658))
+
+Caused by:
+    0: Looking up data for TaskId 41658 from database failed
+    1: Unable to open static sorted file referenced from 00000828.meta
+    2: Unable to open static sorted file 00000825.sst
+    3: 指定されたファイルが見つかりません。 (os error 2)
+
+thread 'tokio-runtime-worker' (5676) panicked at C:\actions-runner\_work\next.js\next.js\turbopack\crates\turbo-tasks-backend\src\backend\operation\mod.rs:156:17:
+Failed to restore task data (corrupted database or bug): Meta for Request::parse_inner (TaskId 176196))
+
+Caused by:
+    0: Looking up data for TaskId 176196 from database failed
+    1: Unable to open static sorted file referenced from 00000858.meta
+    2: Unable to open static sorted file 00000854.sst
+    3: 指定されたファイルが見つかりません。 (os error 2)
+
+thread 'tokio-runtime-worker' (4632) panicked at C:\actions-runner\_work\next.js\next.js\turbopack\crates\turbo-tasks-backend\src\backend\operation\mod.rs:156:17:
+Failed to restore task data (corrupted database or bug): Meta for Request::parse_inner (TaskId 176196))
+
+Caused by:
+    0: Looking up data for TaskId 176196 from database failed
+    1: Unable to open static sorted file referenced from 00000858.meta
+    2: Unable to open static sorted file 00000854.sst
+    3: 指定されたファイルが見つかりません。 (os error 2)
+
+thread 'tokio-runtime-worker' (28796) panicked at C:\actions-runner\_work\next.js\next.js\turbopack\crates\turbo-tasks-backend\src\backend\operation\mod.rs:156:17:
+Failed to restore task data (corrupted database or bug): Meta for <ModuleAssetContext as AssetContext>::resolve_options (TaskId 41658))
+
+Caused by:
+    0: Looking up data for TaskId 41658 from database failed
+    1: Unable to open static sorted file referenced from 00000828.meta
+    2: Unable to open static sorted file 00000825.sst
+    3: 指定されたファイルが見つかりません。 (os error 2)
+
+thread 'tokio-runtime-worker' (4632) panicked at C:\actions-runner\_work\next.js\next.js\turbopack\crates\turbo-tasks-backend\src\backend\operation\mod.rs:156:17:
+Failed to restore task data (corrupted database or bug): Meta for Request::parse_inner (TaskId 176196))
+
+Caused by:
+    0: Looking up data for TaskId 176196 from database failed
+    1: Unable to open static sorted file referenced from 00000858.meta
+    2: Unable to open static sorted file 00000854.sst
+    3: 指定されたファイルが見つかりません。 (os error 2)
+
+thread 'tokio-runtime-worker' (5676) panicked at C:\actions-runner\_work\next.js\next.js\turbopack\crates\turbo-tasks-backend\src\backend\operation\mod.rs:156:17:
+Failed to restore task data (corrupted database or bug): Meta for Request::parse_inner (TaskId 176196))
+
+Caused by:
+    0: Looking up data for TaskId 176196 from database failed
+    1: Unable to open static sorted file referenced from 00000858.meta
+    2: Unable to open static sorted file 00000854.sst
+    3: 指定されたファイルが見つかりません。 (os error 2)
+
+thread 'tokio-runtime-worker' (25720) panicked at C:\actions-runner\_work\next.js\next.js\turbopack\crates\turbo-tasks-backend\src\backend\operation\mod.rs:156:17:
+Failed to restore task data (corrupted database or bug): Meta for <DiskFileSystem as FileSystem>::read (TaskId 176222))
+
+Caused by:
+    0: Looking up data for TaskId 176222 from database failed
+    1: Unable to open static sorted file referenced from 00000845.meta
+    2: Unable to open static sorted file 00000842.sst
+    3: 指定されたファイルが見つかりません。 (os error 2)
+
+thread 'tokio-runtime-worker' (25720) panicked at C:\actions-runner\_work\next.js\next.js\turbopack\crates\turbo-tasks-backend\src\backend\operation\mod.rs:156:17:
+Failed to restore task data (corrupted database or bug): Meta for <DiskFileSystem as FileSystem>::read (TaskId 176222))
+
+Caused by:
+    0: Looking up data for TaskId 176222 from database failed
+    1: Unable to open static sorted file referenced from 00000845.meta
+    2: Unable to open static sorted file 00000842.sst
+    3: 指定されたファイルが見つかりません。 (os error 2)
+
+thread 'tokio-runtime-worker' (25720) panicked at C:\actions-runner\_work\next.js\next.js\turbopack\crates\turbo-tasks-backend\src\backend\operation\mod.rs:156:17:
+Failed to restore task data (corrupted database or bug): Meta for <EsmAssetReference as ChunkableModuleReference>::chunking_type (TaskId 176226))
+
+Caused by:
+    0: Looking up data for TaskId 176226 from database failed
+    1: Unable to open static sorted file referenced from 00000882.meta
+    2: Unable to open static sorted file 00000879.sst
+    3: 指定されたファイルが見つかりません。 (os error 2)
+
+thread 'tokio-runtime-worker' (29940) panicked at C:\actions-runner\_work\next.js\next.js\turbopack\crates\turbo-tasks-backend\src\backend\operation\mod.rs:156:17:
+Failed to restore task data (corrupted database or bug): Meta for <EsmAssetReference as ChunkableModuleReference>::chunking_type (TaskId 176226))
+
+Caused by:
+    0: Looking up data for TaskId 176226 from database failed
+    1: Unable to open static sorted file referenced from 00000882.meta
+    2: Unable to open static sorted file 00000879.sst
+    3: 指定されたファイルが見つかりません。 (os error 2)
+
+thread 'tokio-runtime-worker' (25720) panicked at C:\actions-runner\_work\next.js\next.js\turbopack\crates\turbo-tasks-backend\src\backend\operation\mod.rs:156:17:
+Failed to restore task data (corrupted database or bug): Meta for <EsmAssetReference as ChunkableModuleReference>::chunking_type (TaskId 176226))
+
+Caused by:
+    0: Looking up data for TaskId 176226 from database failed
+    1: Unable to open static sorted file referenced from 00000882.meta
+    2: Unable to open static sorted file 00000879.sst
+    3: 指定されたファイルが見つかりません。 (os error 2)
+
+thread 'tokio-runtime-worker' (28796) panicked at C:\actions-runner\_work\next.js\next.js\turbopack\crates\turbo-tasks-backend\src\backend\operation\mod.rs:156:17:
+Failed to restore task data (corrupted database or bug): Meta for BeforeResolvePluginCondition::matches (TaskId 176258))
+
+Caused by:
+    0: Looking up data for TaskId 176258 from database failed
+    1: Unable to open static sorted file referenced from 00000858.meta
+    2: Unable to open static sorted file 00000854.sst
+    3: 指定されたファイルが見つかりません。 (os error 2)
+
+thread 'tokio-runtime-worker' (25720) panicked at C:\actions-runner\_work\next.js\next.js\turbopack\crates\turbo-tasks-backend\src\backend\operation\mod.rs:156:17:
+Failed to restore task data (corrupted database or bug): Meta for BeforeResolvePluginCondition::matches (TaskId 176258))
+
+Caused by:
+    0: Looking up data for TaskId 176258 from database failed
+    1: Unable to open static sorted file referenced from 00000858.meta
+    2: Unable to open static sorted file 00000854.sst
+    3: 指定されたファイルが見つかりません。 (os error 2)
+
+thread 'tokio-runtime-worker' (31548) panicked at C:\actions-runner\_work\next.js\next.js\turbopack\crates\turbo-tasks-backend\src\backend\operation\mod.rs:156:17:
+Failed to restore task data (corrupted database or bug): Meta for resolve_internal (TaskId 176267))
+
+Caused by:
+    0: Looking up data for TaskId 176267 from database failed
+    1: Unable to open static sorted file referenced from 00000882.meta
+    2: Unable to open static sorted file 00000879.sst
+    3: 指定されたファイルが見つかりません。 (os error 2)
+
+thread 'tokio-runtime-worker' (5676) panicked at C:\actions-runner\_work\next.js\next.js\turbopack\crates\turbo-tasks-backend\src\backend\operation\mod.rs:156:17:
+Failed to restore task data (corrupted database or bug): Meta for resolve_internal (TaskId 176267))
+
+Caused by:
+    0: Looking up data for TaskId 176267 from database failed
+    1: Unable to open static sorted file referenced from 00000882.meta
+    2: Unable to open static sorted file 00000879.sst
+    3: 指定されたファイルが見つかりません。 (os error 2)
+
+thread 'tokio-runtime-worker' (25720) panicked at C:\actions-runner\_work\next.js\next.js\turbopack\crates\turbo-tasks-backend\src\backend\operation\mod.rs:156:17:
+Failed to restore task data (corrupted database or bug): Meta for BeforeResolvePluginCondition::matches (TaskId 176258))
+
+Caused by:
+    0: Looking up data for TaskId 176258 from database failed
+    1: Unable to open static sorted file referenced from 00000858.meta
+    2: Unable to open static sorted file 00000854.sst
+    3: 指定されたファイルが見つかりません。 (os error 2)
+
+thread 'tokio-runtime-worker' (28796) panicked at C:\actions-runner\_work\next.js\next.js\turbopack\crates\turbo-tasks-backend\src\backend\operation\mod.rs:156:17:
+Failed to restore task data (corrupted database or bug): Meta for BeforeResolvePluginCondition::matches (TaskId 176258))
+
+Caused by:
+    0: Looking up data for TaskId 176258 from database failed
+    1: Unable to open static sorted file referenced from 00000858.meta
+    2: Unable to open static sorted file 00000854.sst
+    3: 指定されたファイルが見つかりません。 (os error 2)
+
+thread 'tokio-runtime-worker' (31548) panicked at C:\actions-runner\_work\next.js\next.js\turbopack\crates\turbo-tasks-backend\src\backend\operation\mod.rs:156:17:
+Failed to restore task data (corrupted database or bug): Meta for resolve_internal (TaskId 176267))
+
+Caused by:
+    0: Looking up data for TaskId 176267 from database failed
+    1: Unable to open static sorted file referenced from 00000882.meta
+    2: Unable to open static sorted file 00000879.sst
+    3: 指定されたファイルが見つかりません。 (os error 2)
+
+thread 'tokio-runtime-worker' (5676) panicked at C:\actions-runner\_work\next.js\next.js\turbopack\crates\turbo-tasks-backend\src\backend\operation\mod.rs:156:17:
+Failed to restore task data (corrupted database or bug): Meta for resolve_internal (TaskId 176267))
+
+Caused by:
+    0: Looking up data for TaskId 176267 from database failed
+    1: Unable to open static sorted file referenced from 00000882.meta
+    2: Unable to open static sorted file 00000879.sst
+    3: 指定されたファイルが見つかりません。 (os error 2)
+
+thread 'tokio-runtime-worker' (4632) panicked at C:\actions-runner\_work\next.js\next.js\turbopack\crates\turbo-tasks-backend\src\backend\mod.rs:1354:30:
+Failed to lookup task id: Looking up task id for CachedTaskType { native_fn: NativeFunction { name: "<EcmascriptChunkType as ChunkType>::chunk", global_name: "turbopack-ecmascript@turbopack_ecmascript::chunk::chunk_type::EcmascriptChunkType::ChunkType::chunk", .. }, this: Some(RawVc::TaskCell(45319, "turbopack_ecmascript::chunk::chunk_type::EcmascriptChunkType#0")), arg: (Vc(RawVc::TaskCell(48457, "turbopack_browser::chunking_context::BrowserChunkingContext#0")), [ChunkItem(ChunkItemWithAsyncModuleInfo { chunk_item: ResolvedVc(RawVc::TaskCell(151243, "turbopack_ecmascript::ModuleChunkItem#0")), module: Some(ResolvedVc(RawVc::TaskCell(97682, "turbopack_ecmascript::EcmascriptModuleAsset#0"))), async_info: None }), ChunkItem(ChunkItemWithAsyncModuleInfo { chunk_item: ResolvedVc(RawVc::TaskCell(151112, "turbopack_json::JsonChunkItem#0")), module: Some(ResolvedVc(RawVc::TaskCell(96638, "turbopack_json::JsonModuleAsset#0"))), async_info: None }), ChunkItem(ChunkItemWithAsyncModuleInfo { chunk_item: ResolvedVc(RawVc::TaskCell(151115, "turbopack_ecmascript::side_effect_optimization::locals::chunk_item::EcmascriptModuleLocalsChunkItem#0")), module: Some(ResolvedVc(RawVc::TaskCell(112657, "turbopack_ecmascript::side_effect_optimization::locals::module::EcmascriptModuleLocalsModule#0"))), async_info: None }), ChunkItem(ChunkItemWithAsyncModuleInfo { chunk_item: ResolvedVc(RawVc::TaskCell(151119, "turbopack_ecmascript::side_effect_optimization::facade::chunk_item::EcmascriptModuleFacadeChunkItem#0")), module: Some(ResolvedVc(RawVc::TaskCell(96643, "turbopack_ecmascript::side_effect_optimization::facade::module::EcmascriptModuleFacadeModule#0"))), async_info: None }), ChunkItem(ChunkItemWithAsyncModuleInfo { chunk_item: ResolvedVc(RawVc::TaskCell(151137, "turbopack_ecmascript::ModuleChunkItem#0")), module: Some(ResolvedVc(RawVc::TaskCell(112497, "turbopack_ecmascript::EcmascriptModuleAsset#0"))), async_info: None }), ChunkItem(ChunkItemWithAsyncModuleInfo { chunk_item: ResolvedVc(RawVc::TaskCell(151142, "turbopack_ecmascript::ModuleChunkItem#0")), module: Some(ResolvedVc(RawVc::TaskCell(107479, "turbopack_ecmascript::EcmascriptModuleAsset#0"))), async_info: None }), ChunkItem(ChunkItemWithAsyncModuleInfo { chunk_item: ResolvedVc(RawVc::TaskCell(151147, "turbopack_ecmascript::ModuleChunkItem#0")), module: Some(ResolvedVc(RawVc::TaskCell(109141, "turbopack_ecmascript::EcmascriptModuleAsset#0"))), async_info: None }), ChunkItem(ChunkItemWithAsyncModuleInfo { chunk_item: ResolvedVc(RawVc::TaskCell(151152, "turbopack_ecmascript::ModuleChunkItem#0")), module: Some(ResolvedVc(RawVc::TaskCell(109140, "turbopack_ecmascript::EcmascriptModuleAsset#0"))), async_info: None }), ChunkItem(ChunkItemWithAsyncModuleInfo { chunk_item: ResolvedVc(RawVc::TaskCell(151157, "turbopack_ecmascript::side_effect_optimization::locals::chunk_item::EcmascriptModuleLocalsChunkItem#0")), module: Some(ResolvedVc(RawVc::TaskCell(104560, "turbopack_ecmascript::side_effect_optimization::locals::module::EcmascriptModuleLocalsModule#0"))), async_info: None }), ChunkItem(ChunkItemWithAsyncModuleInfo { chunk_item: ResolvedVc(RawVc::TaskCell(151162, "turbopack_ecmascript::ModuleChunkItem#0")), module: Some(ResolvedVc(RawVc::TaskCell(103189, "turbopack_ecmascript::EcmascriptModuleAsset#0"))), async_info: None }), ChunkItem(ChunkItemWithAsyncModuleInfo { chunk_item: ResolvedVc(RawVc::TaskCell(151167, "turbopack_ecmascript::side_effect_optimization::locals::chunk_item::EcmascriptModuleLocalsChunkItem#0")), module: Some(ResolvedVc(RawVc::TaskCell(102996, "turbopack_ecmascript::side_effect_optimization::locals::module::EcmascriptModuleLocalsModule#0"))), async_info: None }), ChunkItem(ChunkItemWithAsyncModuleInfo { chunk_item: ResolvedVc(RawVc::TaskCell(151171, "turbopack_ecmascript::ModuleChunkItem#0")), module: Some(ResolvedVc(RawVc::TaskCell(101943, "turbopack_ecmascript::EcmascriptModuleAsset#0"))), async_info: None }), ChunkItem(ChunkItemWithAsyncModuleInfo { chunk_item: ResolvedVc(RawVc::TaskCell(151175, "turbopack_ecmascript::ModuleChunkItem#0")), module: Some(ResolvedVc(RawVc::TaskCell(97980, "turbopack_ecmascript::EcmascriptModuleAsset#0"))), async_info: None }), ChunkItem(ChunkItemWithAsyncModuleInfo { chunk_item: ResolvedVc(RawVc::TaskCell(151179, "turbopack_ecmascript::side_effect_optimization::locals::chunk_item::EcmascriptModuleLocalsChunkItem#0")), module: Some(ResolvedVc(RawVc::TaskCell(97699, "turbopack_ecmascript::side_effect_optimization::locals::module::EcmascriptModuleLocalsModule#0"))), async_info: None }), ChunkItem(ChunkItemWithAsyncModuleInfo { chunk_item: ResolvedVc(RawVc::TaskCell(151183, "turbopack_ecmascript::ModuleChunkItem#0")), module: Some(ResolvedVc(RawVc::TaskCell(97614, "turbopack_ecmascript::EcmascriptModuleAsset#0"))), async_info: None }), ChunkItem(ChunkItemWithAsyncModuleInfo { chunk_item: ResolvedVc(RawVc::TaskCell(151240, "turbopack_ecmascript::ModuleChunkItem#0")), module: Some(ResolvedVc(RawVc::TaskCell(97666, "turbopack_ecmascript::EcmascriptModuleAsset#0"))), async_info: None }), ChunkItem(ChunkItemWithAsyncModuleInfo { chunk_item: ResolvedVc(RawVc::TaskCell(151246, "turbopack_ecmascript::ModuleChunkItem#0")), module: Some(ResolvedVc(RawVc::TaskCell(97978, "turbopack_ecmascript::EcmascriptModuleAsset#0"))), async_info: None }), ChunkItem(ChunkItemWithAsyncModuleInfo { chunk_item: ResolvedVc(RawVc::TaskCell(151248, "turbopack_ecmascript::side_effect_optimization::locals::chunk_item::EcmascriptModuleLocalsChunkItem#0")), module: Some(ResolvedVc(RawVc::TaskCell(97696, "turbopack_ecmascript::side_effect_optimization::locals::module::EcmascriptModuleLocalsModule#0"))), async_info: None }), ChunkItem(ChunkItemWithAsyncModuleInfo { chunk_item: ResolvedVc(RawVc::TaskCell(151252, "turbopack_ecmascript::ModuleChunkItem#0")), module: Some(ResolvedVc(RawVc::TaskCell(96619, "turbopack_ecmascript::EcmascriptModuleAsset#0"))), async_info: None })], []) } from database failed
+
+Caused by:
+    0: Unable to open static sorted file referenced from 00000816.meta
+    1: Unable to open static sorted file 00000811.sst
+    2: 指定されたファイルが見つかりません。 (os error 2)
+
+thread 'tokio-runtime-worker' (800) panicked at C:\actions-runner\_work\next.js\next.js\turbopack\crates\turbo-tasks-backend\src\backend\mod.rs:1354:30:
+Failed to lookup task id: Looking up task id for CachedTaskType { native_fn: NativeFunction { name: "<EcmascriptChunkType as ChunkType>::chunk", global_name: "turbopack-ecmascript@turbopack_ecmascript::chunk::chunk_type::EcmascriptChunkType::ChunkType::chunk", .. }, this: Some(RawVc::TaskCell(45319, "turbopack_ecmascript::chunk::chunk_type::EcmascriptChunkType#0")), arg: (Vc(RawVc::TaskCell(48457, "turbopack_browser::chunking_context::BrowserChunkingContext#0")), [ChunkItem(ChunkItemWithAsyncModuleInfo { chunk_item: ResolvedVc(RawVc::TaskCell(151243, "turbopack_ecmascript::ModuleChunkItem#0")), module: Some(ResolvedVc(RawVc::TaskCell(97682, "turbopack_ecmascript::EcmascriptModuleAsset#0"))), async_info: None }), ChunkItem(ChunkItemWithAsyncModuleInfo { chunk_item: ResolvedVc(RawVc::TaskCell(151112, "turbopack_json::JsonChunkItem#0")), module: Some(ResolvedVc(RawVc::TaskCell(96638, "turbopack_json::JsonModuleAsset#0"))), async_info: None }), ChunkItem(ChunkItemWithAsyncModuleInfo { chunk_item: ResolvedVc(RawVc::TaskCell(151115, "turbopack_ecmascript::side_effect_optimization::locals::chunk_item::EcmascriptModuleLocalsChunkItem#0")), module: Some(ResolvedVc(RawVc::TaskCell(112657, "turbopack_ecmascript::side_effect_optimization::locals::module::EcmascriptModuleLocalsModule#0"))), async_info: None }), ChunkItem(ChunkItemWithAsyncModuleInfo { chunk_item: ResolvedVc(RawVc::TaskCell(151119, "turbopack_ecmascript::side_effect_optimization::facade::chunk_item::EcmascriptModuleFacadeChunkItem#0")), module: Some(ResolvedVc(RawVc::TaskCell(96643, "turbopack_ecmascript::side_effect_optimization::facade::module::EcmascriptModuleFacadeModule#0"))), async_info: None }), ChunkItem(ChunkItemWithAsyncModuleInfo { chunk_item: ResolvedVc(RawVc::TaskCell(151137, "turbopack_ecmascript::ModuleChunkItem#0")), module: Some(ResolvedVc(RawVc::TaskCell(112497, "turbopack_ecmascript::EcmascriptModuleAsset#0"))), async_info: None }), ChunkItem(ChunkItemWithAsyncModuleInfo { chunk_item: ResolvedVc(RawVc::TaskCell(151142, "turbopack_ecmascript::ModuleChunkItem#0")), module: Some(ResolvedVc(RawVc::TaskCell(107479, "turbopack_ecmascript::EcmascriptModuleAsset#0"))), async_info: None }), ChunkItem(ChunkItemWithAsyncModuleInfo { chunk_item: ResolvedVc(RawVc::TaskCell(151147, "turbopack_ecmascript::ModuleChunkItem#0")), module: Some(ResolvedVc(RawVc::TaskCell(109141, "turbopack_ecmascript::EcmascriptModuleAsset#0"))), async_info: None }), ChunkItem(ChunkItemWithAsyncModuleInfo { chunk_item: ResolvedVc(RawVc::TaskCell(151152, "turbopack_ecmascript::ModuleChunkItem#0")), module: Some(ResolvedVc(RawVc::TaskCell(109140, "turbopack_ecmascript::EcmascriptModuleAsset#0"))), async_info: None }), ChunkItem(ChunkItemWithAsyncModuleInfo { chunk_item: ResolvedVc(RawVc::TaskCell(151157, "turbopack_ecmascript::side_effect_optimization::locals::chunk_item::EcmascriptModuleLocalsChunkItem#0")), module: Some(ResolvedVc(RawVc::TaskCell(104560, "turbopack_ecmascript::side_effect_optimization::locals::module::EcmascriptModuleLocalsModule#0"))), async_info: None }), ChunkItem(ChunkItemWithAsyncModuleInfo { chunk_item: ResolvedVc(RawVc::TaskCell(151162, "turbopack_ecmascript::ModuleChunkItem#0")), module: Some(ResolvedVc(RawVc::TaskCell(103189, "turbopack_ecmascript::EcmascriptModuleAsset#0"))), async_info: None }), ChunkItem(ChunkItemWithAsyncModuleInfo { chunk_item: ResolvedVc(RawVc::TaskCell(151167, "turbopack_ecmascript::side_effect_optimization::locals::chunk_item::EcmascriptModuleLocalsChunkItem#0")), module: Some(ResolvedVc(RawVc::TaskCell(102996, "turbopack_ecmascript::side_effect_optimization::locals::module::EcmascriptModuleLocalsModule#0"))), async_info: None }), ChunkItem(ChunkItemWithAsyncModuleInfo { chunk_item: ResolvedVc(RawVc::TaskCell(151171, "turbopack_ecmascript::ModuleChunkItem#0")), module: Some(ResolvedVc(RawVc::TaskCell(101943, "turbopack_ecmascript::EcmascriptModuleAsset#0"))), async_info: None }), ChunkItem(ChunkItemWithAsyncModuleInfo { chunk_item: ResolvedVc(RawVc::TaskCell(151175, "turbopack_ecmascript::ModuleChunkItem#0")), module: Some(ResolvedVc(RawVc::TaskCell(97980, "turbopack_ecmascript::EcmascriptModuleAsset#0"))), async_info: None }), ChunkItem(ChunkItemWithAsyncModuleInfo { chunk_item: ResolvedVc(RawVc::TaskCell(151179, "turbopack_ecmascript::side_effect_optimization::locals::chunk_item::EcmascriptModuleLocalsChunkItem#0")), module: Some(ResolvedVc(RawVc::TaskCell(97699, "turbopack_ecmascript::side_effect_optimization::locals::module::EcmascriptModuleLocalsModule#0"))), async_info: None }), ChunkItem(ChunkItemWithAsyncModuleInfo { chunk_item: ResolvedVc(RawVc::TaskCell(151183, "turbopack_ecmascript::ModuleChunkItem#0")), module: Some(ResolvedVc(RawVc::TaskCell(97614, "turbopack_ecmascript::EcmascriptModuleAsset#0"))), async_info: None }), ChunkItem(ChunkItemWithAsyncModuleInfo { chunk_item: ResolvedVc(RawVc::TaskCell(151240, "turbopack_ecmascript::ModuleChunkItem#0")), module: Some(ResolvedVc(RawVc::TaskCell(97666, "turbopack_ecmascript::EcmascriptModuleAsset#0"))), async_info: None }), ChunkItem(ChunkItemWithAsyncModuleInfo { chunk_item: ResolvedVc(RawVc::TaskCell(151246, "turbopack_ecmascript::ModuleChunkItem#0")), module: Some(ResolvedVc(RawVc::TaskCell(97978, "turbopack_ecmascript::EcmascriptModuleAsset#0"))), async_info: None }), ChunkItem(ChunkItemWithAsyncModuleInfo { chunk_item: ResolvedVc(RawVc::TaskCell(151248, "turbopack_ecmascript::side_effect_optimization::locals::chunk_item::EcmascriptModuleLocalsChunkItem#0")), module: Some(ResolvedVc(RawVc::TaskCell(97696, "turbopack_ecmascript::side_effect_optimization::locals::module::EcmascriptModuleLocalsModule#0"))), async_info: None }), ChunkItem(ChunkItemWithAsyncModuleInfo { chunk_item: ResolvedVc(RawVc::TaskCell(151252, "turbopack_ecmascript::ModuleChunkItem#0")), module: Some(ResolvedVc(RawVc::TaskCell(96619, "turbopack_ecmascript::EcmascriptModuleAsset#0"))), async_info: None })], []) } from database failed
+
+Caused by:
+    0: Unable to open static sorted file referenced from 00000816.meta
+    1: Unable to open static sorted file 00000811.sst
+    2: 指定されたファイルが見つかりません。 (os error 2)
+
+thread 'tokio-runtime-worker' (800) panicked at C:\actions-runner\_work\next.js\next.js\turbopack\crates\turbo-tasks-backend\src\backend\mod.rs:1354:30:
+Failed to lookup task id: Looking up task id for CachedTaskType { native_fn: NativeFunction { name: "<EcmascriptChunkType as ChunkType>::chunk", global_name: "turbopack-ecmascript@turbopack_ecmascript::chunk::chunk_type::EcmascriptChunkType::ChunkType::chunk", .. }, this: Some(RawVc::TaskCell(45319, "turbopack_ecmascript::chunk::chunk_type::EcmascriptChunkType#0")), arg: (Vc(RawVc::TaskCell(48457, "turbopack_browser::chunking_context::BrowserChunkingContext#0")), [ChunkItem(ChunkItemWithAsyncModuleInfo { chunk_item: ResolvedVc(RawVc::TaskCell(151243, "turbopack_ecmascript::ModuleChunkItem#0")), module: Some(ResolvedVc(RawVc::TaskCell(97682, "turbopack_ecmascript::EcmascriptModuleAsset#0"))), async_info: None }), ChunkItem(ChunkItemWithAsyncModuleInfo { chunk_item: ResolvedVc(RawVc::TaskCell(151112, "turbopack_json::JsonChunkItem#0")), module: Some(ResolvedVc(RawVc::TaskCell(96638, "turbopack_json::JsonModuleAsset#0"))), async_info: None }), ChunkItem(ChunkItemWithAsyncModuleInfo { chunk_item: ResolvedVc(RawVc::TaskCell(151115, "turbopack_ecmascript::side_effect_optimization::locals::chunk_item::EcmascriptModuleLocalsChunkItem#0")), module: Some(ResolvedVc(RawVc::TaskCell(112657, "turbopack_ecmascript::side_effect_optimization::locals::module::EcmascriptModuleLocalsModule#0"))), async_info: None }), ChunkItem(ChunkItemWithAsyncModuleInfo { chunk_item: ResolvedVc(RawVc::TaskCell(151119, "turbopack_ecmascript::side_effect_optimization::facade::chunk_item::EcmascriptModuleFacadeChunkItem#0")), module: Some(ResolvedVc(RawVc::TaskCell(96643, "turbopack_ecmascript::side_effect_optimization::facade::module::EcmascriptModuleFacadeModule#0"))), async_info: None }), ChunkItem(ChunkItemWithAsyncModuleInfo { chunk_item: ResolvedVc(RawVc::TaskCell(151137, "turbopack_ecmascript::ModuleChunkItem#0")), module: Some(ResolvedVc(RawVc::TaskCell(112497, "turbopack_ecmascript::EcmascriptModuleAsset#0"))), async_info: None }), ChunkItem(ChunkItemWithAsyncModuleInfo { chunk_item: ResolvedVc(RawVc::TaskCell(151142, "turbopack_ecmascript::ModuleChunkItem#0")), module: Some(ResolvedVc(RawVc::TaskCell(107479, "turbopack_ecmascript::EcmascriptModuleAsset#0"))), async_info: None }), ChunkItem(ChunkItemWithAsyncModuleInfo { chunk_item: ResolvedVc(RawVc::TaskCell(151147, "turbopack_ecmascript::ModuleChunkItem#0")), module: Some(ResolvedVc(RawVc::TaskCell(109141, "turbopack_ecmascript::EcmascriptModuleAsset#0"))), async_info: None }), ChunkItem(ChunkItemWithAsyncModuleInfo { chunk_item: ResolvedVc(RawVc::TaskCell(151152, "turbopack_ecmascript::ModuleChunkItem#0")), module: Some(ResolvedVc(RawVc::TaskCell(109140, "turbopack_ecmascript::EcmascriptModuleAsset#0"))), async_info: None }), ChunkItem(ChunkItemWithAsyncModuleInfo { chunk_item: ResolvedVc(RawVc::TaskCell(151157, "turbopack_ecmascript::side_effect_optimization::locals::chunk_item::EcmascriptModuleLocalsChunkItem#0")), module: Some(ResolvedVc(RawVc::TaskCell(104560, "turbopack_ecmascript::side_effect_optimization::locals::module::EcmascriptModuleLocalsModule#0"))), async_info: None }), ChunkItem(ChunkItemWithAsyncModuleInfo { chunk_item: ResolvedVc(RawVc::TaskCell(151162, "turbopack_ecmascript::ModuleChunkItem#0")), module: Some(ResolvedVc(RawVc::TaskCell(103189, "turbopack_ecmascript::EcmascriptModuleAsset#0"))), async_info: None }), ChunkItem(ChunkItemWithAsyncModuleInfo { chunk_item: ResolvedVc(RawVc::TaskCell(151167, "turbopack_ecmascript::side_effect_optimization::locals::chunk_item::EcmascriptModuleLocalsChunkItem#0")), module: Some(ResolvedVc(RawVc::TaskCell(102996, "turbopack_ecmascript::side_effect_optimization::locals::module::EcmascriptModuleLocalsModule#0"))), async_info: None }), ChunkItem(ChunkItemWithAsyncModuleInfo { chunk_item: ResolvedVc(RawVc::TaskCell(151171, "turbopack_ecmascript::ModuleChunkItem#0")), module: Some(ResolvedVc(RawVc::TaskCell(101943, "turbopack_ecmascript::EcmascriptModuleAsset#0"))), async_info: None }), ChunkItem(ChunkItemWithAsyncModuleInfo { chunk_item: ResolvedVc(RawVc::TaskCell(151175, "turbopack_ecmascript::ModuleChunkItem#0")), module: Some(ResolvedVc(RawVc::TaskCell(97980, "turbopack_ecmascript::EcmascriptModuleAsset#0"))), async_info: None }), ChunkItem(ChunkItemWithAsyncModuleInfo { chunk_item: ResolvedVc(RawVc::TaskCell(151179, "turbopack_ecmascript::side_effect_optimization::locals::chunk_item::EcmascriptModuleLocalsChunkItem#0")), module: Some(ResolvedVc(RawVc::TaskCell(97699, "turbopack_ecmascript::side_effect_optimization::locals::module::EcmascriptModuleLocalsModule#0"))), async_info: None }), ChunkItem(ChunkItemWithAsyncModuleInfo { chunk_item: ResolvedVc(RawVc::TaskCell(151183, "turbopack_ecmascript::ModuleChunkItem#0")), module: Some(ResolvedVc(RawVc::TaskCell(97614, "turbopack_ecmascript::EcmascriptModuleAsset#0"))), async_info: None }), ChunkItem(ChunkItemWithAsyncModuleInfo { chunk_item: ResolvedVc(RawVc::TaskCell(151240, "turbopack_ecmascript::ModuleChunkItem#0")), module: Some(ResolvedVc(RawVc::TaskCell(97666, "turbopack_ecmascript::EcmascriptModuleAsset#0"))), async_info: None }), ChunkItem(ChunkItemWithAsyncModuleInfo { chunk_item: ResolvedVc(RawVc::TaskCell(151246, "turbopack_ecmascript::ModuleChunkItem#0")), module: Some(ResolvedVc(RawVc::TaskCell(97978, "turbopack_ecmascript::EcmascriptModuleAsset#0"))), async_info: None }), ChunkItem(ChunkItemWithAsyncModuleInfo { chunk_item: ResolvedVc(RawVc::TaskCell(151248, "turbopack_ecmascript::side_effect_optimization::locals::chunk_item::EcmascriptModuleLocalsChunkItem#0")), module: Some(ResolvedVc(RawVc::TaskCell(97696, "turbopack_ecmascript::side_effect_optimization::locals::module::EcmascriptModuleLocalsModule#0"))), async_info: None }), ChunkItem(ChunkItemWithAsyncModuleInfo { chunk_item: ResolvedVc(RawVc::TaskCell(151252, "turbopack_ecmascript::ModuleChunkItem#0")), module: Some(ResolvedVc(RawVc::TaskCell(96619, "turbopack_ecmascript::EcmascriptModuleAsset#0"))), async_info: None })], []) } from database failed
+
+Caused by:
+    0: Unable to open static sorted file referenced from 00000816.meta
+    1: Unable to open static sorted file 00000811.sst
+    2: 指定されたファイルが見つかりません。 (os error 2)
+
+thread 'tokio-runtime-worker' (800) panicked at C:\actions-runner\_work\next.js\next.js\turbopack\crates\turbo-tasks-backend\src\backend\operation\mod.rs:156:17:
+Failed to restore task data (corrupted database or bug): Meta for ChunkItemBatchWithAsyncModuleInfo::from_module_batch (TaskId 176304))
+
+Caused by:
+    0: Looking up data for TaskId 176304 from database failed
+    1: Unable to open static sorted file referenced from 00000833.meta
+    2: Unable to open static sorted file 00000830.sst
+    3: 指定されたファイルが見つかりません。 (os error 2)
+
+thread 'tokio-runtime-worker' (800) panicked at C:\actions-runner\_work\next.js\next.js\turbopack\crates\turbo-tasks-backend\src\backend\operation\mod.rs:156:17:
+Failed to restore task data (corrupted database or bug): Meta for ChunkItemBatchWithAsyncModuleInfo::from_module_batch (TaskId 176304))
+
+Caused by:
+    0: Looking up data for TaskId 176304 from database failed
+    1: Unable to open static sorted file referenced from 00000833.meta
+    2: Unable to open static sorted file 00000830.sst
+    3: 指定されたファイルが見つかりません。 (os error 2)

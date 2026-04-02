@@ -1,53 +1,76 @@
 @import "tailwindcss";
 
 :root {
-  --background: #07111d;
-  --foreground: #f3efe3;
-  --font-quiz-display: "Iowan Old Style", "Palatino Linotype", "Noto Serif SC", "Songti SC", serif;
-  --quiz-bg-deep: #07111d;
-  --quiz-bg-mid: #10243a;
-  --quiz-bg-soft: #18344f;
-  --quiz-surface: rgba(7, 18, 31, 0.76);
-  --quiz-surface-strong: rgba(7, 18, 31, 0.9);
-  --quiz-panel: rgba(11, 26, 42, 0.78);
-  --quiz-border-soft: rgba(239, 228, 201, 0.12);
-  --quiz-border-strong: rgba(240, 201, 128, 0.28);
-  --quiz-text: #f3efe3;
-  --quiz-muted: #cad3de;
-  --quiz-accent: #f0c980;
-  --quiz-accent-soft: #93d4e0;
-  --quiz-accent-soft-fill: rgba(147, 212, 224, 0.12);
-  --quiz-accent-warm-fill: rgba(240, 201, 128, 0.12);
-  --quiz-line-shine: rgba(240, 201, 128, 0.8);
-  --quiz-star-bright: rgba(243, 239, 227, 0.86);
-  --quiz-star-soft: rgba(243, 239, 227, 0.24);
-  --quiz-glow-primary: rgba(240, 201, 128, 0.24);
-  --quiz-glow-secondary: rgba(147, 212, 224, 0.22);
-  --quiz-shadow: 0 32px 96px rgba(1, 8, 18, 0.48);
+  --background: #060b12;
+  --foreground: #f5efe2;
+  --font-display: var(--font-cormorant-garamond), var(--font-noto-serif-sc), serif;
+  --font-body: var(--font-noto-sans-sc), sans-serif;
+  --font-detail: var(--font-ibm-plex-mono), monospace;
+  --font-quiz-display: var(--font-display);
+  --page-bg-deep: #060b12;
+  --page-bg-mid: #0d1625;
+  --page-bg-soft: #13283f;
+  --page-paper: rgba(11, 18, 30, 0.76);
+  --page-paper-strong: rgba(8, 14, 24, 0.92);
+  --page-panel: rgba(15, 24, 36, 0.74);
+  --page-panel-strong: rgba(18, 29, 43, 0.9);
+  --page-panel-muted: rgba(240, 232, 215, 0.05);
+  --page-border: rgba(203, 215, 230, 0.16);
+  --page-border-strong: rgba(216, 181, 127, 0.36);
+  --page-border-faint: rgba(216, 181, 127, 0.12);
+  --page-text: #f5efe2;
+  --page-text-strong: #fff9ef;
+  --page-muted: #b7c2d0;
+  --page-muted-strong: #d5dde8;
+  --page-accent: #d8b57f;
+  --page-accent-strong: #f0d6ab;
+  --page-accent-cool: #97b7ca;
+  --page-accent-cool-strong: #c7d7e2;
+  --page-accent-fill: rgba(216, 181, 127, 0.15);
+  --page-accent-cool-fill: rgba(151, 183, 202, 0.14);
+  --page-grid: rgba(202, 214, 229, 0.08);
+  --page-shadow: 0 36px 110px rgba(1, 7, 16, 0.46);
+  --page-shadow-soft: 0 18px 48px rgba(0, 0, 0, 0.24);
+  --quiz-bg-deep: var(--page-bg-deep);
+  --quiz-bg-mid: var(--page-bg-mid);
+  --quiz-bg-soft: var(--page-bg-soft);
+  --quiz-surface: var(--page-paper);
+  --quiz-surface-strong: var(--page-paper-strong);
+  --quiz-panel: var(--page-panel);
+  --quiz-panel-strong: var(--page-panel-strong);
+  --quiz-border-soft: var(--page-border);
+  --quiz-border-strong: var(--page-border-strong);
+  --quiz-text: var(--page-text);
+  --quiz-muted: var(--page-muted);
+  --quiz-accent: var(--page-accent);
+  --quiz-accent-hover: var(--page-accent-strong);
+  --quiz-accent-soft: var(--page-accent-cool);
+  --quiz-accent-soft-fill: var(--page-accent-cool-fill);
+  --quiz-accent-warm-fill: var(--page-accent-fill);
+  --quiz-line-shine: rgba(240, 221, 186, 0.8);
+  --quiz-star-bright: rgba(245, 239, 226, 0.82);
+  --quiz-star-soft: rgba(199, 213, 228, 0.24);
+  --quiz-glow-primary: rgba(216, 181, 127, 0.2);
+  --quiz-glow-secondary: rgba(151, 183, 202, 0.18);
+  --quiz-shadow: var(--page-shadow);
   --quiz-radius-shell: 2rem;
   --quiz-radius-panel: 1.5rem;
+  --quiz-radius-button: 999px;
   --quiz-blur-surface: 24px;
   --quiz-blur-glow: 96px;
-  --quiz-shell-max: 72rem;
-  --quiz-orbit-size: min(88vw, 32rem);
-  --quiz-dots-size: min(96vw, 40rem);
-  --quiz-glow-size-lg: min(76vw, 26rem);
-  --quiz-glow-size-sm: min(62vw, 18rem);
-  --quiz-orbit-inset-md: 12%;
-  --quiz-orbit-inset-sm: 24%;
+  --quiz-shell-max: 78rem;
+  --quiz-orbit-size: min(88vw, 34rem);
+  --quiz-dots-size: min(96vw, 42rem);
+  --quiz-glow-size-lg: min(78vw, 28rem);
+  --quiz-glow-size-sm: min(64vw, 18rem);
+  --quiz-orbit-inset-md: 14%;
+  --quiz-orbit-inset-sm: 28%;
   --quiz-caps-tracking: 0.28em;
-  --quiz-dot-grid-size: 28px;
-  --quiz-glow-primary-top: 18%;
+  --quiz-dot-grid-size: 34px;
+  --quiz-glow-primary-top: 12%;
   --quiz-glow-primary-left: -8%;
-  --quiz-glow-secondary-right: -6%;
-  --quiz-glow-secondary-bottom: -10%;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --quiz-glow-secondary-right: -5%;
+  --quiz-glow-secondary-bottom: -9%;
 }
 
 * {
@@ -55,20 +78,173 @@
 }
 
 html {
-  background: var(--background);
+  background: linear-gradient(180deg, var(--page-bg-deep) 0%, var(--page-bg-mid) 52%, var(--page-bg-soft) 100%);
+  color-scheme: dark;
+  scroll-behavior: smooth;
 }
 
 body {
+  position: relative;
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
-  background: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-geist-sans), sans-serif;
   overflow-x: clip;
+  background:
+    radial-gradient(circle at top, rgba(151, 183, 202, 0.16) 0%, transparent 30%),
+    radial-gradient(circle at 16% 18%, rgba(216, 181, 127, 0.12) 0%, transparent 22%),
+    radial-gradient(circle at 82% 14%, rgba(151, 183, 202, 0.14) 0%, transparent 20%),
+    linear-gradient(180deg, var(--page-bg-deep) 0%, var(--page-bg-mid) 52%, var(--page-bg-soft) 100%);
+  color: var(--foreground);
+  font-family: var(--font-body);
+  letter-spacing: 0.01em;
+  text-rendering: optimizeLegibility;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(var(--page-grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--page-grid) 1px, transparent 1px);
+  background-position: center;
+  background-size: 80px 80px;
+  mask-image: radial-gradient(circle at center, black 0%, rgba(0, 0, 0, 0.7) 52%, transparent 86%);
+  opacity: 0.38;
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: clamp(0.7rem, 2vw, 1.35rem);
+  border: 1px solid rgba(216, 181, 127, 0.08);
+  border-radius: 1.75rem;
+  pointer-events: none;
+  opacity: 0.8;
 }
 
 a {
   color: inherit;
   text-decoration: none;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+::selection {
+  background: rgba(216, 181, 127, 0.28);
+  color: var(--page-text-strong);
+}
+
+.editorial-title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: 0.03em;
+}
+
+.atlas-shell {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--page-border);
+  background: linear-gradient(180deg, rgba(10, 16, 27, 0.78) 0%, rgba(8, 14, 24, 0.92) 100%);
+  box-shadow: var(--page-shadow);
+  backdrop-filter: blur(var(--quiz-blur-surface));
+}
+
+.atlas-shell::before {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  top: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, var(--quiz-line-shine) 50%, transparent 100%);
+}
+
+.atlas-shell::after {
+  content: "";
+  position: absolute;
+  inset: 1rem;
+  border: 1px solid var(--page-border-faint);
+  border-radius: calc(var(--quiz-radius-shell) - 0.75rem);
+  mask-image: linear-gradient(180deg, black, transparent 88%);
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+.atlas-panel {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--page-border);
+  background: linear-gradient(180deg, rgba(18, 29, 43, 0.86) 0%, rgba(12, 21, 32, 0.82) 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(18px);
+}
+
+.atlas-panel::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(130deg, rgba(216, 181, 127, 0.08) 0%, transparent 38%, transparent 100%);
+}
+
+.atlas-rule {
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, rgba(216, 181, 127, 0.34) 16%, rgba(199, 213, 228, 0.16) 100%);
+}
+
+.atlas-chip {
+  border: 1px solid var(--page-border);
+  background: rgba(240, 232, 215, 0.04);
+  color: var(--page-muted-strong);
+}
+
+.metal-button {
+  border: 1px solid var(--page-border-strong);
+  background: linear-gradient(135deg, var(--page-accent-strong) 0%, var(--page-accent) 100%);
+  color: #0b1320;
+  box-shadow: 0 18px 36px rgba(0, 0, 0, 0.24);
+}
+
+.metal-button:hover {
+  background: linear-gradient(135deg, #f6ddb8 0%, var(--page-accent-strong) 100%);
+}
+
+.ghost-button {
+  border: 1px solid var(--page-border);
+  background: rgba(240, 232, 215, 0.04);
+  color: var(--page-text);
+}
+
+.ghost-button:hover {
+  border-color: var(--page-border-strong);
+  background: rgba(216, 181, 127, 0.08);
+}
+
+.detail-label {
+  font-family: var(--font-detail);
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+@media (max-width: 640px) {
+  body::after {
+    inset: 0.5rem;
+    border-radius: 1.2rem;
+  }
+
+  .atlas-shell::after {
+    inset: 0.75rem;
+  }
 }

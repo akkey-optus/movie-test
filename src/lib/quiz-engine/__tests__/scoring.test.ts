@@ -1,3 +1,5 @@
+import { describe, expect, it } from "vitest";
+
 import rawQuizCatalogConfig from "@/test-setting.json";
 import { loadQuizCatalogFromSource } from "@/src/lib/config";
 import { scoreQuizDefinition } from "@/src/lib/quiz-engine";

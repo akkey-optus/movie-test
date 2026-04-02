@@ -52,13 +52,11 @@ export function QuizFlow({
 }: QuizFlowProps) {
   const prefersReducedMotion = useReducedMotion();
   const storage = useMemo(() => createQuizAttemptStorage(), []);
-  const initialProgress = useMemo(
-    () => createQuizFlowProgress(quiz, initialAnswers, initialQuestionIndex),
-    [initialAnswers, initialQuestionIndex, quiz],
-  );
   const timeoutRef = useRef<number | null>(null);
   const [answers, setAnswers] = useState<QuizAnswers>(() => ({ ...initialAnswers }));
-  const [progress, setProgress] = useState(initialProgress);
+  const [progress, setProgress] = useState<QuizFlowProgress>(() =>
+    createQuizFlowProgress(quiz, initialAnswers, initialQuestionIndex),
+  );
   const [selectedAnswerId, setSelectedAnswerId] = useState<string | null>(null);
   const [isAdvancing, setIsAdvancing] = useState(false);
 
@@ -68,8 +66,8 @@ export function QuizFlow({
   const feedbackDelay = prefersReducedMotion ? 0 : ADVANCE_DELAY_MS;
 
   useEffect(() => {
-    onProgress(initialProgress);
-  }, [initialProgress, onProgress]);
+    onProgress(progress);
+  }, [onProgress, progress]);
 
   useEffect(
     () => () => {
@@ -167,37 +165,37 @@ export function QuizFlow({
 
   return (
     <div className="space-y-5 sm:space-y-6">
-      <div className="rounded-[var(--quiz-radius-panel)] border border-[color:var(--quiz-border-soft)] bg-[color:var(--quiz-panel)] p-4 sm:p-5">
-        <div className="flex flex-wrap items-end justify-between gap-3">
-          <div className="space-y-2">
-            <p className="text-xs font-semibold uppercase tracking-[var(--quiz-caps-tracking)] text-[color:var(--quiz-accent)]">
-              {isResume ? "Recovered Orbit" : "Question Flow"}
+      <section className="atlas-panel rounded-[var(--quiz-radius-panel)] p-5 sm:p-6">
+        <div className="relative z-10 flex flex-wrap items-end justify-between gap-4">
+          <div className="space-y-3">
+            <p className="detail-label text-[11px] text-[color:var(--quiz-accent)]">
+              {isResume ? "已恢复航线" : "当前航线"}
             </p>
             <div>
-              <h2 className="font-[family:var(--font-quiz-display)] text-2xl leading-tight text-[color:var(--quiz-text)] sm:text-3xl">
+              <h2 className="editorial-title text-3xl leading-tight text-[color:var(--quiz-text)] sm:text-[2.4rem]">
                 第 {progress.activeQuestionIndex + 1} 题
               </h2>
-              <p className="mt-1 text-sm leading-7 text-[color:var(--quiz-muted)]">
+              <p className="mt-2 max-w-2xl text-sm leading-7 text-[color:var(--quiz-muted)] sm:text-base">
                 {isResume && progress.answeredCount > 0
-                  ? "已从上次停下的位置继续，答案会实时保存在当前浏览器。"
-                  : "每次选择都会立即保存，并在短暂反馈后切换到下一题。"}
+                  ? "已从上次停下的位置继续。答案会实时写入当前浏览器，所以回到这条链接时能直接恢复同一段进度。"
+                  : "每次选择都会立即记录，并在短暂停顿后将下一张题卡平稳推到眼前，保持一题一屏的节奏。"}
               </p>
             </div>
           </div>
 
-          <div className="rounded-full border border-[color:var(--quiz-border-strong)] bg-[color:var(--quiz-accent-warm-fill)] px-4 py-2 text-sm font-semibold text-[color:var(--quiz-text)]">
+          <div className="rounded-full border border-[color:var(--quiz-border-strong)] bg-[color:var(--quiz-accent-warm-fill)] px-4 py-2 text-sm font-semibold text-[color:var(--quiz-text)] shadow-[0_10px_24px_rgba(0,0,0,0.14)]">
             {progress.activeQuestionIndex + 1} / {progress.totalQuestions}
           </div>
         </div>
 
-        <div className="mt-5 space-y-3">
+        <div className="relative z-10 mt-6 space-y-3">
           <div className="flex items-center justify-between gap-3 text-xs uppercase tracking-[var(--quiz-caps-tracking)] text-[color:var(--quiz-muted)]">
             <span>轨道进度</span>
             <span>已记录 {progress.answeredCount} 题</span>
           </div>
 
-          <div className="overflow-hidden rounded-full bg-[color:var(--quiz-border-soft)]/60 p-1">
-            <div className="h-2 rounded-full bg-[color:var(--quiz-surface-strong)]">
+          <div className="overflow-hidden rounded-full border border-[color:var(--quiz-border-soft)] bg-[rgba(240,232,215,0.05)] p-1">
+            <div className="h-2 rounded-full bg-[rgba(9,15,24,0.72)]">
               <motion.div
                 animate={{ scaleX: progressRatio }}
                 className="h-full origin-left rounded-full bg-[linear-gradient(90deg,var(--quiz-accent-soft)_0%,var(--quiz-accent)_100%)] shadow-[0_0_24px_var(--quiz-glow-primary)]"
@@ -227,95 +225,135 @@ export function QuizFlow({
             })}
           </div>
         </div>
-      </div>
+      </section>
 
-      <div className="relative min-h-[28rem] sm:min-h-[30rem]">
+      <div className="relative min-h-[30rem] sm:min-h-[32rem]">
         <AnimatePresence initial={false} mode="wait">
           <motion.article
             animate={{ opacity: 1, x: 0, scale: 1 }}
-            className="relative overflow-hidden rounded-[var(--quiz-radius-panel)] border border-[color:var(--quiz-border-soft)] bg-[color:var(--quiz-panel)] p-5 shadow-[0_24px_72px_rgba(1,8,18,0.22)] sm:p-6"
-            exit={prefersReducedMotion ? { opacity: 1, x: 0 } : { opacity: 0, x: -28, scale: 0.98 }}
-            initial={prefersReducedMotion ? false : { opacity: 0, x: 32, scale: 0.98 }}
+            className="atlas-panel relative rounded-[var(--quiz-radius-panel)] p-5 shadow-[0_24px_72px_rgba(1,8,18,0.22)] sm:p-6"
+            exit={prefersReducedMotion ? { opacity: 1, x: 0 } : { opacity: 0, x: -28, scale: 0.985 }}
+            initial={prefersReducedMotion ? false : { opacity: 0, x: 30, scale: 0.985 }}
             key={currentQuestion.id}
             transition={{ duration: transitionDuration, ease: "easeOut" }}
           >
             <div className="absolute inset-x-0 top-0 h-px bg-[linear-gradient(90deg,transparent,var(--quiz-line-shine),transparent)]" />
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,var(--quiz-glow-primary)_0%,transparent_46%),radial-gradient(circle_at_bottom_left,var(--quiz-glow-secondary)_0%,transparent_42%)] opacity-80" />
 
-            <div className="relative space-y-6">
-              <div className="flex flex-wrap items-center justify-between gap-3">
-                <span className="rounded-full border border-[color:var(--quiz-border-soft)] bg-[color:var(--quiz-surface-strong)] px-3 py-1 text-xs uppercase tracking-[var(--quiz-caps-tracking)] text-[color:var(--quiz-accent-soft)]">
-                  {quiz.theme} · {currentQuestion.dimension}
-                </span>
-                <span className="text-xs uppercase tracking-[var(--quiz-caps-tracking)] text-[color:var(--quiz-muted)]">
-                  {isAdvancing ? "正在记录选择" : "选择后自动进入下一题"}
-                </span>
-              </div>
+            <div className="relative z-10 grid gap-6 lg:grid-cols-[minmax(0,1fr)_14rem]">
+              <div className="space-y-6">
+                <div className="flex flex-wrap items-center justify-between gap-3">
+                  <span className="rounded-full border border-[color:var(--quiz-border-soft)] bg-[color:var(--quiz-surface-strong)] px-3 py-1 text-xs uppercase tracking-[var(--quiz-caps-tracking)] text-[color:var(--quiz-accent-soft)]">
+                    {quiz.theme} · 当前航段
+                  </span>
+                  <span className="text-xs uppercase tracking-[var(--quiz-caps-tracking)] text-[color:var(--quiz-muted)]">
+                    {isAdvancing ? "星图正在记录这次选择" : "选择后自动切到下一题"}
+                  </span>
+                </div>
 
-              <div className="space-y-4">
-                <p className="text-xs uppercase tracking-[var(--quiz-caps-tracking)] text-[color:var(--quiz-accent)]">
-                  {currentQuestion.id}
-                </p>
-                <h3 className="max-w-[16ch] font-[family:var(--font-quiz-display)] text-3xl leading-tight text-[color:var(--quiz-text)] sm:text-[2.5rem]">
-                  {currentQuestion.text}
-                </h3>
-              </div>
+                <div className="space-y-4">
+                  <p className="detail-label text-[11px] text-[color:var(--quiz-accent)]">{currentQuestion.id}</p>
+                  <h3 className="editorial-title max-w-[15ch] text-4xl leading-tight text-[color:var(--quiz-text)] sm:text-[3.1rem]">
+                    {currentQuestion.text}
+                  </h3>
+                  <p className="max-w-2xl text-sm leading-7 text-[color:var(--quiz-muted)] sm:text-base">
+                    把注意力停在眼前这一题就好。页面不会回退成整屏列表，而是沿着你的选择继续向前推进。
+                  </p>
+                </div>
 
-              <div className="grid gap-3">
-                {currentQuestion.options.map((option, index) => {
-                  const isSelected = selectedAnswerId === option.id;
+                <div className="grid gap-3">
+                  {currentQuestion.options.map((option, index) => {
+                    const isSelected = selectedAnswerId === option.id;
 
-                  return (
-                    <motion.button
-                      animate={isSelected ? { scale: 1.01 } : { scale: 1 }}
-                      className={`group relative flex w-full items-start gap-4 overflow-hidden rounded-[calc(var(--quiz-radius-panel)-0.375rem)] border px-4 py-4 text-left transition duration-300 sm:px-5 sm:py-5 ${
-                        isSelected
-                          ? "border-[color:var(--quiz-border-strong)] bg-[color:var(--quiz-accent-warm-fill)] text-[color:var(--quiz-text)] shadow-[0_18px_48px_rgba(1,8,18,0.18)]"
-                          : "border-[color:var(--quiz-border-soft)] bg-[color:var(--quiz-surface)] text-[color:var(--quiz-text)] hover:border-[color:var(--quiz-border-strong)] hover:bg-[color:var(--quiz-surface-strong)]"
-                      }`}
-                      disabled={isAdvancing}
-                      key={option.id}
-                      onClick={() => handleSelectAnswer(option.id)}
-                      transition={{ duration: transitionDuration, ease: "easeOut" }}
-                      type="button"
-                      whileHover={prefersReducedMotion || isAdvancing ? undefined : { y: -2, scale: 1.01 }}
-                      whileTap={prefersReducedMotion || isAdvancing ? undefined : { scale: 0.985 }}
-                    >
-                      <div className="absolute inset-0 bg-[linear-gradient(135deg,var(--quiz-accent-warm-fill)_0%,transparent_68%)] opacity-0 transition duration-300 group-hover:opacity-100" />
-                      <span
-                        className={`relative flex h-11 w-11 shrink-0 items-center justify-center rounded-full border text-sm font-semibold transition duration-300 ${
+                    return (
+                      <motion.button
+                        animate={isSelected ? { scale: 1.01 } : { scale: 1 }}
+                        className={`group relative flex w-full cursor-pointer items-start gap-4 overflow-hidden rounded-[calc(var(--quiz-radius-panel)-0.375rem)] border px-4 py-4 text-left transition duration-300 sm:px-5 sm:py-5 ${
                           isSelected
-                            ? "border-[color:var(--quiz-border-strong)] bg-[color:var(--quiz-accent)] text-slate-950"
-                            : "border-[color:var(--quiz-border-soft)] bg-[color:var(--quiz-panel)] text-[color:var(--quiz-accent-soft)]"
+                            ? "border-[color:var(--quiz-border-strong)] bg-[color:var(--quiz-accent-warm-fill)] text-[color:var(--quiz-text)] shadow-[0_18px_48px_rgba(1,8,18,0.18)]"
+                            : "border-[color:var(--quiz-border-soft)] bg-[color:var(--quiz-surface)] text-[color:var(--quiz-text)] hover:border-[color:var(--quiz-border-strong)] hover:bg-[rgba(18,29,43,0.94)]"
                         }`}
+                        data-testid={`answer-option-${option.id}`}
+                        disabled={isAdvancing}
+                        key={option.id}
+                        onClick={() => handleSelectAnswer(option.id)}
+                        transition={{ duration: transitionDuration, ease: "easeOut" }}
+                        type="button"
+                        whileHover={prefersReducedMotion || isAdvancing ? undefined : { y: -2, scale: 1.01 }}
+                        whileTap={prefersReducedMotion || isAdvancing ? undefined : { scale: 0.985 }}
                       >
-                        {option.id}
-                      </span>
+                        <div className="absolute inset-0 bg-[linear-gradient(135deg,var(--quiz-accent-warm-fill)_0%,transparent_68%)] opacity-0 transition duration-300 group-hover:opacity-100" />
+                        <span
+                          className={`relative flex h-11 w-11 shrink-0 items-center justify-center rounded-full border text-sm font-semibold transition duration-300 ${
+                            isSelected
+                              ? "border-[color:var(--quiz-border-strong)] bg-[color:var(--quiz-accent)] text-slate-950"
+                              : "border-[color:var(--quiz-border-soft)] bg-[color:var(--quiz-panel-strong)] text-[color:var(--quiz-accent-soft)]"
+                          }`}
+                        >
+                          {option.id}
+                        </span>
 
-                      <div className="relative min-w-0 flex-1">
-                        <p className="text-base font-semibold leading-7 text-[color:var(--quiz-text)] sm:text-lg">{option.text}</p>
-                        <p className="mt-2 text-xs leading-6 text-[color:var(--quiz-muted)]">
-                          {isSelected ? "答案已锁定，准备切换到下一题。" : `点击选择这个方向（选项 ${index + 1}）。`}
-                        </p>
-                      </div>
+                        <div className="relative min-w-0 flex-1">
+                          <div className="flex flex-wrap items-center gap-3">
+                            <p className="text-base font-semibold leading-7 text-[color:var(--quiz-text)] sm:text-lg">
+                              {option.text}
+                            </p>
+                            <span className="detail-label text-[10px] text-[color:var(--quiz-muted)]">选项 {index + 1}</span>
+                          </div>
+                          <p className="mt-2 text-xs leading-6 text-[color:var(--quiz-muted)]">
+                            {isSelected ? "答案已锁定，下一段轨道正在靠近。" : "点击后立即写入当前设备，并切往下一题。"}
+                          </p>
+                        </div>
 
-                      <span
-                        className={`relative rounded-full border px-3 py-1 text-xs transition duration-300 ${
-                          isSelected
-                            ? "border-[color:var(--quiz-border-strong)] bg-[color:var(--quiz-accent-soft-fill)] text-[color:var(--quiz-text)]"
-                            : "border-[color:var(--quiz-border-soft)] text-[color:var(--quiz-muted)]"
-                        }`}
-                      >
-                        {isSelected ? "已选择" : "待选择"}
-                      </span>
-                    </motion.button>
-                  );
-                })}
+                        <span
+                          className={`relative rounded-full border px-3 py-1 text-xs transition duration-300 ${
+                            isSelected
+                              ? "border-[color:var(--quiz-border-strong)] bg-[color:var(--quiz-accent-soft-fill)] text-[color:var(--quiz-text)]"
+                              : "border-[color:var(--quiz-border-soft)] text-[color:var(--quiz-muted)]"
+                          }`}
+                        >
+                          {isSelected ? "已选择" : "待选择"}
+                        </span>
+                      </motion.button>
+                    );
+                  })}
+                </div>
+
+                <div className="rounded-[calc(var(--quiz-radius-panel)-0.45rem)] border border-dashed border-[color:var(--quiz-border-soft)] bg-[rgba(240,232,215,0.03)] px-4 py-3 text-sm leading-7 text-[color:var(--quiz-muted)]">
+                  当前进度会保存在这台设备里，所以你只需要顺着眼前这一题继续往前走。
+                </div>
               </div>
 
-              <div className="rounded-[calc(var(--quiz-radius-panel)-0.5rem)] border border-dashed border-[color:var(--quiz-border-soft)] bg-black/10 px-4 py-3 text-sm leading-7 text-[color:var(--quiz-muted)]">
-                题目与选项全部来自配置，当前进度会在同一浏览器中自动续接到下一题。
-              </div>
+              <aside className="atlas-panel rounded-[calc(var(--quiz-radius-panel)-0.15rem)] p-4 sm:p-5 lg:h-fit">
+                <div className="relative z-10 space-y-4">
+                  <p className="detail-label text-[11px] text-[color:var(--quiz-accent-cool)]">页边批注</p>
+                  <div className="space-y-3">
+                    <h4 className="editorial-title text-2xl leading-tight text-[color:var(--quiz-text)]">
+                      这一题只记录当下，不要求你回头校正。
+                    </h4>
+                      <p className="text-sm leading-7 text-[color:var(--quiz-muted)]">
+                        这里只记录你当下的判断：单次选择、即时保存、顺滑前进，不需要回头重新整理整段节奏。
+                      </p>
+                  </div>
+
+                  <div className="grid gap-3">
+                    <div className="rounded-[1rem] border border-[color:var(--quiz-border-soft)] px-4 py-3">
+                      <p className="text-xs uppercase tracking-[0.24em] text-[color:var(--quiz-muted)]">当前题号</p>
+                      <p className="mt-2 text-sm font-semibold text-[color:var(--quiz-text)]">{currentQuestion.id}</p>
+                    </div>
+                    <div className="rounded-[1rem] border border-[color:var(--quiz-border-soft)] px-4 py-3">
+                      <p className="text-xs uppercase tracking-[0.24em] text-[color:var(--quiz-muted)]">记录状态</p>
+                      <p className="mt-2 text-sm font-semibold text-[color:var(--quiz-text)]">
+                        {isAdvancing ? "写入中" : "等待选择"}
+                      </p>
+                    </div>
+                    <div className="rounded-[1rem] border border-[color:var(--quiz-border-soft)] px-4 py-3">
+                      <p className="text-xs uppercase tracking-[0.24em] text-[color:var(--quiz-muted)]">作答方式</p>
+                      <p className="mt-2 text-sm font-semibold text-[color:var(--quiz-text)]">单题单页</p>
+                    </div>
+                  </div>
+                </div>
+              </aside>
             </div>
           </motion.article>
         </AnimatePresence>
