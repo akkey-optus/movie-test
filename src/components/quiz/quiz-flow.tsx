@@ -3,6 +3,7 @@
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { useEffect, useMemo, useRef, useState } from "react";
 
+import type { QuizExperienceTheme } from "@/src/components/quiz/quiz-theme";
 import type { QuizDefinition } from "@/src/lib/config";
 import { applyQuizAnswer, createQuizFlowProgress, type QuizFlowProgress } from "@/src/lib/quiz-flow-state";
 import type { QuizAnswers } from "@/src/lib/quiz-engine";
@@ -15,6 +16,7 @@ type CompletedAttempt = QuizAttemptRecord & {
 
 type QuizFlowProps = {
   quiz: QuizDefinition;
+  theme: QuizExperienceTheme;
   slug: string;
   token: string | null;
   expireAt: number | null;
@@ -39,6 +41,7 @@ function getProgressRatio(progress: QuizFlowProgress) {
 
 export function QuizFlow({
   quiz,
+  theme,
   slug,
   token,
   expireAt,
@@ -169,16 +172,14 @@ export function QuizFlow({
         <div className="relative z-10 flex flex-wrap items-end justify-between gap-4">
           <div className="space-y-3">
             <p className="detail-label text-[11px] text-[color:var(--quiz-accent)]">
-              {isResume ? "已恢复航线" : "当前航线"}
+              {isResume ? theme.flow.resumePanelLabel : theme.flow.panelLabel}
             </p>
             <div>
               <h2 className="editorial-title text-3xl leading-tight text-[color:var(--quiz-text)] sm:text-[2.4rem]">
                 第 {progress.activeQuestionIndex + 1} 题
               </h2>
               <p className="mt-2 max-w-2xl text-sm leading-7 text-[color:var(--quiz-muted)] sm:text-base">
-                {isResume && progress.answeredCount > 0
-                  ? "已从上次停下的位置继续。答案会实时写入当前浏览器，所以回到这条链接时能直接恢复同一段进度。"
-                  : "每次选择都会立即记录，并在短暂停顿后将下一张题卡平稳推到眼前，保持一题一屏的节奏。"}
+                {isResume && progress.answeredCount > 0 ? theme.flow.resumePanelDescription : theme.flow.panelDescription}
               </p>
             </div>
           </div>
@@ -190,8 +191,8 @@ export function QuizFlow({
 
         <div className="relative z-10 mt-6 space-y-3">
           <div className="flex items-center justify-between gap-3 text-xs uppercase tracking-[var(--quiz-caps-tracking)] text-[color:var(--quiz-muted)]">
-            <span>轨道进度</span>
-            <span>已记录 {progress.answeredCount} 题</span>
+            <span>{theme.flow.progressLabel}</span>
+            <span>{theme.flow.progressSavedLabel} {progress.answeredCount} 题</span>
           </div>
 
           <div className="overflow-hidden rounded-full border border-[color:var(--quiz-border-soft)] bg-[rgba(240,232,215,0.05)] p-1">
@@ -244,10 +245,10 @@ export function QuizFlow({
               <div className="space-y-6">
                 <div className="flex flex-wrap items-center justify-between gap-3">
                   <span className="rounded-full border border-[color:var(--quiz-border-soft)] bg-[color:var(--quiz-surface-strong)] px-3 py-1 text-xs uppercase tracking-[var(--quiz-caps-tracking)] text-[color:var(--quiz-accent-soft)]">
-                    {quiz.theme} · 当前航段
+                    {quiz.theme} · {theme.flow.stageLabel}
                   </span>
                   <span className="text-xs uppercase tracking-[var(--quiz-caps-tracking)] text-[color:var(--quiz-muted)]">
-                    {isAdvancing ? "星图正在记录这次选择" : "选择后自动切到下一题"}
+                    {isAdvancing ? theme.flow.advancePendingLabel : theme.flow.advanceIdleLabel}
                   </span>
                 </div>
 
@@ -257,7 +258,7 @@ export function QuizFlow({
                     {currentQuestion.text}
                   </h3>
                   <p className="max-w-2xl text-sm leading-7 text-[color:var(--quiz-muted)] sm:text-base">
-                    把注意力停在眼前这一题就好。页面不会回退成整屏列表，而是沿着你的选择继续向前推进。
+                    {theme.flow.questionDescription}
                   </p>
                 </div>
 
@@ -301,7 +302,7 @@ export function QuizFlow({
                             <span className="detail-label text-[10px] text-[color:var(--quiz-muted)]">选项 {index + 1}</span>
                           </div>
                           <p className="mt-2 text-xs leading-6 text-[color:var(--quiz-muted)]">
-                            {isSelected ? "答案已锁定，下一段轨道正在靠近。" : "点击后立即写入当前设备，并切往下一题。"}
+                            {isSelected ? theme.flow.selectedHint : theme.flow.idleHint}
                           </p>
                         </div>
 
@@ -320,20 +321,18 @@ export function QuizFlow({
                 </div>
 
                 <div className="rounded-[calc(var(--quiz-radius-panel)-0.45rem)] border border-dashed border-[color:var(--quiz-border-soft)] bg-[rgba(240,232,215,0.03)] px-4 py-3 text-sm leading-7 text-[color:var(--quiz-muted)]">
-                  当前进度会保存在这台设备里，所以你只需要顺着眼前这一题继续往前走。
+                  {theme.flow.storageNote}
                 </div>
               </div>
 
               <aside className="atlas-panel rounded-[calc(var(--quiz-radius-panel)-0.15rem)] p-4 sm:p-5 lg:h-fit">
                 <div className="relative z-10 space-y-4">
-                  <p className="detail-label text-[11px] text-[color:var(--quiz-accent-cool)]">页边批注</p>
+                  <p className="detail-label text-[11px] text-[color:var(--quiz-accent-cool)]">{theme.flow.asideLabel}</p>
                   <div className="space-y-3">
                     <h4 className="editorial-title text-2xl leading-tight text-[color:var(--quiz-text)]">
-                      这一题只记录当下，不要求你回头校正。
+                      {theme.flow.asideTitle}
                     </h4>
-                      <p className="text-sm leading-7 text-[color:var(--quiz-muted)]">
-                        这里只记录你当下的判断：单次选择、即时保存、顺滑前进，不需要回头重新整理整段节奏。
-                      </p>
+                    <p className="text-sm leading-7 text-[color:var(--quiz-muted)]">{theme.flow.asideDescription}</p>
                   </div>
 
                   <div className="grid gap-3">
@@ -349,7 +348,7 @@ export function QuizFlow({
                     </div>
                     <div className="rounded-[1rem] border border-[color:var(--quiz-border-soft)] px-4 py-3">
                       <p className="text-xs uppercase tracking-[0.24em] text-[color:var(--quiz-muted)]">作答方式</p>
-                      <p className="mt-2 text-sm font-semibold text-[color:var(--quiz-text)]">单题单页</p>
+                      <p className="mt-2 text-sm font-semibold text-[color:var(--quiz-text)]">{theme.flow.modeValue}</p>
                     </div>
                   </div>
                 </div>

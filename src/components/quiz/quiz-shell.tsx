@@ -7,6 +7,7 @@ import { useEffect, useMemo, useState, type ReactNode } from "react";
 import { QuizBackground } from "@/src/components/quiz/quiz-background";
 import { QuizFlow } from "@/src/components/quiz/quiz-flow";
 import { QuizResultScreen } from "@/src/components/quiz/quiz-result-screen";
+import { getQuizExperienceTheme, type QuizThemeId } from "@/src/components/quiz/quiz-theme";
 import type { QuizDefinition } from "@/src/lib/config";
 import type { QuizAnswers } from "@/src/lib/quiz-engine";
 import type { QuizFlowProgress } from "@/src/lib/quiz-flow-state";
@@ -37,6 +38,7 @@ type ShellState = QuizRouteState | UnknownSlugShellState;
 const actionClassName =
   "inline-flex min-h-12 items-center justify-center rounded-full border px-5 py-3 text-sm font-semibold tracking-[0.08em] transition duration-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[color:var(--quiz-accent)]";
 const EMPTY_INITIAL_ANSWERS: QuizAnswers = {};
+const QUIZ_PORTAL_PATH = "/hub";
 
 function formatExpireAt(expireAt: number | null) {
   if (expireAt === null) {
@@ -133,6 +135,58 @@ function ShellCard({ children }: { children: ReactNode }) {
   );
 }
 
+function ShellMotif({ themeId, title }: { themeId: QuizThemeId; title: string }) {
+  if (themeId === "movie") {
+    return (
+      <svg aria-hidden className="h-auto w-full text-[color:var(--quiz-accent)]" viewBox="0 0 220 180">
+        <title>{title}</title>
+        <rect x="28" y="26" width="164" height="128" rx="24" fill="none" opacity="0.28" stroke="currentColor" strokeWidth="1.2" />
+        <rect x="44" y="42" width="132" height="96" rx="16" fill="none" opacity="0.2" stroke="currentColor" strokeWidth="1.2" />
+        <path d="M54 62H166M54 118H166" opacity="0.34" stroke="currentColor" strokeWidth="1.3" />
+        <path d="M74 48V132M146 48V132" opacity="0.22" stroke="currentColor" strokeDasharray="4 8" strokeWidth="1.1" />
+        <path d="M62 98C86 78 112 72 132 82C148 90 160 110 178 112" fill="none" opacity="0.46" stroke="currentColor" strokeWidth="1.4" />
+        <circle cx="62" cy="98" fill="currentColor" r="2.5" />
+        <circle cx="108" cy="80" fill="currentColor" r="2.5" />
+        <circle cx="142" cy="90" fill="currentColor" r="2.5" />
+        <circle cx="178" cy="112" fill="currentColor" r="2.5" />
+      </svg>
+    );
+  }
+
+  if (themeId === "fairy") {
+    return (
+      <svg aria-hidden className="h-auto w-full text-[color:var(--quiz-accent)]" viewBox="0 0 220 180">
+        <title>{title}</title>
+        <circle cx="110" cy="90" fill="none" opacity="0.3" r="60" stroke="currentColor" strokeWidth="1.2" />
+        <circle cx="110" cy="90" fill="none" opacity="0.16" r="34" stroke="currentColor" strokeWidth="1.2" />
+        <path d="M42 112C62 88 84 82 104 88C126 96 142 118 178 112" fill="none" opacity="0.42" stroke="currentColor" strokeWidth="1.4" />
+        <path d="M48 74C68 56 92 54 110 60C126 66 142 82 172 74" fill="none" opacity="0.28" stroke="currentColor" strokeWidth="1.4" />
+        <path d="M110 26V154" opacity="0.2" stroke="currentColor" strokeDasharray="4 8" strokeWidth="1.1" />
+        <circle cx="68" cy="66" fill="currentColor" r="2.4" />
+        <circle cx="110" cy="58" fill="currentColor" r="2.4" />
+        <circle cx="154" cy="70" fill="currentColor" r="2.4" />
+        <circle cx="86" cy="116" fill="currentColor" r="2.4" />
+        <circle cx="142" cy="116" fill="currentColor" r="2.4" />
+      </svg>
+    );
+  }
+
+  return (
+    <svg aria-hidden className="h-auto w-full text-[color:var(--quiz-accent)]" viewBox="0 0 220 180">
+      <title>{title}</title>
+      <circle cx="110" cy="90" fill="none" opacity="0.36" r="62" stroke="currentColor" strokeWidth="1.2" />
+      <circle cx="110" cy="90" fill="none" opacity="0.16" r="38" stroke="currentColor" strokeWidth="1.2" />
+      <path d="M38 94L76 70L116 98L160 58L188 84" fill="none" opacity="0.45" stroke="currentColor" strokeWidth="1.4" />
+      <path d="M110 24V156M36 90H184" opacity="0.22" stroke="currentColor" strokeDasharray="4 8" strokeWidth="1.1" />
+      <circle cx="38" cy="94" fill="currentColor" r="2.5" />
+      <circle cx="76" cy="70" fill="currentColor" r="2.5" />
+      <circle cx="116" cy="98" fill="currentColor" r="2.5" />
+      <circle cx="160" cy="58" fill="currentColor" r="2.5" />
+      <circle cx="188" cy="84" fill="currentColor" r="2.5" />
+    </svg>
+  );
+}
+
 function ShellPrimaryButton({
   children,
   disabled = false,
@@ -176,6 +230,7 @@ function ShellLink({ children, href, secondary = false }: { children: ReactNode;
 
 export function QuizShell({ availableSlugs, disclaimer, expireAt, quiz, slug, tieBreaker, token }: QuizShellProps) {
   const prefersReducedMotion = useReducedMotion();
+  const quizTheme = useMemo(() => getQuizExperienceTheme(quiz, slug), [quiz, slug]);
   const initialShellState = useMemo(() => buildShellState(quiz, slug, token, expireAt), [quiz, slug, token, expireAt]);
   const [clientShellState, setClientShellState] = useState<ShellState | null>(null);
   const [isFlowActive, setIsFlowActive] = useState(false);
@@ -198,6 +253,21 @@ export function QuizShell({ availableSlugs, disclaimer, expireAt, quiz, slug, ti
     setClientShellState(resolvedRouteState);
     setSummaryRevealState(resolvedRouteState.kind === "summary" ? "result" : "gate");
   }, [expireAt, quiz, slug, token]);
+
+  useEffect(() => {
+    document.documentElement.dataset.quizTheme = quizTheme.id;
+    document.body.dataset.quizTheme = quizTheme.id;
+
+    return () => {
+      if (document.documentElement.dataset.quizTheme === quizTheme.id) {
+        delete document.documentElement.dataset.quizTheme;
+      }
+
+      if (document.body.dataset.quizTheme === quizTheme.id) {
+        delete document.body.dataset.quizTheme;
+      }
+    };
+  }, [quizTheme.id]);
 
   const shellState = clientShellState ?? initialShellState;
   const contentInitial = prefersReducedMotion ? false : { opacity: 0, y: 18 };
@@ -275,8 +345,11 @@ export function QuizShell({ availableSlugs, disclaimer, expireAt, quiz, slug, ti
       ];
 
   return (
-    <main className="relative isolate min-h-screen overflow-hidden bg-[linear-gradient(180deg,var(--quiz-bg-deep)_0%,var(--quiz-bg-mid)_56%,var(--quiz-bg-soft)_100%)] text-[color:var(--quiz-text)]">
-      <QuizBackground />
+    <main
+      className="quiz-theme-root relative isolate min-h-screen overflow-hidden bg-[linear-gradient(180deg,var(--quiz-bg-deep)_0%,var(--quiz-bg-mid)_56%,var(--quiz-bg-soft)_100%)] text-[color:var(--quiz-text)]"
+      data-quiz-theme={quizTheme.id}
+    >
+      <QuizBackground themeId={quizTheme.id} />
 
       <div className="relative mx-auto flex min-h-screen w-full max-w-[var(--quiz-shell-max)] items-center px-3 py-3 sm:px-6 sm:py-6 lg:px-8 lg:py-8">
         <div className="atlas-shell relative w-full rounded-[var(--quiz-radius-shell)]">
@@ -284,19 +357,19 @@ export function QuizShell({ availableSlugs, disclaimer, expireAt, quiz, slug, ti
             <div className="flex min-w-0 flex-col gap-6 sm:gap-8">
               <header className="flex flex-col gap-4 border-b border-[color:var(--quiz-border-soft)]/90 pb-5 sm:flex-row sm:items-end sm:justify-between">
                 <div className="space-y-3">
-                  <ShellEyebrow>星图手记</ShellEyebrow>
+                  <ShellEyebrow>{quizTheme.routeLabel}</ShellEyebrow>
                   <div className="space-y-2">
                     <h1 className="editorial-title text-3xl leading-tight text-[color:var(--quiz-text)] sm:text-[2.7rem]">
-                      同一套星图里的一段问答航线。
+                      {quizTheme.shellTitle}
                     </h1>
                     <p className="max-w-2xl text-sm leading-7 text-[color:var(--quiz-muted)] sm:text-base">
-                      这一页会沿着同一张星图继续展开：层次更稳定，状态更清楚，从进入、作答到揭晓都保持连贯的节奏。
+                      {quizTheme.shellDescription}
                     </p>
                   </div>
                 </div>
 
-                <ShellLink href="/" secondary>
-                  返回首页
+                <ShellLink href={QUIZ_PORTAL_PATH} secondary>
+                  返回旅程总览
                 </ShellLink>
               </header>
 
@@ -341,9 +414,9 @@ export function QuizShell({ availableSlugs, disclaimer, expireAt, quiz, slug, ti
                       </ShellCard>
 
                       <div className="flex flex-wrap gap-3">
-                        <ShellLink href={availableSlugs[0] ? `/quiz/${availableSlugs[0]}` : "/"}>打开可用旅程</ShellLink>
-                        <ShellLink href="/" secondary>
-                          返回首页
+                        <ShellLink href={availableSlugs[0] ? `/quiz/${availableSlugs[0]}` : QUIZ_PORTAL_PATH}>打开可用旅程</ShellLink>
+                        <ShellLink href={QUIZ_PORTAL_PATH} secondary>
+                          返回旅程总览
                         </ShellLink>
                       </div>
                     </>
@@ -376,9 +449,9 @@ export function QuizShell({ availableSlugs, disclaimer, expireAt, quiz, slug, ti
                       </ShellCard>
 
                       <div className="flex flex-wrap gap-3">
-                        <ShellLink href={quiz ? `/quiz/${quiz.slug}` : "/"}>回到可用入口</ShellLink>
-                        <ShellLink href="/" secondary>
-                          返回首页
+                        <ShellLink href={quiz ? `/quiz/${quiz.slug}` : QUIZ_PORTAL_PATH}>回到可用入口</ShellLink>
+                        <ShellLink href={QUIZ_PORTAL_PATH} secondary>
+                          返回旅程总览
                         </ShellLink>
                       </div>
                     </>
@@ -407,16 +480,16 @@ export function QuizShell({ availableSlugs, disclaimer, expireAt, quiz, slug, ti
                       </ShellCard>
 
                       <div className="flex flex-wrap gap-3">
-                        <ShellLink href={quiz ? `/quiz/${quiz.slug}` : "/"}>刷新可用环境后重试</ShellLink>
-                        <ShellLink href="/" secondary>
-                          返回首页
+                        <ShellLink href={quiz ? `/quiz/${quiz.slug}` : QUIZ_PORTAL_PATH}>刷新可用环境后重试</ShellLink>
+                        <ShellLink href={QUIZ_PORTAL_PATH} secondary>
+                          返回旅程总览
                         </ShellLink>
                       </div>
                     </>
                   ) : shellState.kind === "summary" ? (
                     <>
                       <div className="space-y-4">
-                        <ShellEyebrow>已保存终点</ShellEyebrow>
+                        <ShellEyebrow>{quizTheme.result.summaryLabel}</ShellEyebrow>
                         <h2 className="editorial-title max-w-[12ch] text-4xl leading-none text-[color:var(--quiz-text)] sm:text-5xl lg:text-6xl">
                           你的最终落点已经被这一台设备记住了。
                         </h2>
@@ -429,11 +502,12 @@ export function QuizShell({ availableSlugs, disclaimer, expireAt, quiz, slug, ti
                         attempt={shellState.attempt}
                         onReveal={() => setSummaryRevealState("result")}
                         revealState={summaryRevealState}
+                        theme={quizTheme}
                       />
 
                       <div className="flex flex-wrap gap-3">
-                        <ShellLink href="/" secondary>
-                          返回首页
+                        <ShellLink href={QUIZ_PORTAL_PATH} secondary>
+                          返回旅程总览
                         </ShellLink>
                       </div>
                     </>
@@ -466,13 +540,14 @@ export function QuizShell({ availableSlugs, disclaimer, expireAt, quiz, slug, ti
                         onStorageUnavailable={handleFlowStorageUnavailable}
                         quiz={quiz!}
                         slug={slug}
+                        theme={quizTheme}
                         tieBreaker={tieBreaker}
                         token={shellState.token}
                       />
 
                       <div className="flex flex-wrap gap-3">
-                        <ShellLink href="/" secondary>
-                          返回首页
+                        <ShellLink href={QUIZ_PORTAL_PATH} secondary>
+                          返回旅程总览
                         </ShellLink>
                       </div>
                     </>
@@ -481,7 +556,7 @@ export function QuizShell({ availableSlugs, disclaimer, expireAt, quiz, slug, ti
                       {!isFlowActive ? (
                         <>
                           <div className="space-y-4">
-                            <ShellEyebrow>{quiz?.theme ?? "问答"} 旅程</ShellEyebrow>
+                            <ShellEyebrow>{quiz?.theme ?? "问答"} · {quizTheme.routeLabel}</ShellEyebrow>
                             <h2 className="editorial-title max-w-[12ch] text-4xl leading-none text-[color:var(--quiz-text)] sm:text-5xl lg:text-6xl">
                               {quiz?.title}
                             </h2>
@@ -497,24 +572,18 @@ export function QuizShell({ availableSlugs, disclaimer, expireAt, quiz, slug, ti
 
                           <ShellCard>
                             <div className="grid gap-4 sm:grid-cols-3">
-                              <div>
-                                <p className="detail-label text-[11px] text-[color:var(--quiz-accent)]">01 校准航向</p>
-                                <p className="mt-3 text-sm leading-7 text-[color:var(--quiz-muted)]">
-                                  先看清这次旅程的主题，再让眼前的第一道题慢慢亮起来。
-                                </p>
-                              </div>
-                              <div>
-                                <p className="detail-label text-[11px] text-[color:var(--quiz-accent-soft)]">02 跟着直觉作答</p>
-                                <p className="mt-3 text-sm leading-7 text-[color:var(--quiz-muted)]">
-                                  每次选择都会立即记下，并用轻量过渡把你送往下一段轨道。
-                                </p>
-                              </div>
-                              <div>
-                                <p className="detail-label text-[11px] text-[color:var(--quiz-accent)]">03 揭晓归属</p>
-                                <p className="mt-3 text-sm leading-7 text-[color:var(--quiz-muted)]">
-                                  答完整段旅程后，结果会先停在星图表面，再由你亲手揭开。
-                                </p>
-                              </div>
+                              {quizTheme.introSteps.map((step, index) => (
+                                <div key={step.label}>
+                                  <p
+                                    className={`detail-label text-[11px] ${
+                                      index === 1 ? "text-[color:var(--quiz-accent-soft)]" : "text-[color:var(--quiz-accent)]"
+                                    }`}
+                                  >
+                                    {step.label}
+                                  </p>
+                                  <p className="mt-3 text-sm leading-7 text-[color:var(--quiz-muted)]">{step.description}</p>
+                                </div>
+                              ))}
                             </div>
                           </ShellCard>
 
@@ -522,20 +591,20 @@ export function QuizShell({ availableSlugs, disclaimer, expireAt, quiz, slug, ti
                             <ShellPrimaryButton disabled={false} onClick={() => setIsFlowActive(true)}>
                               开始旅程
                             </ShellPrimaryButton>
-                            <ShellLink href="/" secondary>
-                              返回首页
+                            <ShellLink href={QUIZ_PORTAL_PATH} secondary>
+                              返回旅程总览
                             </ShellLink>
                           </div>
                         </>
                       ) : (
                         <>
                           <div className="space-y-4">
-                            <ShellEyebrow>正在航行</ShellEyebrow>
+                            <ShellEyebrow>{quizTheme.activeLabel}</ShellEyebrow>
                             <h2 className="editorial-title max-w-[12ch] text-4xl leading-none text-[color:var(--quiz-text)] sm:text-5xl lg:text-6xl">
-                              现在开始，把直觉落到一题一题的轨道里。
+                              {quizTheme.activeTitle}
                             </h2>
                             <p className="max-w-2xl text-sm leading-7 text-[color:var(--quiz-muted)] sm:text-base">
-                              一次只看一题，让节奏干净地向前推进。你刚刚做出的选择，会悄悄把下一张题卡推到眼前。
+                              {quizTheme.activeDescription}
                             </p>
                           </div>
 
@@ -550,13 +619,14 @@ export function QuizShell({ availableSlugs, disclaimer, expireAt, quiz, slug, ti
                             onStorageUnavailable={handleFlowStorageUnavailable}
                             quiz={quiz!}
                             slug={slug}
+                            theme={quizTheme}
                             tieBreaker={tieBreaker}
                             token={shellState.token}
                           />
 
                           <div className="flex flex-wrap gap-3">
-                            <ShellLink href="/" secondary>
-                              返回首页
+                            <ShellLink href={QUIZ_PORTAL_PATH} secondary>
+                              返回旅程总览
                             </ShellLink>
                           </div>
                         </>
@@ -570,28 +640,17 @@ export function QuizShell({ availableSlugs, disclaimer, expireAt, quiz, slug, ti
             <aside className="atlas-panel flex min-w-0 flex-col gap-4 rounded-[var(--quiz-radius-panel)] p-4 sm:p-5">
               <div className="relative z-10 space-y-4">
                 <div className="space-y-3">
-                  <ShellEyebrow>航线侧记</ShellEyebrow>
+                  <ShellEyebrow>{quizTheme.asideLabel}</ShellEyebrow>
                   <h2 className="editorial-title text-3xl leading-tight text-[color:var(--quiz-text)]">
-                    一段为指尖和夜空准备好的问答旅程。
+                    {quizTheme.asideTitle}
                   </h2>
                   <p className="text-sm leading-7 text-[color:var(--quiz-muted)]">
-                    入口、问题流与结果摘要都保持同一条版式线索，让整个体验在手机和桌面上都能稳定推进。
+                    {quizTheme.asideDescription}
                   </p>
                 </div>
 
                 <div className="rounded-[1.2rem] border border-[color:var(--quiz-border-soft)] bg-[rgba(240,232,215,0.03)] p-4">
-                  <svg aria-hidden className="h-auto w-full text-[color:var(--quiz-accent)]" viewBox="0 0 220 180">
-                    <title>Route chart</title>
-                    <circle cx="110" cy="90" fill="none" opacity="0.36" r="62" stroke="currentColor" strokeWidth="1.2" />
-                    <circle cx="110" cy="90" fill="none" opacity="0.16" r="38" stroke="currentColor" strokeWidth="1.2" />
-                    <path d="M38 94L76 70L116 98L160 58L188 84" fill="none" opacity="0.45" stroke="currentColor" strokeWidth="1.4" />
-                    <path d="M110 24V156M36 90H184" opacity="0.22" stroke="currentColor" strokeDasharray="4 8" strokeWidth="1.1" />
-                    <circle cx="38" cy="94" fill="currentColor" r="2.5" />
-                    <circle cx="76" cy="70" fill="currentColor" r="2.5" />
-                    <circle cx="116" cy="98" fill="currentColor" r="2.5" />
-                    <circle cx="160" cy="58" fill="currentColor" r="2.5" />
-                    <circle cx="188" cy="84" fill="currentColor" r="2.5" />
-                  </svg>
+                  <ShellMotif themeId={quizTheme.id} title={quizTheme.figureLabel} />
                 </div>
 
                 <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-1">
@@ -602,9 +661,9 @@ export function QuizShell({ availableSlugs, disclaimer, expireAt, quiz, slug, ti
                 </div>
 
                 <ShellCard>
-                  <p className="detail-label text-[11px] text-[color:var(--quiz-accent)]">体验边界</p>
+                  <p className="detail-label text-[11px] text-[color:var(--quiz-accent)]">{quizTheme.boundaryLabel}</p>
                   <p className="mt-3 text-sm leading-7 text-[color:var(--quiz-muted)]">
-                    动效只循环 `transform` 与 `opacity`，背景使用低频率的星图漂移和光雾层，并在系统偏好降低动态效果时停止非必要循环。
+                    {quizTheme.boundaryDescription}
                   </p>
                 </ShellCard>
 

@@ -5,6 +5,7 @@ import { useCallback, useMemo, useRef, useState } from "react";
 import { useLongPress } from "react-use";
 import { toPng } from "html-to-image";
 
+import type { QuizExperienceTheme, QuizThemeId } from "@/src/components/quiz/quiz-theme";
 import type { QuizAttemptRecord } from "@/src/lib/storage";
 
 type CompletedAttempt = QuizAttemptRecord & {
@@ -16,6 +17,7 @@ type QuizResultScreenProps = {
   attempt: CompletedAttempt;
   revealState: "gate" | "result";
   onReveal: () => void;
+  theme: QuizExperienceTheme;
 };
 
 const HOLD_DURATION_MS = 900;
@@ -36,7 +38,42 @@ function formatTimestamp(value: string) {
   }).format(new Date(value));
 }
 
-export function QuizResultScreen({ attempt, revealState, onReveal }: QuizResultScreenProps) {
+function ResultArtworkGlyph({ themeId }: { themeId: QuizThemeId }) {
+  if (themeId === "movie") {
+    return (
+      <svg aria-hidden="true" className="h-28 w-24 text-[color:var(--quiz-accent)]" focusable="false" viewBox="0 0 96 128">
+        <rect x="10" y="10" width="76" height="108" rx="18" fill="none" opacity="0.26" stroke="currentColor" strokeWidth="1.6" />
+        <rect x="20" y="22" width="56" height="84" rx="12" fill="none" opacity="0.2" stroke="currentColor" strokeWidth="1.4" />
+        <path d="M28 40H68M28 82H68" opacity="0.36" stroke="currentColor" strokeWidth="1.4" />
+        <path d="M34 32V96M62 32V96" opacity="0.2" stroke="currentColor" strokeDasharray="4 7" strokeWidth="1.2" />
+        <path d="M26 70C36 58 48 54 58 58C66 62 72 72 78 74" fill="none" opacity="0.46" stroke="currentColor" strokeWidth="1.5" />
+      </svg>
+    );
+  }
+
+  if (themeId === "fairy") {
+    return (
+      <svg aria-hidden="true" className="h-28 w-24 text-[color:var(--quiz-accent)]" focusable="false" viewBox="0 0 96 128">
+        <path d="M18 26C28 18 40 16 48 18C58 20 66 28 78 26" fill="none" opacity="0.34" stroke="currentColor" strokeWidth="1.6" />
+        <path d="M16 72C28 56 40 52 50 58C60 64 68 80 80 82" fill="none" opacity="0.42" stroke="currentColor" strokeWidth="1.6" />
+        <circle cx="48" cy="54" fill="none" opacity="0.24" r="22" stroke="currentColor" strokeWidth="1.5" />
+        <circle cx="48" cy="54" fill="none" opacity="0.14" r="12" stroke="currentColor" strokeWidth="1.3" />
+        <path d="M48 18V108" opacity="0.2" stroke="currentColor" strokeDasharray="4 8" strokeWidth="1.2" />
+      </svg>
+    );
+  }
+
+  return (
+    <svg aria-hidden="true" className="h-28 w-24 text-[color:var(--quiz-accent)]" focusable="false" viewBox="0 0 96 128">
+      <circle cx="48" cy="52" fill="none" opacity="0.28" r="28" stroke="currentColor" strokeWidth="1.6" />
+      <circle cx="48" cy="52" fill="none" opacity="0.16" r="16" stroke="currentColor" strokeWidth="1.4" />
+      <path d="M24 58L38 46L50 62L66 38L78 50" fill="none" opacity="0.46" stroke="currentColor" strokeWidth="1.6" />
+      <path d="M48 16V108" opacity="0.22" stroke="currentColor" strokeDasharray="4 8" strokeWidth="1.2" />
+    </svg>
+  );
+}
+
+export function QuizResultScreen({ attempt, revealState, onReveal, theme }: QuizResultScreenProps) {
   const prefersReducedMotion = useReducedMotion();
   const didTriggerHoldRef = useRef(false);
   const [hintState, setHintState] = useState<"idle" | "holding" | "tap">("idle");
@@ -111,10 +148,10 @@ export function QuizResultScreen({ attempt, revealState, onReveal }: QuizResultS
 
   const hintCopy =
     hintState === "holding"
-      ? "继续按住，结果正在从夜幕里慢慢显形。"
+      ? theme.result.holdHintHolding
       : hintState === "tap"
-        ? "轻点不会直接展开结果，请按住满 0.9 秒。"
-        : "结果已经准备好，按住 0.9 秒让它从星图里浮现。";
+        ? theme.result.holdHintTap
+        : theme.result.holdHintIdle;
   const itemTransition = prefersReducedMotion ? { duration: 0 } : { duration: 0.46, ease: "easeOut" as const };
   const itemVariants = {
     hidden: prefersReducedMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 18 },
@@ -177,12 +214,12 @@ export function QuizResultScreen({ attempt, revealState, onReveal }: QuizResultS
         >
           <div className="relative z-10 space-y-5">
             <div className="space-y-3">
-              <p className="detail-label text-[11px] text-[color:var(--quiz-accent)]">按住揭晓</p>
+              <p className="detail-label text-[11px] text-[color:var(--quiz-accent)]">{theme.result.gateLabel}</p>
               <h2 className="editorial-title max-w-[13ch] text-4xl leading-tight text-[color:var(--quiz-text)] sm:text-[3rem]">
-                最后一道讯号已经归位，现在按住让结果慢慢浮现。
+                {theme.result.gateTitle}
               </h2>
               <p className="max-w-2xl text-sm leading-7 text-[color:var(--quiz-muted)] sm:text-base">
-                轻点只会给出提示，不会直接展开结果。完成记录一旦写入本地，再次回到同一链接时会直接进入摘要页。
+                {theme.result.gateDescription}
               </p>
             </div>
 
@@ -257,13 +294,13 @@ export function QuizResultScreen({ attempt, revealState, onReveal }: QuizResultS
                   </svg>
 
                   <div className="relative flex flex-col items-center gap-1 text-center">
-                      <span className="detail-label text-[10px] text-[color:var(--quiz-accent-soft)]">
-                        {isPressing ? "正在揭晓" : "按住"}
-                      </span>
-                    <span className="editorial-title text-3xl leading-none text-[color:var(--quiz-text)]">
-                      {isPressing ? "继续" : "按住"}
+                    <span className="detail-label text-[10px] text-[color:var(--quiz-accent-soft)]">
+                      {isPressing ? theme.result.revealHoldingLabel : theme.result.revealIdleLabel}
                     </span>
-                    <span className="text-xs text-[color:var(--quiz-muted)]">0.9s 揭晓</span>
+                    <span className="editorial-title text-3xl leading-none text-[color:var(--quiz-text)]">
+                      {isPressing ? theme.result.revealHoldingAction : theme.result.revealIdleAction}
+                    </span>
+                    <span className="text-xs text-[color:var(--quiz-muted)]">{theme.result.revealDurationLabel}</span>
                   </div>
                 </motion.button>
               </div>
@@ -308,12 +345,12 @@ export function QuizResultScreen({ attempt, revealState, onReveal }: QuizResultS
           >
             <motion.div className="relative z-10 flex flex-wrap items-start justify-between gap-4" variants={itemVariants}>
               <div>
-                <p className="detail-label text-[11px] text-[color:var(--quiz-accent-soft)]">已保存落点</p>
+                <p className="detail-label text-[11px] text-[color:var(--quiz-accent-soft)]">{theme.result.summaryLabel}</p>
                 <h2 className="mt-3 editorial-title text-5xl leading-none text-[color:var(--quiz-text)] sm:text-6xl">
                   {attempt.summary.result.title}
                 </h2>
                 <p className="mt-3 text-lg font-semibold text-[color:var(--quiz-text)] sm:text-2xl">
-                  这一站落在 {attempt.summary.result.title}
+                  {theme.result.buildSummaryLead(attempt.summary.result.title)}
                 </p>
               </div>
 
@@ -322,12 +359,31 @@ export function QuizResultScreen({ attempt, revealState, onReveal }: QuizResultS
               </span>
             </motion.div>
 
-            <motion.p
-              className="relative z-10 max-w-3xl text-sm leading-7 text-[color:var(--quiz-muted)] sm:text-base"
-              variants={itemVariants}
-            >
-              {attempt.summary.result.description}
-            </motion.p>
+            <motion.div className="relative z-10 grid gap-5 lg:grid-cols-[minmax(0,1fr)_18rem] lg:items-stretch" variants={itemVariants}>
+              <motion.p
+                className="max-w-3xl text-sm leading-7 text-[color:var(--quiz-muted)] sm:text-base"
+                variants={itemVariants}
+              >
+                {attempt.summary.result.description}
+              </motion.p>
+
+              <div className="quiz-artwork-slot">
+                <div className="quiz-artwork-slot__mesh" />
+                <div className="quiz-artwork-slot__glow" />
+                <div className="relative z-10 flex h-full min-h-[18rem] flex-col justify-between p-4 sm:p-5">
+                  <div className="space-y-3">
+                    <p className="detail-label text-[10px] text-[color:var(--quiz-accent)]">{theme.result.artworkEyebrow}</p>
+                    <h3 className="editorial-title text-2xl leading-tight text-[color:var(--quiz-text)]">{theme.result.artworkTitle}</h3>
+                    <p className="text-sm leading-6 text-[color:var(--quiz-muted)]">{theme.result.artworkDescription}</p>
+                  </div>
+
+                  <div className="flex items-end justify-between gap-3">
+                    <p className="max-w-[11rem] text-xs leading-5 text-[color:var(--quiz-muted)]">{theme.result.exportNote}</p>
+                    <ResultArtworkGlyph themeId={theme.id} />
+                  </div>
+                </div>
+              </div>
+            </motion.div>
 
             <motion.div className="relative z-10 flex flex-wrap gap-2" variants={itemVariants}>
               {attempt.summary.result.keywords.map((keyword) => (
