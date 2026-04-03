@@ -206,7 +206,8 @@ export function QuizResultScreen({ attempt, revealState, onReveal, theme }: Quiz
       {revealState === "gate" ? (
         <motion.section
           animate={{ opacity: 1, y: 0, scale: 1 }}
-          className="atlas-panel grid rounded-[var(--quiz-radius-panel)] p-5 shadow-[0_24px_72px_rgba(1,8,18,0.24)] sm:p-6"
+          className="quiz-result-gate grid rounded-[var(--quiz-radius-panel)] p-5 sm:p-6"
+          data-quiz-result-style={theme.visualFamily}
           exit={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: -16, scale: 0.985 }}
           initial={prefersReducedMotion ? false : { opacity: 0, y: 20, scale: 0.985 }}
           key="result-gate"
@@ -227,7 +228,7 @@ export function QuizResultScreen({ attempt, revealState, onReveal, theme }: Quiz
               <div className="flex justify-center lg:justify-start">
                 <motion.button
                   aria-label="按住揭晓你的结果"
-                  className="group relative flex h-[9rem] w-[9rem] cursor-pointer items-center justify-center rounded-full border border-[color:var(--quiz-border-strong)] bg-[radial-gradient(circle_at_30%_30%,var(--quiz-accent-warm-fill)_0%,rgba(7,18,31,0.96)_72%)] text-[color:var(--quiz-text)] shadow-[0_20px_48px_rgba(1,8,18,0.28)]"
+                  className="quiz-result-reveal group relative flex h-[9rem] w-[9rem] cursor-pointer items-center justify-center rounded-full border text-[color:var(--quiz-text)]"
                   data-testid="reveal-result-button"
                   onMouseDown={(event) => {
                     handlePressStart();
@@ -253,12 +254,12 @@ export function QuizResultScreen({ attempt, revealState, onReveal, theme }: Quiz
                   type="button"
                   whileHover={prefersReducedMotion ? undefined : { y: -2 }}
                   whileTap={prefersReducedMotion ? undefined : { scale: 0.985 }}
-                >
-                  <motion.div
-                    animate={isPressing ? { opacity: 0.95, scale: 1.05 } : { opacity: 0.55, scale: 1 }}
-                    className="absolute inset-4 rounded-full bg-[radial-gradient(circle,var(--quiz-glow-primary)_0%,transparent_74%)]"
-                    transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.22, ease: "easeOut" }}
-                  />
+                  >
+                    <motion.div
+                      animate={isPressing ? { opacity: 0.95, scale: 1.05 } : { opacity: 0.55, scale: 1 }}
+                      className="quiz-result-reveal__glow absolute inset-4 rounded-full"
+                      transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.22, ease: "easeOut" }}
+                    />
 
                   <svg aria-hidden className="absolute inset-0 h-full w-full -rotate-90" viewBox="0 0 120 120">
                     <title>Reveal progress</title>
@@ -305,7 +306,7 @@ export function QuizResultScreen({ attempt, revealState, onReveal, theme }: Quiz
                 </motion.button>
               </div>
 
-              <div className="rounded-[calc(var(--quiz-radius-panel)-0.2rem)] border border-[color:var(--quiz-border-soft)] bg-[rgba(240,232,215,0.03)] p-4">
+              <div className="quiz-result-hint rounded-[calc(var(--quiz-radius-panel)-0.2rem)] border p-4">
                 <p className="detail-label text-[11px] text-[color:var(--quiz-accent-soft)]">揭晓提示</p>
                 <AnimatePresence mode="wait">
                   <motion.p
@@ -329,7 +330,8 @@ export function QuizResultScreen({ attempt, revealState, onReveal, theme }: Quiz
       ) : (
         <motion.section
           animate={{ opacity: 1, y: 0, scale: 1 }}
-          className="space-y-4"
+          className="quiz-result-layout space-y-4"
+          data-quiz-result-style={theme.visualFamily}
           exit={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: -12 }}
           initial={prefersReducedMotion ? false : { opacity: 0, y: 22, scale: 0.985 }}
           key="result-card"
@@ -338,12 +340,12 @@ export function QuizResultScreen({ attempt, revealState, onReveal, theme }: Quiz
           <motion.div
             ref={exportCardRef}
             animate="visible"
-            className="atlas-panel grid max-w-4xl gap-5 rounded-[var(--quiz-radius-panel)] p-5 shadow-[0_28px_80px_rgba(1,8,18,0.28)] sm:p-6"
+            className="quiz-result-card grid max-w-4xl gap-5 rounded-[var(--quiz-radius-panel)] p-5 sm:p-6"
             data-testid="quiz-result-card"
             initial="hidden"
             variants={sectionVariants}
           >
-            <motion.div className="relative z-10 flex flex-wrap items-start justify-between gap-4" variants={itemVariants}>
+            <motion.div className="quiz-result-heading relative z-10 flex flex-wrap items-start justify-between gap-4" variants={itemVariants}>
               <div>
                 <p className="detail-label text-[11px] text-[color:var(--quiz-accent-soft)]">{theme.result.summaryLabel}</p>
                 <h2 className="mt-3 editorial-title text-5xl leading-none text-[color:var(--quiz-text)] sm:text-6xl">
@@ -354,12 +356,12 @@ export function QuizResultScreen({ attempt, revealState, onReveal, theme }: Quiz
                 </p>
               </div>
 
-              <span className="rounded-full border border-[color:var(--quiz-border-soft)] bg-[color:var(--quiz-accent-soft-fill)] px-3 py-1 text-xs text-[color:var(--quiz-text)]">
+              <span className="quiz-result-saved rounded-full border px-3 py-1 text-xs text-[color:var(--quiz-text)]">
                 已保存 · {formatTimestamp(attempt.completedAt)}
               </span>
             </motion.div>
 
-            <motion.div className="relative z-10 grid gap-5 lg:grid-cols-[minmax(0,1fr)_18rem] lg:items-stretch" variants={itemVariants}>
+            <motion.div className="quiz-result-hero-grid relative z-10 grid gap-5" variants={itemVariants}>
               <motion.p
                 className="max-w-3xl text-sm leading-7 text-[color:var(--quiz-muted)] sm:text-base"
                 variants={itemVariants}
@@ -388,7 +390,7 @@ export function QuizResultScreen({ attempt, revealState, onReveal, theme }: Quiz
             <motion.div className="relative z-10 flex flex-wrap gap-2" variants={itemVariants}>
               {attempt.summary.result.keywords.map((keyword) => (
                 <motion.span
-                  className="rounded-full border border-[color:var(--quiz-border-soft)] bg-[color:var(--quiz-accent-soft-fill)] px-3 py-1 text-xs text-[color:var(--quiz-text)]"
+                  className="quiz-result-keyword rounded-full border px-3 py-1 text-xs text-[color:var(--quiz-text)]"
                   key={keyword}
                   variants={itemVariants}
                 >
@@ -398,10 +400,10 @@ export function QuizResultScreen({ attempt, revealState, onReveal, theme }: Quiz
             </motion.div>
 
             {detailCards.length > 0 ? (
-              <motion.div className="relative z-10 grid gap-3 lg:grid-cols-3" variants={itemVariants}>
+              <motion.div className="quiz-result-detail-grid relative z-10 grid gap-3 lg:grid-cols-3" variants={itemVariants}>
                 {detailCards.map((item) => (
                   <div
-                    className="rounded-[calc(var(--quiz-radius-panel)-0.35rem)] border border-[color:var(--quiz-border-soft)] bg-[rgba(240,232,215,0.03)] p-4"
+                    className="quiz-result-detail rounded-[calc(var(--quiz-radius-panel)-0.35rem)] border p-4"
                     key={item.label}
                   >
                     <p className="detail-label text-[10px] text-[color:var(--quiz-accent)]">{item.label}</p>
@@ -412,7 +414,7 @@ export function QuizResultScreen({ attempt, revealState, onReveal, theme }: Quiz
             ) : null}
 
             <motion.div
-              className="relative z-10 rounded-[calc(var(--quiz-radius-panel)-0.25rem)] border border-dashed border-[color:var(--quiz-border-soft)] bg-[rgba(240,232,215,0.03)] p-4"
+              className="quiz-result-closing relative z-10 rounded-[calc(var(--quiz-radius-panel)-0.25rem)] border p-4"
               variants={itemVariants}
             >
               <p className="detail-label text-[10px] text-[color:var(--quiz-accent)]">收束语</p>
@@ -424,7 +426,7 @@ export function QuizResultScreen({ attempt, revealState, onReveal, theme }: Quiz
 
           <motion.div className="flex flex-wrap gap-3" variants={itemVariants}>
             <motion.button
-              className="metal-button inline-flex min-h-12 cursor-pointer items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-semibold tracking-[0.08em] transition duration-300 hover:-translate-y-0.5 disabled:cursor-wait disabled:opacity-80"
+              className="quiz-export-button metal-button inline-flex min-h-12 cursor-pointer items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-semibold tracking-[0.08em] transition duration-300 hover:-translate-y-0.5 disabled:cursor-wait disabled:opacity-80"
               data-testid="export-image-button"
               disabled={isExporting}
               onClick={handleExportImage}

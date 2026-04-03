@@ -167,8 +167,8 @@ export function QuizFlow({
   }
 
   return (
-    <div className="space-y-5 sm:space-y-6">
-      <section className="atlas-panel rounded-[var(--quiz-radius-panel)] p-5 sm:p-6">
+    <div className="quiz-flow-layout space-y-5 sm:space-y-6" data-quiz-flow-style={theme.visualFamily}>
+      <section className="quiz-flow-progress rounded-[var(--quiz-radius-panel)] p-5 sm:p-6">
         <div className="relative z-10 flex flex-wrap items-end justify-between gap-4">
           <div className="space-y-3">
             <p className="detail-label text-[11px] text-[color:var(--quiz-accent)]">
@@ -184,12 +184,12 @@ export function QuizFlow({
             </div>
           </div>
 
-          <div className="rounded-full border border-[color:var(--quiz-border-strong)] bg-[color:var(--quiz-accent-warm-fill)] px-4 py-2 text-sm font-semibold text-[color:var(--quiz-text)] shadow-[0_10px_24px_rgba(0,0,0,0.14)]">
+          <div className="quiz-flow-counter rounded-full border px-4 py-2 text-sm font-semibold text-[color:var(--quiz-text)]">
             {progress.activeQuestionIndex + 1} / {progress.totalQuestions}
           </div>
         </div>
 
-        <div className="relative z-10 mt-6 space-y-3">
+        <div className="quiz-flow-meter relative z-10 mt-6 space-y-3">
           <div className="flex items-center justify-between gap-3 text-xs uppercase tracking-[var(--quiz-caps-tracking)] text-[color:var(--quiz-muted)]">
             <span>{theme.flow.progressLabel}</span>
             <span>{theme.flow.progressSavedLabel} {progress.answeredCount} 题</span>
@@ -232,27 +232,27 @@ export function QuizFlow({
         <AnimatePresence initial={false} mode="wait">
           <motion.article
             animate={{ opacity: 1, x: 0, scale: 1 }}
-            className="atlas-panel relative rounded-[var(--quiz-radius-panel)] p-5 shadow-[0_24px_72px_rgba(1,8,18,0.22)] sm:p-6"
+            className="quiz-flow-card relative rounded-[var(--quiz-radius-panel)] p-5 sm:p-6"
             exit={prefersReducedMotion ? { opacity: 1, x: 0 } : { opacity: 0, x: -28, scale: 0.985 }}
             initial={prefersReducedMotion ? false : { opacity: 0, x: 30, scale: 0.985 }}
             key={currentQuestion.id}
             transition={{ duration: transitionDuration, ease: "easeOut" }}
           >
-            <div className="absolute inset-x-0 top-0 h-px bg-[linear-gradient(90deg,transparent,var(--quiz-line-shine),transparent)]" />
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,var(--quiz-glow-primary)_0%,transparent_46%),radial-gradient(circle_at_bottom_left,var(--quiz-glow-secondary)_0%,transparent_42%)] opacity-80" />
+            <div className="quiz-flow-card__line absolute inset-x-0 top-0 h-px bg-[linear-gradient(90deg,transparent,var(--quiz-line-shine),transparent)]" />
+            <div className="quiz-flow-card__wash absolute inset-0 bg-[radial-gradient(circle_at_top_right,var(--quiz-glow-primary)_0%,transparent_46%),radial-gradient(circle_at_bottom_left,var(--quiz-glow-secondary)_0%,transparent_42%)] opacity-80" />
 
-            <div className="relative z-10 grid gap-6 lg:grid-cols-[minmax(0,1fr)_14rem]">
+            <div className="quiz-flow-card-grid relative z-10 grid gap-6">
               <div className="space-y-6">
-                <div className="flex flex-wrap items-center justify-between gap-3">
-                  <span className="rounded-full border border-[color:var(--quiz-border-soft)] bg-[color:var(--quiz-surface-strong)] px-3 py-1 text-xs uppercase tracking-[var(--quiz-caps-tracking)] text-[color:var(--quiz-accent-soft)]">
+                <div className="quiz-flow-meta flex flex-wrap items-center justify-between gap-3">
+                  <span className="quiz-flow-theme-chip rounded-full border px-3 py-1 text-xs uppercase tracking-[var(--quiz-caps-tracking)] text-[color:var(--quiz-accent-soft)]">
                     {quiz.theme} · {theme.flow.stageLabel}
                   </span>
-                  <span className="text-xs uppercase tracking-[var(--quiz-caps-tracking)] text-[color:var(--quiz-muted)]">
+                  <span className="quiz-flow-status text-xs uppercase tracking-[var(--quiz-caps-tracking)] text-[color:var(--quiz-muted)]">
                     {isAdvancing ? theme.flow.advancePendingLabel : theme.flow.advanceIdleLabel}
                   </span>
                 </div>
 
-                <div className="space-y-4">
+                <div className="quiz-flow-copy space-y-4">
                   <p className="detail-label text-[11px] text-[color:var(--quiz-accent)]">{currentQuestion.id}</p>
                   <h3 className="editorial-title max-w-[15ch] text-4xl leading-tight text-[color:var(--quiz-text)] sm:text-[3.1rem]">
                     {currentQuestion.text}
@@ -269,11 +269,8 @@ export function QuizFlow({
                     return (
                       <motion.button
                         animate={isSelected ? { scale: 1.01 } : { scale: 1 }}
-                        className={`group relative flex w-full cursor-pointer items-start gap-4 overflow-hidden rounded-[calc(var(--quiz-radius-panel)-0.375rem)] border px-4 py-4 text-left transition duration-300 sm:px-5 sm:py-5 ${
-                          isSelected
-                            ? "border-[color:var(--quiz-border-strong)] bg-[color:var(--quiz-accent-warm-fill)] text-[color:var(--quiz-text)] shadow-[0_18px_48px_rgba(1,8,18,0.18)]"
-                            : "border-[color:var(--quiz-border-soft)] bg-[color:var(--quiz-surface)] text-[color:var(--quiz-text)] hover:border-[color:var(--quiz-border-strong)] hover:bg-[rgba(18,29,43,0.94)]"
-                        }`}
+                        className="quiz-option-card group relative flex w-full cursor-pointer items-start gap-4 overflow-hidden rounded-[calc(var(--quiz-radius-panel)-0.375rem)] px-4 py-4 text-left transition duration-300 sm:px-5 sm:py-5"
+                        data-selected={isSelected ? "true" : "false"}
                         data-testid={`answer-option-${option.id}`}
                         disabled={isAdvancing}
                         key={option.id}
@@ -283,13 +280,9 @@ export function QuizFlow({
                         whileHover={prefersReducedMotion || isAdvancing ? undefined : { y: -2, scale: 1.01 }}
                         whileTap={prefersReducedMotion || isAdvancing ? undefined : { scale: 0.985 }}
                       >
-                        <div className="absolute inset-0 bg-[linear-gradient(135deg,var(--quiz-accent-warm-fill)_0%,transparent_68%)] opacity-0 transition duration-300 group-hover:opacity-100" />
+                        <div className="quiz-option-card__wash absolute inset-0 opacity-0 transition duration-300 group-hover:opacity-100" />
                         <span
-                          className={`relative flex h-11 w-11 shrink-0 items-center justify-center rounded-full border text-sm font-semibold transition duration-300 ${
-                            isSelected
-                              ? "border-[color:var(--quiz-border-strong)] bg-[color:var(--quiz-accent)] text-slate-950"
-                              : "border-[color:var(--quiz-border-soft)] bg-[color:var(--quiz-panel-strong)] text-[color:var(--quiz-accent-soft)]"
-                          }`}
+                          className="quiz-option-badge relative flex h-11 w-11 shrink-0 items-center justify-center rounded-full border text-sm font-semibold transition duration-300"
                         >
                           {option.id}
                         </span>
@@ -306,13 +299,7 @@ export function QuizFlow({
                           </p>
                         </div>
 
-                        <span
-                          className={`relative rounded-full border px-3 py-1 text-xs transition duration-300 ${
-                            isSelected
-                              ? "border-[color:var(--quiz-border-strong)] bg-[color:var(--quiz-accent-soft-fill)] text-[color:var(--quiz-text)]"
-                              : "border-[color:var(--quiz-border-soft)] text-[color:var(--quiz-muted)]"
-                          }`}
-                        >
+                        <span className="quiz-option-state relative rounded-full border px-3 py-1 text-xs transition duration-300">
                           {isSelected ? "已选择" : "待选择"}
                         </span>
                       </motion.button>
@@ -320,12 +307,12 @@ export function QuizFlow({
                   })}
                 </div>
 
-                <div className="rounded-[calc(var(--quiz-radius-panel)-0.45rem)] border border-dashed border-[color:var(--quiz-border-soft)] bg-[rgba(240,232,215,0.03)] px-4 py-3 text-sm leading-7 text-[color:var(--quiz-muted)]">
+                <div className="quiz-flow-storage-note rounded-[calc(var(--quiz-radius-panel)-0.45rem)] border px-4 py-3 text-sm leading-7 text-[color:var(--quiz-muted)]">
                   {theme.flow.storageNote}
                 </div>
               </div>
 
-              <aside className="atlas-panel rounded-[calc(var(--quiz-radius-panel)-0.15rem)] p-4 sm:p-5 lg:h-fit">
+              <aside className="quiz-flow-aside rounded-[calc(var(--quiz-radius-panel)-0.15rem)] p-4 sm:p-5 lg:h-fit">
                 <div className="relative z-10 space-y-4">
                   <p className="detail-label text-[11px] text-[color:var(--quiz-accent-cool)]">{theme.flow.asideLabel}</p>
                   <div className="space-y-3">
@@ -336,17 +323,17 @@ export function QuizFlow({
                   </div>
 
                   <div className="grid gap-3">
-                    <div className="rounded-[1rem] border border-[color:var(--quiz-border-soft)] px-4 py-3">
+                    <div className="quiz-flow-aside-card rounded-[1rem] border px-4 py-3">
                       <p className="text-xs uppercase tracking-[0.24em] text-[color:var(--quiz-muted)]">当前题号</p>
                       <p className="mt-2 text-sm font-semibold text-[color:var(--quiz-text)]">{currentQuestion.id}</p>
                     </div>
-                    <div className="rounded-[1rem] border border-[color:var(--quiz-border-soft)] px-4 py-3">
+                    <div className="quiz-flow-aside-card rounded-[1rem] border px-4 py-3">
                       <p className="text-xs uppercase tracking-[0.24em] text-[color:var(--quiz-muted)]">记录状态</p>
                       <p className="mt-2 text-sm font-semibold text-[color:var(--quiz-text)]">
                         {isAdvancing ? "写入中" : "等待选择"}
                       </p>
                     </div>
-                    <div className="rounded-[1rem] border border-[color:var(--quiz-border-soft)] px-4 py-3">
+                    <div className="quiz-flow-aside-card rounded-[1rem] border px-4 py-3">
                       <p className="text-xs uppercase tracking-[0.24em] text-[color:var(--quiz-muted)]">作答方式</p>
                       <p className="mt-2 text-sm font-semibold text-[color:var(--quiz-text)]">{theme.flow.modeValue}</p>
                     </div>

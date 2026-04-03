@@ -1,6 +1,7 @@
 import type { QuizDefinition } from "@/src/lib/config";
 
 export type QuizThemeId = "planet" | "movie" | "fairy";
+export type QuizVisualFamily = "observatory" | "comic" | "scroll";
 
 type ThemeStep = {
   label: string;
@@ -9,6 +10,7 @@ type ThemeStep = {
 
 export type QuizExperienceTheme = {
   id: QuizThemeId;
+  visualFamily: QuizVisualFamily;
   routeLabel: string;
   shellTitle: string;
   shellDescription: string;
@@ -65,6 +67,7 @@ export type QuizExperienceTheme = {
 const QUIZ_THEMES: Record<QuizThemeId, QuizExperienceTheme> = {
   planet: {
     id: "planet",
+    visualFamily: "observatory",
     routeLabel: "星图手记",
     shellTitle: "同一套星图里的一段问答航线。",
     shellDescription:
@@ -138,6 +141,7 @@ const QUIZ_THEMES: Record<QuizThemeId, QuizExperienceTheme> = {
   },
   movie: {
     id: "movie",
+    visualFamily: "comic",
     routeLabel: "银幕札记",
     shellTitle: "把这一轮提问剪成一页有余温的银幕样片。",
     shellDescription:
@@ -211,6 +215,7 @@ const QUIZ_THEMES: Record<QuizThemeId, QuizExperienceTheme> = {
   },
   fairy: {
     id: "fairy",
+    visualFamily: "scroll",
     routeLabel: "云笺抄录",
     shellTitle: "循着月色与云笺，去见与你同频的一段仙缘。",
     shellDescription:

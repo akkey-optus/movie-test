@@ -24,4 +24,10 @@ describe("quiz experience theme", () => {
       routeLabel: "云笺抄录",
     });
   });
+
+  it("exposes distinct visual families for the three shipped experiences", () => {
+    expect(getQuizExperienceTheme(catalog.quizzes.planet_test, "planet_test").visualFamily).toBe("observatory");
+    expect(getQuizExperienceTheme(catalog.quizzes.movie_test, "movie_test").visualFamily).toBe("comic");
+    expect(getQuizExperienceTheme(catalog.quizzes.xianling_test, "xianling_test").visualFamily).toBe("scroll");
+  });
 });

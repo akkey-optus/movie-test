@@ -12,12 +12,12 @@ function renderPatternFrame(themeId: QuizThemeId) {
   if (themeId === "movie") {
     return (
       <>
-        <div className="absolute inset-[6%] rounded-[2.25rem] border border-[color:var(--quiz-border-soft)]" />
-        <div className="absolute inset-x-[12%] top-[13%] h-px bg-[linear-gradient(90deg,transparent,var(--quiz-line-shine),transparent)]" />
-        <div className="absolute inset-x-[12%] bottom-[13%] h-px bg-[linear-gradient(90deg,transparent,var(--quiz-line-shine),transparent)]" />
-        <div className="absolute inset-y-[18%] left-[18%] w-px bg-[linear-gradient(180deg,transparent,var(--quiz-border-soft),transparent)]" />
-        <div className="absolute inset-y-[18%] right-[18%] w-px bg-[linear-gradient(180deg,transparent,var(--quiz-border-soft),transparent)]" />
-        <div className="absolute left-1/2 top-1/2 h-[38%] w-[56%] -translate-x-1/2 -translate-y-1/2 rounded-[999px] border border-[color:var(--quiz-border-strong)] opacity-55" />
+        <div className="absolute inset-[6%] rounded-[2.8rem] border-[3px] border-[color:var(--quiz-border-strong)]" />
+        <div className="absolute left-[10%] top-[12%] h-[24%] w-[28%] -rotate-2 rounded-[2rem] border-[3px] border-[color:var(--quiz-border-soft)] bg-[color:var(--quiz-accent-soft-fill)] opacity-70" />
+        <div className="absolute right-[9%] top-[18%] h-[18%] w-[22%] rotate-3 rounded-[999px] border-[3px] border-[color:var(--quiz-border-strong)] bg-[color:var(--quiz-accent-warm-fill)] opacity-80" />
+        <div className="absolute bottom-[11%] left-[14%] h-[18%] w-[26%] -rotate-3 rounded-[2rem] border-[3px] border-[color:var(--quiz-border-strong)] bg-[color:var(--quiz-accent-soft-fill)] opacity-80" />
+        <div className="absolute inset-x-[13%] top-[50%] h-[3px] -translate-y-1/2 bg-[linear-gradient(90deg,transparent,var(--quiz-border-strong),transparent)]" />
+        <div className="absolute left-[50%] top-[14%] h-[72%] w-[3px] -translate-x-1/2 bg-[linear-gradient(180deg,transparent,var(--quiz-border-soft),transparent)]" />
       </>
     );
   }
@@ -25,11 +25,12 @@ function renderPatternFrame(themeId: QuizThemeId) {
   if (themeId === "fairy") {
     return (
       <>
-        <div className="absolute inset-[12%] rounded-full border border-[color:var(--quiz-border-strong)] opacity-45" />
-        <div className="absolute inset-[23%] rounded-full border border-[color:var(--quiz-border-soft)] opacity-55" />
-        <div className="absolute left-1/2 top-[14%] h-[72%] w-px -translate-x-1/2 bg-[linear-gradient(180deg,transparent,var(--quiz-border-soft),transparent)]" />
-        <div className="absolute left-[16%] top-1/2 h-px w-[68%] -translate-y-1/2 bg-[linear-gradient(90deg,transparent,var(--quiz-accent-soft),transparent)] opacity-65" />
-        <div className="absolute left-1/2 top-1/2 h-[28%] w-[28%] -translate-x-1/2 -translate-y-1/2 rounded-full border border-[color:var(--quiz-border-soft)] opacity-40" />
+        <div className="absolute inset-x-[9%] top-[10%] bottom-[10%] rounded-[2.8rem] border border-[color:var(--quiz-border-soft)] bg-[rgba(255,252,244,0.22)]" />
+        <div className="absolute left-[10%] top-[10%] bottom-[10%] w-3 rounded-full bg-[color:var(--quiz-border-strong)] opacity-35" />
+        <div className="absolute right-[10%] top-[10%] bottom-[10%] w-3 rounded-full bg-[color:var(--quiz-border-strong)] opacity-35" />
+        <div className="absolute inset-x-[18%] top-[18%] h-px bg-[linear-gradient(90deg,transparent,var(--quiz-border-soft),transparent)]" />
+        <div className="absolute inset-x-[18%] bottom-[18%] h-px bg-[linear-gradient(90deg,transparent,var(--quiz-border-soft),transparent)]" />
+        <div className="absolute left-1/2 top-[20%] h-[60%] w-px -translate-x-1/2 bg-[linear-gradient(180deg,transparent,var(--quiz-accent-soft),transparent)] opacity-65" />
       </>
     );
   }
@@ -48,8 +49,8 @@ function renderAnimatedField(themeId: QuizThemeId) {
   if (themeId === "movie") {
     return (
       <>
-        <div className="absolute left-1/2 top-20 h-[min(92vw,38rem)] w-[min(92vw,38rem)] -translate-x-1/2 bg-[radial-gradient(circle,rgba(255,244,246,0.14)_0_1px,transparent_1.5px)] bg-[length:30px_30px] opacity-45" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_24%_24%,var(--quiz-glow-primary)_0_1px,transparent_1.5px),radial-gradient(circle_at_72%_20%,var(--quiz-glow-secondary)_0_1px,transparent_1.5px),linear-gradient(135deg,transparent_0_38%,rgba(255,241,244,0.08)_48%,transparent_58%),linear-gradient(180deg,transparent_0_18%,rgba(255,241,244,0.06)_18%_20%,transparent_20%_80%,rgba(255,241,244,0.06)_80%_82%,transparent_82%)]" />
+        <div className="absolute left-1/2 top-16 h-[min(92vw,40rem)] w-[min(92vw,40rem)] -translate-x-1/2 bg-[radial-gradient(circle,rgba(17,17,17,0.1)_0_1px,transparent_1.7px)] bg-[length:26px_26px] opacity-50" />
+        <div className="absolute inset-0 bg-[linear-gradient(115deg,transparent_0_28%,rgba(17,17,17,0.09)_28%_30%,transparent_30%_62%,rgba(17,17,17,0.08)_62%_64%,transparent_64%),radial-gradient(circle_at_22%_24%,var(--quiz-glow-primary)_0_1px,transparent_1.7px),radial-gradient(circle_at_76%_18%,var(--quiz-glow-secondary)_0_1px,transparent_1.7px)]" />
       </>
     );
   }
@@ -57,8 +58,8 @@ function renderAnimatedField(themeId: QuizThemeId) {
   if (themeId === "fairy") {
     return (
       <>
-        <div className="absolute left-1/2 top-24 h-[min(90vw,40rem)] w-[min(90vw,40rem)] -translate-x-1/2 bg-[radial-gradient(circle,rgba(243,232,210,0.12)_0_1px,transparent_1.6px)] bg-[length:36px_36px] opacity-38" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_28%,var(--quiz-glow-secondary)_0_1px,transparent_1.5px),radial-gradient(circle_at_74%_18%,var(--quiz-glow-primary)_0_1px,transparent_1.5px),radial-gradient(circle_at_66%_72%,rgba(243,232,210,0.16)_0_1px,transparent_1.5px),radial-gradient(circle_at_32%_76%,rgba(147,182,161,0.18)_0_1px,transparent_1.5px),linear-gradient(180deg,transparent_0_24%,rgba(243,232,210,0.06)_42%,transparent_62%)]" />
+        <div className="absolute left-1/2 top-24 h-[min(90vw,40rem)] w-[min(90vw,40rem)] -translate-x-1/2 bg-[radial-gradient(circle,rgba(93,75,60,0.08)_0_1px,transparent_1.8px)] bg-[length:32px_32px] opacity-28" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_28%,var(--quiz-glow-secondary)_0_1px,transparent_1.8px),radial-gradient(circle_at_74%_18%,var(--quiz-glow-primary)_0_1px,transparent_1.8px),linear-gradient(180deg,transparent_0_18%,rgba(97,76,60,0.05)_40%,transparent_64%)]" />
       </>
     );
   }
@@ -75,8 +76,8 @@ function renderStaticGlow(themeId: QuizThemeId) {
   if (themeId === "movie") {
     return (
       <div className="absolute inset-0 opacity-55">
-        <div className="absolute left-[-6%] top-[10%] h-[min(72vw,26rem)] w-[min(72vw,26rem)] rounded-full bg-[radial-gradient(circle,var(--quiz-glow-primary)_0%,transparent_72%)] blur-[var(--quiz-blur-glow)]" />
-        <div className="absolute bottom-[-8%] right-[-2%] h-[min(64vw,22rem)] w-[min(64vw,22rem)] rounded-full bg-[radial-gradient(circle,var(--quiz-glow-secondary)_0%,transparent_74%)] blur-[var(--quiz-blur-glow)]" />
+        <div className="absolute left-[-4%] top-[8%] h-[min(72vw,26rem)] w-[min(72vw,26rem)] rounded-full bg-[radial-gradient(circle,var(--quiz-glow-primary)_0%,transparent_72%)] blur-[var(--quiz-blur-glow)]" />
+        <div className="absolute bottom-[-7%] right-[0%] h-[min(64vw,22rem)] w-[min(64vw,22rem)] rounded-full bg-[radial-gradient(circle,var(--quiz-glow-secondary)_0%,transparent_74%)] blur-[var(--quiz-blur-glow)]" />
       </div>
     );
   }
@@ -102,18 +103,16 @@ function renderOverlaySvg(themeId: QuizThemeId) {
   if (themeId === "movie") {
     return (
       <svg className="absolute inset-0 h-full w-full opacity-[0.22]" viewBox="0 0 1440 1024">
-        <title>Background editorial frame</title>
-        <path d="M164 170H1276" stroke="var(--quiz-border-soft)" strokeDasharray="6 18" strokeWidth="1.1" />
-        <path d="M164 852H1276" stroke="var(--quiz-border-soft)" strokeDasharray="6 18" strokeWidth="1.1" />
-        <path d="M250 246C368 190 520 184 630 230" stroke="var(--quiz-border-soft)" strokeWidth="1.2" />
-        <path d="M810 246C922 194 1082 198 1190 248" stroke="var(--quiz-border-soft)" strokeWidth="1.2" />
-        <path d="M316 702C446 628 564 622 680 676" stroke="var(--quiz-border-soft)" strokeWidth="1.2" />
-        <path d="M760 686C886 622 1022 626 1144 694" stroke="var(--quiz-border-soft)" strokeWidth="1.2" />
-        <rect x="312" y="272" width="816" height="468" rx="32" stroke="rgba(255,244,246,0.16)" strokeWidth="1" />
-        <circle cx="312" cy="272" fill="var(--quiz-accent)" r="2.4" />
-        <circle cx="1128" cy="272" fill="var(--quiz-star-bright)" r="2.4" />
-        <circle cx="312" cy="740" fill="var(--quiz-star-bright)" r="2.4" />
-        <circle cx="1128" cy="740" fill="var(--quiz-accent-soft)" r="2.4" />
+        <title>Background comic spread</title>
+        <rect x="182" y="148" width="398" height="264" rx="38" fill="none" stroke="var(--quiz-border-strong)" strokeWidth="4" />
+        <rect x="648" y="178" width="612" height="218" rx="38" fill="none" stroke="var(--quiz-border-soft)" strokeWidth="4" />
+        <rect x="252" y="512" width="936" height="280" rx="42" fill="none" stroke="rgba(17,17,17,0.18)" strokeWidth="4" />
+        <path d="M282 568H1158" stroke="rgba(17,17,17,0.18)" strokeDasharray="12 16" strokeWidth="3" />
+        <path d="M720 198V790" stroke="rgba(17,17,17,0.14)" strokeDasharray="10 20" strokeWidth="3" />
+        <circle cx="182" cy="148" fill="var(--quiz-accent)" r="7" />
+        <circle cx="1260" cy="396" fill="var(--quiz-accent-soft)" r="7" />
+        <circle cx="252" cy="792" fill="var(--quiz-star-bright)" r="7" />
+        <circle cx="1188" cy="792" fill="var(--quiz-accent)" r="7" />
       </svg>
     );
   }
@@ -121,17 +120,15 @@ function renderOverlaySvg(themeId: QuizThemeId) {
   if (themeId === "fairy") {
     return (
       <svg className="absolute inset-0 h-full w-full opacity-[0.24]" viewBox="0 0 1440 1024">
-        <title>Background immortal scroll</title>
-        <path d="M176 286C274 230 390 232 488 286C586 340 704 342 800 286" fill="none" stroke="var(--quiz-border-soft)" strokeWidth="1.2" />
-        <path d="M828 286C928 230 1048 232 1148 286C1248 340 1326 342 1384 314" fill="none" stroke="var(--quiz-border-soft)" strokeWidth="1.2" />
-        <path d="M110 736C220 680 336 684 442 736C548 788 676 790 784 736" fill="none" stroke="var(--quiz-border-soft)" strokeWidth="1.2" />
-        <path d="M720 124C720 124 774 198 880 208C986 218 1034 270 1034 270" fill="none" stroke="rgba(243,232,210,0.18)" strokeDasharray="6 12" strokeWidth="1" />
-        <circle cx="432" cy="286" fill="var(--quiz-accent-soft)" r="2.4" />
-        <circle cx="720" cy="196" fill="var(--quiz-star-bright)" r="2.4" />
-        <circle cx="1018" cy="286" fill="var(--quiz-accent)" r="2.4" />
-        <circle cx="478" cy="736" fill="var(--quiz-star-bright)" r="2.4" />
-        <circle cx="850" cy="736" fill="var(--quiz-accent-soft)" r="2.4" />
-        <circle cx="1058" cy="640" fill="var(--quiz-accent)" r="2.4" />
+        <title>Background scroll and ink wash</title>
+        <path d="M220 226C322 190 434 194 534 232C620 264 712 272 812 236" fill="none" stroke="var(--quiz-border-soft)" strokeWidth="2" />
+        <path d="M624 168C686 210 756 228 842 226C930 224 1004 198 1090 172" fill="none" stroke="rgba(98,79,61,0.16)" strokeWidth="2" />
+        <path d="M196 738C302 702 412 706 520 742C630 778 756 780 874 728" fill="none" stroke="var(--quiz-border-soft)" strokeWidth="2" />
+        <path d="M734 136V862" stroke="rgba(98,79,61,0.12)" strokeDasharray="8 20" strokeWidth="2" />
+        <circle cx="534" cy="232" fill="var(--quiz-accent-soft)" r="4" />
+        <circle cx="808" cy="236" fill="var(--quiz-accent)" r="4" />
+        <circle cx="520" cy="742" fill="var(--quiz-star-bright)" r="4" />
+        <circle cx="874" cy="728" fill="var(--quiz-accent-soft)" r="4" />
       </svg>
     );
   }
@@ -187,13 +184,13 @@ export function QuizBackground({ themeId = "planet" }: QuizBackgroundProps) {
 
   const veilClassName =
     themeId === "movie"
-      ? "absolute left-1/2 top-[9%] h-[min(94vw,46rem)] w-[min(94vw,46rem)] -translate-x-1/2 rounded-full bg-[radial-gradient(circle,rgba(239,192,203,0.16)_0%,transparent_64%)] blur-[calc(var(--quiz-blur-glow)*1.04)]"
+      ? "absolute left-1/2 top-[9%] h-[min(94vw,46rem)] w-[min(94vw,46rem)] -translate-x-1/2 rounded-full bg-[radial-gradient(circle,rgba(255,214,83,0.22)_0%,transparent_58%)] blur-[calc(var(--quiz-blur-glow)*1.04)]"
       : themeId === "fairy"
-        ? "absolute left-1/2 top-[7%] h-[min(96vw,48rem)] w-[min(96vw,48rem)] -translate-x-1/2 rounded-full bg-[radial-gradient(circle,rgba(147,182,161,0.18)_0%,transparent_66%)] blur-[calc(var(--quiz-blur-glow)*1.08)]"
+        ? "absolute left-1/2 top-[7%] h-[min(96vw,48rem)] w-[min(96vw,48rem)] -translate-x-1/2 rounded-full bg-[radial-gradient(circle,rgba(124,145,111,0.16)_0%,transparent_66%)] blur-[calc(var(--quiz-blur-glow)*1.08)]"
         : "absolute left-1/2 top-[8%] h-[min(96vw,48rem)] w-[min(96vw,48rem)] -translate-x-1/2 rounded-full bg-[radial-gradient(circle,rgba(151,183,202,0.18)_0%,transparent_64%)] blur-[calc(var(--quiz-blur-glow)*1.08)]";
   const frameClassName =
     themeId === "movie"
-      ? "absolute left-1/2 top-10 h-[min(84vw,32rem)] w-[min(86vw,40rem)] -translate-x-1/2 rounded-[2.6rem] border border-[color:var(--quiz-border-strong)] opacity-45"
+      ? "absolute left-1/2 top-10 h-[min(84vw,32rem)] w-[min(86vw,40rem)] -translate-x-1/2 rounded-[2.6rem] border-[3px] border-[color:var(--quiz-border-strong)] opacity-55"
       : "absolute left-1/2 top-8 h-[var(--quiz-orbit-size)] w-[var(--quiz-orbit-size)] -translate-x-1/2 rounded-full border border-[color:var(--quiz-border-strong)] opacity-40";
 
   return (
