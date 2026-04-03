@@ -425,3 +425,15 @@ Caused by:
     1: Unable to open static sorted file referenced from 00000828.meta
     2: Unable to open static sorted file 00000825.sst
     3: 指定されたファイルが見つかりません。 (os error 2)
+
+thread 'tokio-runtime-worker' (25720) panicked at turbopack\crates\turbo-persistence\src\static_sorted_file.rs:411:46:
+range start index 2126558403 out of range for slice of length 253
+
+thread 'tokio-runtime-worker' (800) panicked at turbopack\crates\turbo-persistence\src\static_sorted_file.rs:411:46:
+range start index 2126558403 out of range for slice of length 253
+
+thread 'tokio-runtime-worker' (25720) panicked at turbopack\crates\turbo-persistence\src\static_sorted_file.rs:411:46:
+range start index 2126558403 out of range for slice of length 253
+
+thread 'tokio-runtime-worker' (800) panicked at turbopack\crates\turbo-persistence\src\static_sorted_file.rs:411:46:
+range start index 2126558403 out of range for slice of length 253

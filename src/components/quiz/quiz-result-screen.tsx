@@ -1,10 +1,12 @@
 "use client";
 
+import Image from "next/image";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { useCallback, useMemo, useRef, useState } from "react";
 import { useLongPress } from "react-use";
 import { toPng } from "html-to-image";
 
+import { getPlanetResultArtwork } from "@/src/components/quiz/planet-result-artwork";
 import type { QuizExperienceTheme, QuizThemeId } from "@/src/components/quiz/quiz-theme";
 import type { QuizAttemptRecord } from "@/src/lib/storage";
 
@@ -106,6 +108,7 @@ export function QuizResultScreen({ attempt, revealState, onReveal, theme }: Quiz
         : null,
     ].filter((item): item is { label: string; value: string } => Boolean(item));
   }, [attempt.summary.result]);
+  const planetArtwork = attempt.slug === "planet_test" ? getPlanetResultArtwork(attempt.summary.result.title) : null;
 
   const handleExportImage = useCallback(async () => {
     if (!exportCardRef.current || isExporting) {
@@ -369,10 +372,20 @@ export function QuizResultScreen({ attempt, revealState, onReveal, theme }: Quiz
                 {attempt.summary.result.description}
               </motion.p>
 
-              <div className="quiz-artwork-slot">
+              <div className="quiz-artwork-slot" data-has-image={planetArtwork ? "true" : "false"}>
+                {planetArtwork ? (
+                  <Image
+                    alt={planetArtwork.alt}
+                    className="quiz-artwork-slot__image"
+                    fill
+                    sizes="(min-width: 1024px) 18rem, 100vw"
+                    src={planetArtwork.src}
+                    style={{ objectPosition: planetArtwork.objectPosition ?? "center center" }}
+                  />
+                ) : null}
                 <div className="quiz-artwork-slot__mesh" />
                 <div className="quiz-artwork-slot__glow" />
-                <div className="relative z-10 flex h-full min-h-[18rem] flex-col justify-between p-4 sm:p-5">
+                <div className="quiz-artwork-slot__content relative z-10 flex h-full min-h-[18rem] flex-col justify-between p-4 sm:p-5">
                   <div className="space-y-3">
                     <p className="detail-label text-[10px] text-[color:var(--quiz-accent)]">{theme.result.artworkEyebrow}</p>
                     <h3 className="editorial-title text-2xl leading-tight text-[color:var(--quiz-text)]">{theme.result.artworkTitle}</h3>

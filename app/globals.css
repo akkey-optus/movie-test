@@ -506,6 +506,7 @@ select {
 .quiz-artwork-slot__mesh {
   position: absolute;
   inset: 0;
+  z-index: 1;
   background-image:
     linear-gradient(var(--quiz-border-soft) 1px, transparent 1px),
     linear-gradient(90deg, var(--quiz-border-soft) 1px, transparent 1px);
@@ -518,12 +519,31 @@ select {
 .quiz-artwork-slot__glow {
   position: absolute;
   inset: 18% 16% auto auto;
+  z-index: 1;
   width: 54%;
   aspect-ratio: 1;
   border-radius: 999px;
   background: radial-gradient(circle, var(--quiz-glow-secondary) 0%, transparent 74%);
   filter: blur(12px);
   opacity: 0.9;
+}
+
+.quiz-artwork-slot__image {
+  z-index: 0;
+  object-fit: cover;
+}
+
+.quiz-artwork-slot__content {
+  position: relative;
+  z-index: 2;
+}
+
+[data-quiz-theme="planet"] .quiz-artwork-slot[data-has-image="true"]::before {
+  border-color: rgba(151, 183, 202, 0.32);
+}
+
+[data-quiz-theme="planet"] .quiz-artwork-slot[data-has-image="true"]::after {
+  opacity: 0.72;
 }
 
 [data-quiz-theme="planet"] {
