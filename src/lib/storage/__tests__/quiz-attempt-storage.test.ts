@@ -50,6 +50,51 @@ describe("quiz attempt storage and route state", () => {
     expect(getQuizAttemptStorageKey({ slug: "planet_test", token: "" })).toBe("quiz-attempt:v1:planet_test:default");
   });
 
+  it("denies access when token is missing even if expireAt exists", () => {
+    const storage = createQuizAttemptStorage(new MemoryStorage());
+
+    const state = resolveQuizRouteState({
+      quiz: planetQuiz,
+      slug: planetQuiz.slug,
+      token: null,
+      expireAt: validExpireAt,
+      now: now.getTime(),
+      storage,
+    });
+
+    expect(state.kind).toBe("expired");
+  });
+
+  it("denies access when expireAt is missing even if token exists", () => {
+    const storage = createQuizAttemptStorage(new MemoryStorage());
+
+    const state = resolveQuizRouteState({
+      quiz: planetQuiz,
+      slug: planetQuiz.slug,
+      token: "demo-token",
+      expireAt: null,
+      now: now.getTime(),
+      storage,
+    });
+
+    expect(state.kind).toBe("expired");
+  });
+
+  it("denies access when token format is invalid", () => {
+    const storage = createQuizAttemptStorage(new MemoryStorage());
+
+    const state = resolveQuizRouteState({
+      quiz: planetQuiz,
+      slug: planetQuiz.slug,
+      token: "bad token",
+      expireAt: validExpireAt,
+      now: now.getTime(),
+      storage,
+    });
+
+    expect(state.kind).toBe("expired");
+  });
+
   it("resumes an unfinished valid attempt at step 4 after 3 answers", () => {
     const storage = createQuizAttemptStorage(new MemoryStorage());
 
@@ -112,6 +157,39 @@ describe("quiz attempt storage and route state", () => {
     expect(state.attempt.summary.result.title).toBe("地球");
   });
 
+  it("keeps separate sessions for different valid tokens", () => {
+    const storage = createQuizAttemptStorage(new MemoryStorage());
+
+    storage.writeProgress({
+      quiz: planetQuiz,
+      slug: planetQuiz.slug,
+      token: "token-one",
+      expireAt: validExpireAt,
+      answers: buildAnswers(["A", "A"]),
+      now,
+    });
+
+    const firstState = resolveQuizRouteState({
+      quiz: planetQuiz,
+      slug: planetQuiz.slug,
+      token: "token-one",
+      expireAt: validExpireAt,
+      now: now.getTime(),
+      storage,
+    });
+    const secondState = resolveQuizRouteState({
+      quiz: planetQuiz,
+      slug: planetQuiz.slug,
+      token: "token-two",
+      expireAt: validExpireAt,
+      now: now.getTime(),
+      storage,
+    });
+
+    expect(firstState.kind).toBe("in-progress");
+    expect(secondState.kind).toBe("intro");
+  });
+
   it("returns expired state for an expired incomplete attempt", () => {
     const storage = createQuizAttemptStorage(new MemoryStorage());
 
@@ -136,7 +214,7 @@ describe("quiz attempt storage and route state", () => {
     expect(state.kind).toBe("expired");
   });
 
-  it("returns summary state for an expired completed attempt", () => {
+  it("returns expired state for an expired completed attempt", () => {
     const storage = createQuizAttemptStorage(new MemoryStorage());
     const answers = buildAnswers(["B", "B", "B", "B", "B", "B", "B", "B"]);
 
@@ -159,14 +237,7 @@ describe("quiz attempt storage and route state", () => {
       storage,
     });
 
-    expect(state.kind).toBe("summary");
-
-    if (state.kind !== "summary") {
-      throw new Error("Expected summary state");
-    }
-
-    expect(state.attempt.summary.mbtiType).toBe("INFP");
-    expect(state.attempt.summary.result.title).toBe("木卫二");
+    expect(state.kind).toBe("expired");
   });
 
   it("resets malformed JSON safely and falls back to intro state", () => {

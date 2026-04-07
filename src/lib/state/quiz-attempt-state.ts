@@ -1,4 +1,5 @@
 import type { QuizDefinition } from "@/src/lib/config";
+import { isShareTokenValid } from "@/src/lib/share/share-link";
 import {
   createQuizAttemptStorage,
   getAnsweredQuestionCount,
@@ -75,6 +76,14 @@ export function isQuizLinkExpired(expireAt?: number | null, now = Date.now()) {
   return typeof expireAt === "number" && Number.isFinite(expireAt) && expireAt <= now;
 }
 
+function isTokenAccessible(token: string | null, expireAt: number | null, now: number) {
+  if (!token || !isShareTokenValid(token) || expireAt === null) {
+    return false;
+  }
+
+  return !isQuizLinkExpired(expireAt, now);
+}
+
 export function resolveQuizRouteState({
   quiz,
   slug,
@@ -90,6 +99,14 @@ export function resolveQuizRouteState({
     token: normalizedToken,
     expireAt: normalizedExpireAt,
   };
+
+  if (!isTokenAccessible(normalizedToken, normalizedExpireAt, now)) {
+    return {
+      kind: "expired",
+      ...baseState,
+      attempt: null,
+    };
+  }
 
   if (!storage.isAvailable()) {
     return {
@@ -108,14 +125,6 @@ export function resolveQuizRouteState({
   if (isCompletedQuizAttempt(attempt)) {
     return {
       kind: "summary",
-      ...baseState,
-      attempt,
-    };
-  }
-
-  if (isQuizLinkExpired(normalizedExpireAt, now)) {
-    return {
-      kind: "expired",
       ...baseState,
       attempt,
     };
