@@ -7,6 +7,7 @@ import { useLongPress } from "react-use";
 import { toPng } from "html-to-image";
 
 import { getPlanetResultArtwork } from "@/src/components/quiz/planet-result-artwork";
+import { ResultExportPoster } from "@/src/components/quiz/result-export-poster";
 import type { QuizExperienceTheme, QuizThemeId } from "@/src/components/quiz/quiz-theme";
 import type { QuizAttemptRecord } from "@/src/lib/storage";
 
@@ -38,6 +39,18 @@ function formatTimestamp(value: string) {
     hour: "2-digit",
     minute: "2-digit",
   }).format(new Date(value));
+}
+
+function getExportResultTitle(attempt: CompletedAttempt) {
+  const title = attempt.summary.result.title.trim();
+
+  if (attempt.slug !== "planet_test") {
+    return title;
+  }
+
+  const conciseTitle = title.replace(/\s*[（(].*$/, "").replace(/\s*[-:：·].*$/, "").trim();
+
+  return conciseTitle || title;
 }
 
 function ResultArtworkGlyph({ themeId }: { themeId: QuizThemeId }) {
@@ -81,7 +94,9 @@ export function QuizResultScreen({ attempt, revealState, onReveal, theme }: Quiz
   const [hintState, setHintState] = useState<"idle" | "holding" | "tap">("idle");
   const [isPressing, setIsPressing] = useState(false);
   const [pressCycle, setPressCycle] = useState(0);
+  const [isPreviewOpen, setIsPreviewOpen] = useState(false);
   const [isExporting, setIsExporting] = useState(false);
+  const [previewError, setPreviewError] = useState<string | null>(null);
   const exportCardRef = useRef<HTMLDivElement>(null);
 
   const detailCards = useMemo(() => {
@@ -109,10 +124,34 @@ export function QuizResultScreen({ attempt, revealState, onReveal, theme }: Quiz
     ].filter((item): item is { label: string; value: string } => Boolean(item));
   }, [attempt.summary.result]);
   const planetArtwork = attempt.slug === "planet_test" ? getPlanetResultArtwork(attempt.summary.result.title) : null;
+  const exportResultTitle = useMemo(() => getExportResultTitle(attempt), [attempt]);
+  const exportArtwork = useMemo(() => {
+    if (planetArtwork) {
+      return (
+        <>
+          <Image
+            alt={planetArtwork.alt}
+            className="object-cover"
+            fill
+            sizes="320px"
+            src={planetArtwork.src}
+            style={{ objectPosition: planetArtwork.objectPosition ?? "center center" }}
+          />
+          <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(9,15,24,0.08)_0%,rgba(9,15,24,0.42)_100%)]" />
+        </>
+      );
+    }
+
+    return (
+      <div className="flex h-full items-center justify-center bg-[radial-gradient(circle_at_top,var(--quiz-glow-primary)_0%,transparent_52%),radial-gradient(circle_at_bottom,var(--quiz-glow-secondary)_0%,transparent_44%)]">
+        <ResultArtworkGlyph themeId={theme.id} />
+      </div>
+    );
+  }, [planetArtwork, theme.id]);
 
   const handleExportImage = useCallback(async () => {
     if (!exportCardRef.current || isExporting) {
-      return;
+      return false;
     }
 
     setIsExporting(true);
@@ -129,12 +168,41 @@ export function QuizResultScreen({ attempt, revealState, onReveal, theme }: Quiz
       link.download = `${attempt.slug}-result-${sanitizeFilenamePart(attempt.summary.result.title)}.png`;
       link.href = dataUrl;
       link.click();
+      return true;
     } catch (error) {
       console.error("Failed to export image:", error);
+      setPreviewError("生成图片失败，请稍后再试");
     } finally {
       setIsExporting(false);
     }
+
+    return false;
   }, [attempt.slug, attempt.summary.result.title, isExporting]);
+
+  const handleOpenPreview = useCallback(() => {
+    if (isExporting) {
+      return;
+    }
+
+    setPreviewError(null);
+    setIsPreviewOpen(true);
+  }, [isExporting]);
+
+  const handleClosePreview = useCallback(() => {
+    if (isExporting) {
+      return;
+    }
+
+    setIsPreviewOpen(false);
+  }, [isExporting]);
+
+  const handleConfirmExport = useCallback(async () => {
+    const didExport = await handleExportImage();
+
+    if (didExport) {
+      setIsPreviewOpen(false);
+    }
+  }, [handleExportImage]);
 
   const revealHandlers = useLongPress(
     () => {
@@ -442,7 +510,7 @@ export function QuizResultScreen({ attempt, revealState, onReveal, theme }: Quiz
               className="quiz-export-button metal-button inline-flex min-h-12 cursor-pointer items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-semibold tracking-[0.08em] transition duration-300 hover:-translate-y-0.5 disabled:cursor-wait disabled:opacity-80"
               data-testid="export-image-button"
               disabled={isExporting}
-              onClick={handleExportImage}
+              onClick={handleOpenPreview}
               type="button"
               whileTap={prefersReducedMotion || isExporting ? undefined : { scale: 0.985 }}
             >
@@ -464,6 +532,79 @@ export function QuizResultScreen({ attempt, revealState, onReveal, theme }: Quiz
               )}
             </motion.button>
           </motion.div>
+
+          <AnimatePresence>
+            {isPreviewOpen ? (
+              <motion.div
+                animate={{ opacity: 1 }}
+                aria-modal="true"
+                className="fixed inset-0 z-50 flex items-center justify-center bg-[rgba(9,15,24,0.72)] px-4 py-6"
+                exit={{ opacity: 0 }}
+                initial={{ opacity: 0 }}
+                role="dialog"
+                transition={itemTransition}
+              >
+                <motion.div
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  className="w-full max-w-3xl overflow-hidden rounded-[var(--quiz-radius-panel)] border border-[color:var(--quiz-border-soft)] bg-[linear-gradient(180deg,rgba(9,15,24,0.96)_0%,rgba(13,22,34,0.98)_100%)] p-4 shadow-[0_30px_80px_rgba(9,15,24,0.45)] sm:p-5"
+                  exit={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 12, scale: 0.985 }}
+                  initial={prefersReducedMotion ? false : { opacity: 0, y: 18, scale: 0.985 }}
+                  transition={itemTransition}
+                >
+                  <div className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_20rem] lg:items-start">
+                    <div className="min-w-0 space-y-4">
+                      <div className="space-y-3">
+                        <p className="detail-label text-[11px] text-[color:var(--quiz-accent)]">导出预览</p>
+                        <h3 className="editorial-title text-3xl leading-tight text-[color:var(--quiz-text)] sm:text-[2.4rem]">确认保存</h3>
+                        <p className="max-w-2xl text-sm leading-7 text-[color:var(--quiz-muted)] sm:text-base">
+                          先确认这一张预览图是否就是你想保存到本地的版本，再执行导出。
+                        </p>
+                      </div>
+
+                      {previewError ? (
+                        <p className="rounded-[1rem] border border-rose-300/30 bg-rose-400/10 px-4 py-3 text-sm leading-6 text-rose-100">
+                          {previewError}
+                        </p>
+                      ) : null}
+
+                      <div className="flex flex-wrap gap-3">
+                        <button
+                          className="metal-button inline-flex min-h-12 cursor-pointer items-center justify-center rounded-full px-5 py-3 text-sm font-semibold tracking-[0.08em] transition duration-300 hover:-translate-y-0.5 disabled:cursor-wait disabled:opacity-80"
+                          disabled={isExporting}
+                          onClick={() => {
+                            void handleConfirmExport();
+                          }}
+                          type="button"
+                        >
+                          {isExporting ? "导出中..." : "确认保存"}
+                        </button>
+                        <button
+                          className="inline-flex min-h-12 cursor-pointer items-center justify-center rounded-full border border-[color:var(--quiz-border-soft)] px-5 py-3 text-sm font-semibold tracking-[0.08em] text-[color:var(--quiz-text)] transition duration-300 hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-70"
+                          disabled={isExporting}
+                          onClick={handleClosePreview}
+                          type="button"
+                        >
+                          取消
+                        </button>
+                      </div>
+                    </div>
+
+                    <div className="min-w-0">
+                      <div className="mx-auto w-full max-w-[18rem] sm:max-w-[20rem]">
+                        <div ref={exportCardRef} className="w-full">
+                          <ResultExportPoster
+                            artwork={exportArtwork}
+                            description={attempt.summary.result.description}
+                            title={exportResultTitle}
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
+              </motion.div>
+            ) : null}
+          </AnimatePresence>
         </motion.section>
       )}
     </AnimatePresence>
