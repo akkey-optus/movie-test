@@ -253,7 +253,9 @@ export function QuizFlow({
                 </div>
 
                 <div className="quiz-flow-copy space-y-4">
-                  <p className="detail-label text-[11px] text-[color:var(--quiz-accent)]">{currentQuestion.id}</p>
+                  <p className="detail-label text-[11px] text-[color:var(--quiz-accent)]">
+                    第 {progress.activeQuestionIndex + 1} 题
+                  </p>
                   <h3 className="editorial-title max-w-[15ch] text-4xl leading-tight text-[color:var(--quiz-text)] sm:text-[3.1rem]">
                     {currentQuestion.text}
                   </h3>
@@ -284,7 +286,7 @@ export function QuizFlow({
                         <span
                           className="quiz-option-badge relative flex h-11 w-11 shrink-0 items-center justify-center rounded-full border text-sm font-semibold transition duration-300"
                         >
-                          {option.id}
+                          {index + 1}
                         </span>
 
                         <div className="relative min-w-0 flex-1">
@@ -311,35 +313,6 @@ export function QuizFlow({
                   {theme.flow.storageNote}
                 </div>
               </div>
-
-              <aside className="quiz-flow-aside rounded-[calc(var(--quiz-radius-panel)-0.15rem)] p-4 sm:p-5 lg:h-fit">
-                <div className="relative z-10 space-y-4">
-                  <p className="detail-label text-[11px] text-[color:var(--quiz-accent-cool)]">{theme.flow.asideLabel}</p>
-                  <div className="space-y-3">
-                    <h4 className="editorial-title text-2xl leading-tight text-[color:var(--quiz-text)]">
-                      {theme.flow.asideTitle}
-                    </h4>
-                    <p className="text-sm leading-7 text-[color:var(--quiz-muted)]">{theme.flow.asideDescription}</p>
-                  </div>
-
-                  <div className="grid gap-3">
-                    <div className="quiz-flow-aside-card rounded-[1rem] border px-4 py-3">
-                      <p className="text-xs uppercase tracking-[0.24em] text-[color:var(--quiz-muted)]">当前题号</p>
-                      <p className="mt-2 text-sm font-semibold text-[color:var(--quiz-text)]">{currentQuestion.id}</p>
-                    </div>
-                    <div className="quiz-flow-aside-card rounded-[1rem] border px-4 py-3">
-                      <p className="text-xs uppercase tracking-[0.24em] text-[color:var(--quiz-muted)]">记录状态</p>
-                      <p className="mt-2 text-sm font-semibold text-[color:var(--quiz-text)]">
-                        {isAdvancing ? "写入中" : "等待选择"}
-                      </p>
-                    </div>
-                    <div className="quiz-flow-aside-card rounded-[1rem] border px-4 py-3">
-                      <p className="text-xs uppercase tracking-[0.24em] text-[color:var(--quiz-muted)]">作答方式</p>
-                      <p className="mt-2 text-sm font-semibold text-[color:var(--quiz-text)]">{theme.flow.modeValue}</p>
-                    </div>
-                  </div>
-                </div>
-              </aside>
             </div>
           </motion.article>
         </AnimatePresence>

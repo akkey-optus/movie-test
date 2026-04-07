@@ -1,14 +1,14 @@
 "use client";
 
-import Link from "next/link";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { useEffect, useMemo, useState, type ReactNode } from "react";
 
 import { QuizBackground } from "@/src/components/quiz/quiz-background";
 import { QuizFlow } from "@/src/components/quiz/quiz-flow";
 import { QuizResultScreen } from "@/src/components/quiz/quiz-result-screen";
-import { getQuizExperienceTheme, type QuizThemeId } from "@/src/components/quiz/quiz-theme";
+import { getQuizExperienceTheme } from "@/src/components/quiz/quiz-theme";
 import type { QuizDefinition } from "@/src/lib/config";
+import { isShareTokenValid } from "@/src/lib/share/share-link";
 import type { QuizAnswers } from "@/src/lib/quiz-engine";
 import type { QuizFlowProgress } from "@/src/lib/quiz-flow-state";
 import { getAnsweredQuestionCount } from "@/src/lib/storage";
@@ -38,7 +38,6 @@ type ShellState = QuizRouteState | UnknownSlugShellState;
 const actionClassName =
   "quiz-action inline-flex min-h-12 items-center justify-center rounded-full border px-5 py-3 text-sm font-semibold tracking-[0.08em] transition duration-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[color:var(--quiz-accent)]";
 const EMPTY_INITIAL_ANSWERS: QuizAnswers = {};
-const QUIZ_PORTAL_PATH = "/hub";
 
 function formatExpireAt(expireAt: number | null) {
   if (expireAt === null) {
@@ -66,6 +65,16 @@ function buildShellState(
     } satisfies UnknownSlugShellState;
   }
 
+  if (!token || !isShareTokenValid(token) || expireAt === null) {
+    return {
+      kind: "expired",
+      slug,
+      token,
+      expireAt,
+      attempt: null,
+    } satisfies QuizRouteState;
+  }
+
   if (isQuizLinkExpired(expireAt)) {
     return {
       kind: "expired",
@@ -82,23 +91,6 @@ function buildShellState(
     token,
     expireAt,
   } satisfies QuizRouteState;
-}
-
-function getStateTag(shellState: ShellState) {
-  switch (shellState.kind) {
-    case "intro":
-      return "准备开启";
-    case "in-progress":
-      return "继续作答";
-    case "summary":
-      return "结果归档";
-    case "expired":
-      return "链接过期";
-    case "storage-unavailable":
-      return "存储受限";
-    case "unknown-slug":
-      return "未知旅程";
-  }
 }
 
 function ShellEyebrow({ children }: { children: ReactNode }) {
@@ -135,58 +127,6 @@ function ShellCard({ children, className = "" }: { children: ReactNode; classNam
   );
 }
 
-function ShellMotif({ themeId, title }: { themeId: QuizThemeId; title: string }) {
-  if (themeId === "movie") {
-    return (
-      <svg aria-hidden className="h-auto w-full text-[color:var(--quiz-accent)]" viewBox="0 0 220 180">
-        <title>{title}</title>
-        <rect x="28" y="26" width="164" height="128" rx="24" fill="none" opacity="0.28" stroke="currentColor" strokeWidth="1.2" />
-        <rect x="44" y="42" width="132" height="96" rx="16" fill="none" opacity="0.2" stroke="currentColor" strokeWidth="1.2" />
-        <path d="M54 62H166M54 118H166" opacity="0.34" stroke="currentColor" strokeWidth="1.3" />
-        <path d="M74 48V132M146 48V132" opacity="0.22" stroke="currentColor" strokeDasharray="4 8" strokeWidth="1.1" />
-        <path d="M62 98C86 78 112 72 132 82C148 90 160 110 178 112" fill="none" opacity="0.46" stroke="currentColor" strokeWidth="1.4" />
-        <circle cx="62" cy="98" fill="currentColor" r="2.5" />
-        <circle cx="108" cy="80" fill="currentColor" r="2.5" />
-        <circle cx="142" cy="90" fill="currentColor" r="2.5" />
-        <circle cx="178" cy="112" fill="currentColor" r="2.5" />
-      </svg>
-    );
-  }
-
-  if (themeId === "fairy") {
-    return (
-      <svg aria-hidden className="h-auto w-full text-[color:var(--quiz-accent)]" viewBox="0 0 220 180">
-        <title>{title}</title>
-        <circle cx="110" cy="90" fill="none" opacity="0.3" r="60" stroke="currentColor" strokeWidth="1.2" />
-        <circle cx="110" cy="90" fill="none" opacity="0.16" r="34" stroke="currentColor" strokeWidth="1.2" />
-        <path d="M42 112C62 88 84 82 104 88C126 96 142 118 178 112" fill="none" opacity="0.42" stroke="currentColor" strokeWidth="1.4" />
-        <path d="M48 74C68 56 92 54 110 60C126 66 142 82 172 74" fill="none" opacity="0.28" stroke="currentColor" strokeWidth="1.4" />
-        <path d="M110 26V154" opacity="0.2" stroke="currentColor" strokeDasharray="4 8" strokeWidth="1.1" />
-        <circle cx="68" cy="66" fill="currentColor" r="2.4" />
-        <circle cx="110" cy="58" fill="currentColor" r="2.4" />
-        <circle cx="154" cy="70" fill="currentColor" r="2.4" />
-        <circle cx="86" cy="116" fill="currentColor" r="2.4" />
-        <circle cx="142" cy="116" fill="currentColor" r="2.4" />
-      </svg>
-    );
-  }
-
-  return (
-    <svg aria-hidden className="h-auto w-full text-[color:var(--quiz-accent)]" viewBox="0 0 220 180">
-      <title>{title}</title>
-      <circle cx="110" cy="90" fill="none" opacity="0.36" r="62" stroke="currentColor" strokeWidth="1.2" />
-      <circle cx="110" cy="90" fill="none" opacity="0.16" r="38" stroke="currentColor" strokeWidth="1.2" />
-      <path d="M38 94L76 70L116 98L160 58L188 84" fill="none" opacity="0.45" stroke="currentColor" strokeWidth="1.4" />
-      <path d="M110 24V156M36 90H184" opacity="0.22" stroke="currentColor" strokeDasharray="4 8" strokeWidth="1.1" />
-      <circle cx="38" cy="94" fill="currentColor" r="2.5" />
-      <circle cx="76" cy="70" fill="currentColor" r="2.5" />
-      <circle cx="116" cy="98" fill="currentColor" r="2.5" />
-      <circle cx="160" cy="58" fill="currentColor" r="2.5" />
-      <circle cx="188" cy="84" fill="currentColor" r="2.5" />
-    </svg>
-  );
-}
-
 function ShellPrimaryButton({
   children,
   disabled = false,
@@ -213,22 +153,7 @@ function ShellPrimaryButton({
   );
 }
 
-function ShellLink({ children, href, secondary = false }: { children: ReactNode; href: string; secondary?: boolean }) {
-  return (
-    <Link
-      className={`${actionClassName} ${
-        secondary
-          ? "ghost-button"
-          : "metal-button hover:-translate-y-0.5"
-      }`}
-      href={href}
-    >
-      {children}
-    </Link>
-  );
-}
-
-export function QuizShell({ availableSlugs, disclaimer, expireAt, quiz, slug, tieBreaker, token }: QuizShellProps) {
+export function QuizShell({ availableSlugs, expireAt, quiz, slug, tieBreaker, token }: QuizShellProps) {
   const prefersReducedMotion = useReducedMotion();
   const quizTheme = useMemo(() => getQuizExperienceTheme(quiz, slug), [quiz, slug]);
   const initialShellState = useMemo(() => buildShellState(quiz, slug, token, expireAt), [quiz, slug, token, expireAt]);
@@ -274,23 +199,6 @@ export function QuizShell({ availableSlugs, disclaimer, expireAt, quiz, slug, ti
   const contentAnimate = { opacity: 1, y: 0 };
   const contentExit = prefersReducedMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: -12 };
   const contentTransition = prefersReducedMotion ? { duration: 0 } : { duration: 0.5, ease: "easeOut" as const };
-
-  const routeToken = token?.trim() ? token : "default";
-  const flowProgressLabel = flowProgress ? `${flowProgress.activeQuestionIndex + 1} / ${flowProgress.totalQuestions}` : null;
-  const progressLabel =
-    flowProgressLabel ??
-    (shellState.kind === "summary"
-      ? "已完成"
-      : shellState.kind === "in-progress"
-        ? `${shellState.nextQuestionIndex + 1} / ${quiz?.questions.length ?? 0}`
-        : shellState.kind === "expired"
-          ? "已截止"
-          : shellState.kind === "storage-unavailable"
-            ? "不可保存"
-            : shellState.kind === "unknown-slug"
-              ? "无匹配配置"
-              : "待开始");
-  const stateTag = flowProgress ? "单题作答" : getStateTag(shellState);
 
   useEffect(() => {
     if (shellState.kind === "in-progress") {
@@ -339,9 +247,9 @@ export function QuizShell({ availableSlugs, disclaimer, expireAt, quiz, slug, ti
         { label: "回访规则", value: "同设备完成后直达摘要" },
       ]
     : [
-        { label: "当前请求", value: slug },
+        { label: "当前状态", value: "未找到对应旅程" },
         { label: "可用旅程", value: `${availableSlugs.length} 个` },
-        { label: "路由状态", value: "等待有效 slug" },
+        { label: "下一步", value: "回到分享入口获取新链接" },
       ];
 
   return (
@@ -356,29 +264,19 @@ export function QuizShell({ availableSlugs, disclaimer, expireAt, quiz, slug, ti
         <div className="quiz-shell-frame relative w-full rounded-[var(--quiz-radius-shell)]">
           <div className="quiz-shell-grid grid gap-6 p-5 sm:p-7 lg:p-8">
             <div className="quiz-shell-main flex min-w-0 flex-col gap-6 sm:gap-8">
-              <header className="quiz-shell-header flex flex-col gap-4 pb-5 sm:flex-row sm:items-end sm:justify-between">
-                <div className="quiz-shell-title-group space-y-3">
+              <header className="quiz-shell-header flex flex-col items-center gap-4 pb-5 text-center">
+                <div className="quiz-shell-title-group mx-auto w-full max-w-3xl space-y-3 text-center">
                   <ShellEyebrow>{quizTheme.routeLabel}</ShellEyebrow>
                   <div className="space-y-2">
-                    <h1 className="editorial-title text-3xl leading-tight text-[color:var(--quiz-text)] sm:text-[2.7rem]">
+                    <h1 className="editorial-title mx-auto max-w-[18ch] text-3xl leading-tight text-[color:var(--quiz-text)] sm:text-[2.7rem]">
                       {quizTheme.shellTitle}
                     </h1>
-                    <p className="max-w-2xl text-sm leading-7 text-[color:var(--quiz-muted)] sm:text-base">
+                    <p className="mx-auto max-w-2xl text-sm leading-7 text-[color:var(--quiz-muted)] sm:text-base">
                       {quizTheme.shellDescription}
                     </p>
                   </div>
                 </div>
-
-                <ShellLink href={QUIZ_PORTAL_PATH} secondary>
-                  返回旅程总览
-                </ShellLink>
               </header>
-
-              <div className="quiz-shell-status-row flex flex-wrap items-center gap-3">
-                <ShellPill tone="accent">{stateTag}</ShellPill>
-                <ShellPill>slug · {slug}</ShellPill>
-                <ShellPill tone="cool">token · {routeToken}</ShellPill>
-              </div>
 
               <AnimatePresence initial={false} mode="wait">
                 <motion.section
@@ -398,8 +296,7 @@ export function QuizShell({ availableSlugs, disclaimer, expireAt, quiz, slug, ti
                           这段旅程暂时还没有落到星图里。
                         </h2>
                         <p className="max-w-2xl text-sm leading-7 text-[color:var(--quiz-muted)] sm:text-base">
-                          你打开的是 <span className="text-[color:var(--quiz-accent)]">{slug}</span>，但当前目录里还没有对应内容。
-                          外壳已经留好位置，后续接入新主题时能直接沿用这一套版式与节奏。
+                          当前链接没有对应到可访问的旅程内容。请回到分享入口，重新生成一条有效链接后再进入。
                         </p>
                       </div>
 
@@ -415,12 +312,6 @@ export function QuizShell({ availableSlugs, disclaimer, expireAt, quiz, slug, ti
                         </p>
                       </ShellCard>
 
-                      <div className="quiz-stage-actions flex flex-wrap gap-3">
-                        <ShellLink href={availableSlugs[0] ? `/quiz/${availableSlugs[0]}` : QUIZ_PORTAL_PATH}>打开可用旅程</ShellLink>
-                        <ShellLink href={QUIZ_PORTAL_PATH} secondary>
-                          返回旅程总览
-                        </ShellLink>
-                      </div>
                     </>
                   ) : shellState.kind === "expired" ? (
                     <>
@@ -430,10 +321,9 @@ export function QuizShell({ availableSlugs, disclaimer, expireAt, quiz, slug, ti
                           这条旅程链接已经结束航行。
                         </h2>
                         <p className="max-w-2xl text-sm leading-7 text-[color:var(--quiz-muted)] sm:text-base">
-                          新作答已关闭。
-                          {quiz ? ` ${quiz.title} 的外壳仍然完整保留，后续只需接上题目流与结果页即可。` : ""}
+                          这条分享链接已经失效，当前不能继续作答或查看结果。
                           {quiz && shellState.attempt
-                            ? ` 当前设备曾保存 ${getAnsweredQuestionCount(quiz, shellState.attempt.answers)} 道题的进度，但未完成结果摘要。`
+                            ? ` 当前设备曾保存 ${getAnsweredQuestionCount(quiz, shellState.attempt.answers)} 道题的进度，但需要重新获取一条有效分享链接后才能继续。`
                             : ""}
                         </p>
                       </div>
@@ -446,16 +336,9 @@ export function QuizShell({ availableSlugs, disclaimer, expireAt, quiz, slug, ti
 
                       <ShellCard>
                         <p className="text-sm leading-7 text-[color:var(--quiz-muted)]">
-                          如果你已经完成过这段旅程，再次回到同一链接时会直接看到结果；只有中途停下且链接过期时，才会来到这里。
+                          如果你还想继续这段旅程，请回到分享入口重新生成一条有效链接，再从新链接进入。
                         </p>
                       </ShellCard>
-
-                      <div className="quiz-stage-actions flex flex-wrap gap-3">
-                        <ShellLink href={quiz ? `/quiz/${quiz.slug}` : QUIZ_PORTAL_PATH}>回到可用入口</ShellLink>
-                        <ShellLink href={QUIZ_PORTAL_PATH} secondary>
-                          返回旅程总览
-                        </ShellLink>
-                      </div>
                     </>
                   ) : shellState.kind === "storage-unavailable" ? (
                     <>
@@ -480,13 +363,6 @@ export function QuizShell({ availableSlugs, disclaimer, expireAt, quiz, slug, ti
                           常见原因包括隐私模式拦截、浏览器禁用站点数据，或当前环境不允许写入本地记录。
                         </p>
                       </ShellCard>
-
-                      <div className="quiz-stage-actions flex flex-wrap gap-3">
-                        <ShellLink href={quiz ? `/quiz/${quiz.slug}` : QUIZ_PORTAL_PATH}>刷新可用环境后重试</ShellLink>
-                        <ShellLink href={QUIZ_PORTAL_PATH} secondary>
-                          返回旅程总览
-                        </ShellLink>
-                      </div>
                     </>
                   ) : shellState.kind === "summary" ? (
                     <>
@@ -506,12 +382,6 @@ export function QuizShell({ availableSlugs, disclaimer, expireAt, quiz, slug, ti
                         revealState={summaryRevealState}
                         theme={quizTheme}
                       />
-
-                      <div className="quiz-stage-actions flex flex-wrap gap-3">
-                        <ShellLink href={QUIZ_PORTAL_PATH} secondary>
-                          返回旅程总览
-                        </ShellLink>
-                      </div>
                     </>
                   ) : shellState.kind === "in-progress" ? (
                     <>
@@ -527,7 +397,7 @@ export function QuizShell({ availableSlugs, disclaimer, expireAt, quiz, slug, ti
 
                       <div className="quiz-stat-grid grid gap-3 sm:grid-cols-3">
                         <ShellStat label="已答题目" value={`${shellState.answeredCount} / ${quiz?.questions.length ?? 0}`} />
-                        <ShellStat label="下一题" value={shellState.nextQuestionId ?? "待接线"} />
+                        <ShellStat label="下一步" value="继续当前进度" />
                         <ShellStat label="回访模式" value="继续未完成进度" />
                       </div>
 
@@ -546,12 +416,6 @@ export function QuizShell({ availableSlugs, disclaimer, expireAt, quiz, slug, ti
                         tieBreaker={tieBreaker}
                         token={shellState.token}
                       />
-
-                      <div className="quiz-stage-actions flex flex-wrap gap-3">
-                        <ShellLink href={QUIZ_PORTAL_PATH} secondary>
-                          返回旅程总览
-                        </ShellLink>
-                      </div>
                     </>
                   ) : (
                     <>
@@ -559,12 +423,12 @@ export function QuizShell({ availableSlugs, disclaimer, expireAt, quiz, slug, ti
                           <>
                             <div className="quiz-stage-hero space-y-4">
                               <ShellEyebrow>{quiz?.theme ?? "问答"} · {quizTheme.routeLabel}</ShellEyebrow>
-                              <h2 className="editorial-title max-w-[12ch] text-4xl leading-none text-[color:var(--quiz-text)] sm:text-5xl lg:text-6xl">
-                                {quiz?.title}
-                            </h2>
-                            <p className="text-base font-medium text-[color:var(--quiz-accent-soft)] sm:text-lg">{quiz?.subtitle}</p>
-                            <p className="max-w-2xl text-sm leading-7 text-[color:var(--quiz-muted)] sm:text-base">{quiz?.intro}</p>
-                          </div>
+                              <h2 className="editorial-title mx-auto max-w-[12ch] text-balance text-center text-4xl leading-none text-[color:var(--quiz-text)] sm:text-5xl lg:text-6xl">
+                                 {quiz?.title}
+                             </h2>
+                             <p className="text-center text-base font-medium text-[color:var(--quiz-accent-soft)] sm:text-lg">{quiz?.subtitle}</p>
+                             <p className="mx-auto max-w-2xl text-center text-sm leading-7 text-[color:var(--quiz-muted)] sm:text-base">{quiz?.intro}</p>
+                           </div>
 
                             <div className="quiz-stat-grid grid gap-3 sm:grid-cols-3">
                               {introCards.map((item) => (
@@ -589,14 +453,11 @@ export function QuizShell({ availableSlugs, disclaimer, expireAt, quiz, slug, ti
                               </div>
                             </ShellCard>
 
-                            <div className="quiz-stage-actions flex flex-wrap gap-3">
+                            <div className="quiz-stage-actions flex flex-wrap justify-center gap-3">
                               <ShellPrimaryButton disabled={false} onClick={() => setIsFlowActive(true)}>
                                 开始旅程
                               </ShellPrimaryButton>
-                            <ShellLink href={QUIZ_PORTAL_PATH} secondary>
-                              返回旅程总览
-                            </ShellLink>
-                          </div>
+                            </div>
                         </>
                         ) : (
                           <>
@@ -625,56 +486,13 @@ export function QuizShell({ availableSlugs, disclaimer, expireAt, quiz, slug, ti
                             tieBreaker={tieBreaker}
                             token={shellState.token}
                           />
-
-                            <div className="quiz-stage-actions flex flex-wrap gap-3">
-                              <ShellLink href={QUIZ_PORTAL_PATH} secondary>
-                                返回旅程总览
-                              </ShellLink>
-                          </div>
-                        </>
+                          </>
                       )}
                     </>
                   )}
                 </motion.section>
               </AnimatePresence>
             </div>
-
-            <aside className="quiz-shell-sidebar flex min-w-0 flex-col gap-4 rounded-[var(--quiz-radius-panel)] p-4 sm:p-5">
-              <div className="relative z-10 space-y-4">
-                <div className="space-y-3">
-                  <ShellEyebrow>{quizTheme.asideLabel}</ShellEyebrow>
-                  <h2 className="editorial-title text-3xl leading-tight text-[color:var(--quiz-text)]">
-                    {quizTheme.asideTitle}
-                  </h2>
-                  <p className="text-sm leading-7 text-[color:var(--quiz-muted)]">
-                    {quizTheme.asideDescription}
-                  </p>
-                </div>
-
-                <div className="quiz-shell-figure rounded-[1.2rem] border border-[color:var(--quiz-border-soft)] bg-[rgba(240,232,215,0.03)] p-4">
-                  <ShellMotif themeId={quizTheme.id} title={quizTheme.figureLabel} />
-                </div>
-
-                <div className="quiz-sidebar-stats grid gap-3 sm:grid-cols-2 lg:grid-cols-1">
-                  <ShellStat label="当前状态" value={progressLabel} />
-                  <ShellStat label="链接截止" value={formatExpireAt(expireAt)} />
-                  <ShellStat label="本地回访" value="同设备优先恢复" />
-                  <ShellStat label="当前主题" value={quiz?.theme ?? "待接入"} />
-                </div>
-
-                <ShellCard>
-                  <p className="detail-label text-[11px] text-[color:var(--quiz-accent)]">{quizTheme.boundaryLabel}</p>
-                  <p className="mt-3 text-sm leading-7 text-[color:var(--quiz-muted)]">
-                    {quizTheme.boundaryDescription}
-                  </p>
-                </ShellCard>
-
-                <ShellCard>
-                  <p className="detail-label text-[11px] text-[color:var(--quiz-accent-soft)]">说明</p>
-                  <p className="mt-3 text-sm leading-7 text-[color:var(--quiz-muted)]">{disclaimer}</p>
-                </ShellCard>
-              </div>
-            </aside>
           </div>
         </div>
       </div>
