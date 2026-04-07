@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+import { ShareQuizButton } from "@/src/components/hub/share-quiz-button";
 import { QuizBackground } from "@/src/components/quiz/quiz-background";
 import { loadQuizCatalog } from "@/src/lib/config";
 
@@ -45,12 +46,9 @@ export default function HubPage() {
 
                 <div className="flex flex-wrap gap-3">
                   {featuredQuiz ? (
-                    <Link
-                      className="metal-button inline-flex min-h-12 items-center justify-center rounded-full px-6 py-3 text-sm font-semibold tracking-[0.08em] transition duration-300 hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[color:var(--page-accent-strong)]"
-                      href={`/quiz/${featuredQuiz.slug}`}
-                    >
-                      从 {featuredQuiz.theme} 航线开始
-                    </Link>
+                    <span className="metal-button inline-flex min-h-12 items-center justify-center rounded-full px-6 py-3 text-sm font-semibold tracking-[0.08em] opacity-90">
+                      从 {featuredQuiz.theme} 航线开始前，请先生成分享链接
+                    </span>
                   ) : null}
                   <a
                     className="ghost-button inline-flex min-h-12 items-center justify-center rounded-full px-6 py-3 text-sm font-semibold tracking-[0.08em] transition duration-300 hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[color:var(--page-accent-cool-strong)]"
@@ -147,46 +145,53 @@ export default function HubPage() {
 
               <div className="grid gap-4 xl:grid-cols-3">
                 {quizzes.map((quiz, index) => (
-                  <Link
-                    className="atlas-panel group rounded-[1.6rem] p-5 transition duration-300 hover:-translate-y-0.5 hover:border-[color:var(--page-border-strong)] sm:p-6"
-                    href={`/quiz/${quiz.slug}`}
+                  <article
+                    className="atlas-panel rounded-[1.6rem] p-5 transition duration-300 hover:-translate-y-0.5 hover:border-[color:var(--page-border-strong)] sm:p-6"
                     key={quiz.slug}
                   >
                     <div className="relative z-10 flex h-full flex-col">
-                      <div className="flex items-center justify-between gap-3">
-                        <span className="detail-label text-[11px] text-[color:var(--page-accent-cool)]">
-                          航线 {formatRouteIndex(index)}
-                        </span>
-                        <span className="atlas-chip rounded-full px-3 py-1 text-[11px]">{quiz.questions.length} 道题</span>
-                      </div>
-
-                      <div className="mt-6 space-y-3">
-                        <p className="detail-label text-[11px] text-[color:var(--page-accent)]">{quiz.theme}</p>
-                        <h3 className="editorial-title text-3xl leading-tight text-[color:var(--page-text-strong)]">
-                          {quiz.title}
-                        </h3>
-                        <p className="text-base text-[color:var(--page-accent-cool-strong)]">{quiz.subtitle}</p>
-                      </div>
-
-                      <p className="mt-4 min-h-[5.25rem] text-sm leading-7 text-[color:var(--page-muted)]">{quiz.intro}</p>
-
-                      <div className="mt-6 grid gap-3 sm:grid-cols-2 xl:grid-cols-1">
-                        <div className="rounded-[1.1rem] border border-[color:var(--page-border)] bg-[rgba(240,232,215,0.03)] px-4 py-3">
-                          <p className="text-xs uppercase tracking-[0.24em] text-[color:var(--page-muted)]">开场提示</p>
-                          <p className="mt-2 text-sm leading-6 text-[color:var(--page-text)]">{quiz.questions[0]?.text}</p>
+                      <div className="group block">
+                        <div className="flex items-center justify-between gap-3">
+                          <span className="detail-label text-[11px] text-[color:var(--page-accent-cool)]">
+                            航线 {formatRouteIndex(index)}
+                          </span>
+                          <span className="atlas-chip rounded-full px-3 py-1 text-[11px]">{quiz.questions.length} 道题</span>
                         </div>
-                        <div className="rounded-[1.1rem] border border-[color:var(--page-border)] bg-[rgba(240,232,215,0.03)] px-4 py-3">
-                          <p className="text-xs uppercase tracking-[0.24em] text-[color:var(--page-muted)]">终点留存</p>
-                          <p className="mt-2 text-sm leading-6 text-[color:var(--page-text)]">完成后直接保存你的最终落点。</p>
+
+                        <div className="mt-6 space-y-3">
+                          <p className="detail-label text-[11px] text-[color:var(--page-accent)]">{quiz.theme}</p>
+                          <h3 className="editorial-title text-3xl leading-tight text-[color:var(--page-text-strong)] transition duration-300 group-hover:text-[color:var(--page-accent-strong)]">
+                            {quiz.title}
+                          </h3>
+                          <p className="text-base text-[color:var(--page-accent-cool-strong)]">{quiz.subtitle}</p>
+                        </div>
+
+                        <p className="mt-4 min-h-[5.25rem] text-sm leading-7 text-[color:var(--page-muted)]">{quiz.intro}</p>
+
+                        <div className="mt-6 grid gap-3 sm:grid-cols-2 xl:grid-cols-1">
+                          <div className="rounded-[1.1rem] border border-[color:var(--page-border)] bg-[rgba(240,232,215,0.03)] px-4 py-3">
+                            <p className="text-xs uppercase tracking-[0.24em] text-[color:var(--page-muted)]">开场提示</p>
+                            <p className="mt-2 text-sm leading-6 text-[color:var(--page-text)]">{quiz.questions[0]?.text}</p>
+                          </div>
+                          <div className="rounded-[1.1rem] border border-[color:var(--page-border)] bg-[rgba(240,232,215,0.03)] px-4 py-3">
+                            <p className="text-xs uppercase tracking-[0.24em] text-[color:var(--page-muted)]">终点留存</p>
+                            <p className="mt-2 text-sm leading-6 text-[color:var(--page-text)]">完成后直接保存你的最终落点。</p>
+                          </div>
+                        </div>
+
+                        <div className="mt-6 flex items-center justify-between border-t border-[color:var(--page-border)] pt-4 text-sm">
+                          <span className="text-[color:var(--page-muted)]">进入这段观测记录</span>
+                          <span className="font-semibold text-[color:var(--page-accent-strong)] transition duration-300 group-hover:text-[color:var(--page-accent)]">
+                            打开航线
+                          </span>
                         </div>
                       </div>
 
-                      <div className="mt-6 flex items-center justify-between border-t border-[color:var(--page-border)] pt-4 text-sm">
-                        <span className="text-[color:var(--page-muted)]">进入这段观测记录</span>
-                        <span className="font-semibold text-[color:var(--page-accent-strong)]">打开航线</span>
+                      <div className="mt-4 border-t border-[color:var(--page-border)] pt-4">
+                        <ShareQuizButton slug={quiz.slug} title={quiz.title} />
                       </div>
                     </div>
-                  </Link>
+                  </article>
                 ))}
               </div>
             </section>
