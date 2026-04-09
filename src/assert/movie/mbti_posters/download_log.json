@@ -1,0 +1,338 @@
+[
+  {
+    "mbti": "ISTJ",
+    "idx": "01",
+    "title": "步履不停",
+    "status": "ok",
+    "path": "./mbti_posters\\istj\\01.jpg"
+  },
+  {
+    "mbti": "ISTJ",
+    "idx": "02",
+    "title": "何以为家",
+    "status": "ok",
+    "path": "./mbti_posters\\istj\\02.jpg"
+  },
+  {
+    "mbti": "ISTJ",
+    "idx": "03",
+    "title": "完美的日子",
+    "status": "ok",
+    "path": "./mbti_posters\\istj\\03.jpg"
+  },
+  {
+    "mbti": "ISFJ",
+    "idx": "01",
+    "title": "海街日记",
+    "status": "ok",
+    "path": "./mbti_posters\\isfj\\01.jpg"
+  },
+  {
+    "mbti": "ISFJ",
+    "idx": "02",
+    "title": "小偷家族",
+    "status": "ok",
+    "path": "./mbti_posters\\isfj\\02.jpg"
+  },
+  {
+    "mbti": "ISFJ",
+    "idx": "03",
+    "title": "阳光姐妹淘",
+    "status": "ok",
+    "path": "./mbti_posters\\isfj\\03.jpg"
+  },
+  {
+    "mbti": "INFJ",
+    "idx": "01",
+    "title": "花样年华",
+    "status": "ok",
+    "path": "./mbti_posters\\infj\\01.jpg"
+  },
+  {
+    "mbti": "INFJ",
+    "idx": "02",
+    "title": "情书",
+    "status": "ok",
+    "path": "./mbti_posters\\infj\\02.jpg"
+  },
+  {
+    "mbti": "INFJ",
+    "idx": "03",
+    "title": "请以你的名字呼唤我",
+    "status": "ok",
+    "path": "./mbti_posters\\infj\\03.jpg"
+  },
+  {
+    "mbti": "INTJ",
+    "idx": "01",
+    "title": "盗梦空间",
+    "status": "ok",
+    "path": "./mbti_posters\\intj\\01.jpg"
+  },
+  {
+    "mbti": "INTJ",
+    "idx": "02",
+    "title": "社交网络",
+    "status": "ok",
+    "path": "./mbti_posters\\intj\\02.jpg"
+  },
+  {
+    "mbti": "INTJ",
+    "idx": "03",
+    "title": "看不见的客人",
+    "status": "ok",
+    "path": "./mbti_posters\\intj\\03.jpg"
+  },
+  {
+    "mbti": "ISTP",
+    "idx": "01",
+    "title": "疯狂的麦克斯：狂暴之路",
+    "status": "ok",
+    "path": "./mbti_posters\\istp\\01.jpg"
+  },
+  {
+    "mbti": "ISTP",
+    "idx": "02",
+    "title": "火星救援",
+    "status": "ok",
+    "path": "./mbti_posters\\istp\\02.jpg"
+  },
+  {
+    "mbti": "ISTP",
+    "idx": "03",
+    "title": "极盗车神",
+    "status": "ok",
+    "path": "./mbti_posters\\istp\\03.jpg"
+  },
+  {
+    "mbti": "ISFP",
+    "idx": "01",
+    "title": "伯德小姐",
+    "status": "ok",
+    "path": "./mbti_posters\\isfp\\01.jpg"
+  },
+  {
+    "mbti": "ISFP",
+    "idx": "02",
+    "title": "海边的曼彻斯特",
+    "status": "ok",
+    "path": "./mbti_posters\\isfp\\02.jpg"
+  },
+  {
+    "mbti": "ISFP",
+    "idx": "03",
+    "title": "蓝色大门",
+    "status": "ok",
+    "path": "./mbti_posters\\isfp\\03.jpg"
+  },
+  {
+    "mbti": "INFP",
+    "idx": "01",
+    "title": "怦然心动",
+    "status": "ok",
+    "path": "./mbti_posters\\infp\\01.jpg"
+  },
+  {
+    "mbti": "INFP",
+    "idx": "02",
+    "title": "壁花少年",
+    "status": "ok",
+    "path": "./mbti_posters\\infp\\02.jpg"
+  },
+  {
+    "mbti": "INFP",
+    "idx": "03",
+    "title": "心灵捕手",
+    "status": "ok",
+    "path": "./mbti_posters\\infp\\03.jpg"
+  },
+  {
+    "mbti": "INTP",
+    "idx": "01",
+    "title": "她",
+    "status": "ok",
+    "path": "./mbti_posters\\intp\\01.jpg"
+  },
+  {
+    "mbti": "INTP",
+    "idx": "02",
+    "title": "瞬息全宇宙",
+    "status": "ok",
+    "path": "./mbti_posters\\intp\\02.jpg"
+  },
+  {
+    "mbti": "INTP",
+    "idx": "03",
+    "title": "机械姬",
+    "status": "ok",
+    "path": "./mbti_posters\\intp\\03.jpg"
+  },
+  {
+    "mbti": "ESTP",
+    "idx": "01",
+    "title": "壮志凌云：独行侠",
+    "status": "ok",
+    "path": "./mbti_posters\\estp\\01.jpg"
+  },
+  {
+    "mbti": "ESTP",
+    "idx": "02",
+    "title": "速度与激情7",
+    "status": "ok",
+    "path": "./mbti_posters\\estp\\02.jpg"
+  },
+  {
+    "mbti": "ESTP",
+    "idx": "03",
+    "title": "碟中谍6：全面瓦解",
+    "status": "ok",
+    "path": "./mbti_posters\\estp\\03.jpg"
+  },
+  {
+    "mbti": "ESFP",
+    "idx": "01",
+    "title": "诺丁山",
+    "status": "ok",
+    "path": "./mbti_posters\\esfp\\01.jpg"
+  },
+  {
+    "mbti": "ESFP",
+    "idx": "02",
+    "title": "真爱至上",
+    "status": "ok",
+    "path": "./mbti_posters\\esfp\\02.jpg"
+  },
+  {
+    "mbti": "ESFP",
+    "idx": "03",
+    "title": "爱乐之城",
+    "status": "ok",
+    "path": "./mbti_posters\\esfp\\03.jpg"
+  },
+  {
+    "mbti": "ENFP",
+    "idx": "01",
+    "title": "白日梦想家",
+    "status": "ok",
+    "path": "./mbti_posters\\enfp\\01.jpg"
+  },
+  {
+    "mbti": "ENFP",
+    "idx": "02",
+    "title": "绿皮书",
+    "status": "ok",
+    "path": "./mbti_posters\\enfp\\02.jpg"
+  },
+  {
+    "mbti": "ENFP",
+    "idx": "03",
+    "title": "少年斯派维的奇异旅行",
+    "status": "ok",
+    "path": "./mbti_posters\\enfp\\03.jpg"
+  },
+  {
+    "mbti": "ENTP",
+    "idx": "01",
+    "title": "楚门的世界",
+    "status": "ok",
+    "path": "./mbti_posters\\entp\\01.jpg"
+  },
+  {
+    "mbti": "ENTP",
+    "idx": "02",
+    "title": "布达佩斯大饭店",
+    "status": "ok",
+    "path": "./mbti_posters\\entp\\02.jpg"
+  },
+  {
+    "mbti": "ENTP",
+    "idx": "03",
+    "title": "利刃出鞘",
+    "status": "ok",
+    "path": "./mbti_posters\\entp\\03.jpg"
+  },
+  {
+    "mbti": "ESTJ",
+    "idx": "01",
+    "title": "当幸福来敲门",
+    "status": "ok",
+    "path": "./mbti_posters\\estj\\01.jpg"
+  },
+  {
+    "mbti": "ESTJ",
+    "idx": "02",
+    "title": "国王的演讲",
+    "status": "ok",
+    "path": "./mbti_posters\\estj\\02.jpg"
+  },
+  {
+    "mbti": "ESTJ",
+    "idx": "03",
+    "title": "阿甘正传",
+    "status": "ok",
+    "path": "./mbti_posters\\estj\\03.jpg"
+  },
+  {
+    "mbti": "ESFJ",
+    "idx": "01",
+    "title": "真爱至上",
+    "status": "ok",
+    "path": "./mbti_posters\\esfj\\01.jpg"
+  },
+  {
+    "mbti": "ESFJ",
+    "idx": "02",
+    "title": "奇迹男孩",
+    "status": "ok",
+    "path": "./mbti_posters\\esfj\\02.jpg"
+  },
+  {
+    "mbti": "ESFJ",
+    "idx": "03",
+    "title": "小森林",
+    "status": "ok",
+    "path": "./mbti_posters\\esfj\\03.jpg"
+  },
+  {
+    "mbti": "ENFJ",
+    "idx": "01",
+    "title": "死亡诗社",
+    "status": "ok",
+    "path": "./mbti_posters\\enfj\\01.jpg"
+  },
+  {
+    "mbti": "ENFJ",
+    "idx": "02",
+    "title": "摔跤吧！爸爸",
+    "status": "ok",
+    "path": "./mbti_posters\\enfj\\02.jpg"
+  },
+  {
+    "mbti": "ENFJ",
+    "idx": "03",
+    "title": "放牛班的春天",
+    "status": "ok",
+    "path": "./mbti_posters\\enfj\\03.jpg"
+  },
+  {
+    "mbti": "ENTJ",
+    "idx": "01",
+    "title": "教父",
+    "status": "ok",
+    "path": "./mbti_posters\\entj\\01.jpg"
+  },
+  {
+    "mbti": "ENTJ",
+    "idx": "02",
+    "title": "黑暗骑士",
+    "status": "ok",
+    "path": "./mbti_posters\\entj\\02.jpg"
+  },
+  {
+    "mbti": "ENTJ",
+    "idx": "03",
+    "title": "华尔街之狼",
+    "status": "ok",
+    "path": "./mbti_posters\\entj\\03.jpg"
+  }
+]
